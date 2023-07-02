@@ -1,9 +1,10 @@
-﻿using BurgerMasters.Core.Contracts;
+﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Models;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace BurgerMasters.Controllers
 {
@@ -12,14 +13,12 @@ namespace BurgerMasters.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private IUserService _userService;
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        public AccountController(IUserService userService,
+        public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
-            _userService = userService;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -40,7 +39,23 @@ namespace BurgerMasters.Controllers
 
             try
             {
-                await _userService.RegisterUser(model);
+                DateTime validBirthdate;
+
+                bool isValidBirthDate = DateTime
+                        .TryParseExact(model.Birthday, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                        DateTimeStyles.None, out validBirthdate);
+
+                if (isValidBirthDate)
+                {
+                    ApplicationUser newApplicationUser = new ApplicationUser()
+                    {
+                        UserName = model.UserName,
+                        Email = model.Email,
+                        Birthday = validBirthdate,
+                    };
+
+                    await _userManager.CreateAsync(newApplicationUser, model.Password);
+                }
 
                 userInfo = new ExportUserDto()
                 {
@@ -75,14 +90,14 @@ namespace BurgerMasters.Controllers
 
             if (existingUser == null)
             {
-                return NotFound("No existing user");
+                return NotFound(ValidationConstants.NOT_FOUND_ERROR_MSG);
             }
 
             var result = await _signInManager.PasswordSignInAsync(existingUser, model.Password, false, false);
 
             if (result.Succeeded == false)
             {
-                return Unauthorized("Inccorect Email or Password!");
+                return Unauthorized(ValidationConstants.UNAUTHORIZED_ERROR_MSG);
             }
 
             ExportUserDto userInfo = new ExportUserDto()

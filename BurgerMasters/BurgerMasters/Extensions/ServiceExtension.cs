@@ -18,10 +18,6 @@ namespace BurgerMasters.Extensions
             })
                 .AddEntityFrameworkStores<BurgerMastersDbContext>()
                 .AddDefaultTokenProviders();
-
-            /*builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);*/
-            /*builder.AddEntityFrameworkStores<BurgerMastersDbContext>();
-            builder.AddSignInManager<SignInManager<ApplicationUser>>();*/
         }
     }
 }

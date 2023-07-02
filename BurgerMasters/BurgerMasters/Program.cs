@@ -1,8 +1,5 @@
-using BurgerMasters.Core.Contracts;
-using BurgerMasters.Core.Services;
 using BurgerMasters.Extensions;
 using BurgerMasters.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,8 +34,6 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
-
-builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
