@@ -1,6 +1,7 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Models;
 using BurgerMasters.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace BurgerMasters.Controllers
     [EnableCors]
     [Route("/api/[controller]")]
     [ApiController]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
@@ -25,6 +26,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -60,8 +62,13 @@ namespace BurgerMasters.Controllers
 
                     if (result.Succeeded == false)
                     {
-                        return Conflict(new { errors = result.Errors, status = 409 });
+                        return Conflict(new {
+                            errors = result.Errors, 
+                            status = 409 
+                        });
                     }
+
+                    await _signInManager.SignInAsync(newApplicationUser, isPersistent: false);
                 }
 
                 userInfo = new ExportUserDto()
@@ -76,10 +83,14 @@ namespace BurgerMasters.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(new { userInfo, status = 200 });
+            return Ok(new {
+                userInfo,
+                status = 200 
+            });
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -104,7 +115,10 @@ namespace BurgerMasters.Controllers
 
             if (result.Succeeded == false)
             {
-                return Unauthorized(ValidationConstants.UNAUTHORIZED_ERROR_MSG);
+                return Unauthorized(new {
+                    errorMessage = ValidationConstants.UNAUTHORIZED_ERROR_MSG,
+                    status = 401 
+                });
             }
 
             ExportUserDto userInfo = new ExportUserDto()
@@ -114,7 +128,11 @@ namespace BurgerMasters.Controllers
                 Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
             };
 
-            return Ok(userInfo);
+            return Ok(new
+            {
+                userInfo,
+                status = 200
+            });
         }
 
         [HttpGet]
