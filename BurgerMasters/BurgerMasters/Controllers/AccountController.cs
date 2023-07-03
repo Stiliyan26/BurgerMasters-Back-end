@@ -59,7 +59,7 @@ namespace BurgerMasters.Controllers
 
                 userInfo = new ExportUserDto()
                 {
-                    UserName = model.UserName,
+                    Username = model.UserName,
                     Email = model.Email,
                     Birthday = model.Birthday
                 };
@@ -102,12 +102,22 @@ namespace BurgerMasters.Controllers
 
             ExportUserDto userInfo = new ExportUserDto()
             {
-                UserName = existingUser.UserName,
+                Username = existingUser.UserName,
                 Email = existingUser.Email,
                 Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
             };
 
             return Ok(userInfo);
+        }
+
+        [HttpGet]
+        [Route("Logout")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok();
         }
     }
 }
