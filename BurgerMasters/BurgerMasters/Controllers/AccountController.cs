@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using System.Net;
 
 namespace BurgerMasters.Controllers
 {
@@ -28,6 +29,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -54,7 +56,12 @@ namespace BurgerMasters.Controllers
                         Birthday = validBirthdate,
                     };
 
-                    await _userManager.CreateAsync(newApplicationUser, model.Password);
+                    var result = await _userManager.CreateAsync(newApplicationUser, model.Password);
+
+                    if (result.Succeeded == false)
+                    {
+                        return Conflict(new { errors = result.Errors, status = 409 });
+                    }
                 }
 
                 userInfo = new ExportUserDto()
@@ -69,7 +76,7 @@ namespace BurgerMasters.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(userInfo);
+            return Ok(new { userInfo, status = 200 });
         }
 
         [HttpPost]

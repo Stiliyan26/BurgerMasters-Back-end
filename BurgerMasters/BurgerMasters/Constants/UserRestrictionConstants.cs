@@ -7,6 +7,5 @@
         public const bool REQUIRE_CONFIRM_EMAIL = false;
 
         public const int PASSWORD_MIN_LENGTH = 6;
-
     }
 }
