@@ -22,6 +22,7 @@ namespace BurgerMasters.Core.Models
         public string? Birthday { get; set; }
 
         [Required]
+        [StringLength(20, MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
 

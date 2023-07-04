@@ -36,7 +36,11 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(ModelState);
+                return UnprocessableEntity(new
+                {
+                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                    status = 422
+                });
             }
 
             ExportUserDto userInfo;
@@ -62,9 +66,10 @@ namespace BurgerMasters.Controllers
 
                     if (result.Succeeded == false)
                     {
-                        return Conflict(new {
-                            errors = result.Errors, 
-                            status = 409 
+                        return Conflict(new
+                        {
+                            errors = result.Errors,
+                            status = 409
                         });
                     }
 
@@ -78,14 +83,15 @@ namespace BurgerMasters.Controllers
                     Birthday = model.Birthday
                 };
             }
-            catch (Exception ex)
+            catch (Exception error)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(error.Message);
             }
 
-            return Ok(new {
+            return Ok(new
+            {
                 userInfo,
-                status = 200 
+                status = 200
             });
         }
 
@@ -101,32 +107,51 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(ModelState);
-            }
-
-            ApplicationUser existingUser = await _userManager.FindByEmailAsync(model.Email);
-
-            if (existingUser == null)
-            {
-                return NotFound(ValidationConstants.NOT_FOUND_ERROR_MSG);
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(existingUser, model.Password, false, false);
-
-            if (result.Succeeded == false)
-            {
-                return Unauthorized(new {
-                    errorMessage = ValidationConstants.UNAUTHORIZED_ERROR_MSG,
-                    status = 401 
+                return UnprocessableEntity(new
+                {
+                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                    status = 422
                 });
             }
 
-            ExportUserDto userInfo = new ExportUserDto()
+            ExportUserDto userInfo;
+
+            try
             {
-                Username = existingUser.UserName,
-                Email = existingUser.Email,
-                Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
-            };
+                ApplicationUser existingUser = await _userManager.FindByEmailAsync(model.Email);
+
+                if (existingUser == null)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                var result = await _signInManager.PasswordSignInAsync(existingUser, model.Password, false, false);
+
+                if (result.Succeeded == false)
+                {
+                    return Unauthorized(new
+                    {
+                        errorMessage = ValidationConstants.UNAUTHORIZED_ERROR_MSG,
+                        status = 401
+                    });
+                }
+
+                userInfo = new ExportUserDto()
+                {
+                    Username = existingUser.UserName,
+                    Email = existingUser.Email,
+                    Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
+                };
+
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
 
             return Ok(new
             {

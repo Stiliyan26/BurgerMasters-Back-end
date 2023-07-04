@@ -12,5 +12,8 @@
 
 
         public const string CONFLICT_ERROR_MSG = "Email already taken!";
+
+
+        public const string UNPROCESSABLE_ENTITY_ERROR_MSG = "Input data is invalid!";
     }
 }
