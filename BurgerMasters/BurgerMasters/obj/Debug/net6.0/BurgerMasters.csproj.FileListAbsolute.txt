@@ -152,3 +152,7 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters2\BurgerMasters\obj\Debug\net6.0\r
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters2\BurgerMasters\obj\Debug\net6.0\BurgerMasters.pdb
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters2\BurgerMasters\obj\Debug\net6.0\BurgerMasters.genruntimeconfig.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters2\BurgerMasters\obj\Debug\net6.0\ref\BurgerMasters.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\System.Web.Http.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

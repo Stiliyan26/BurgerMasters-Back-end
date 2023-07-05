@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Net;
+using BurgerMasters.Core.Contracts;
 
 namespace BurgerMasters.Controllers
 {
@@ -15,23 +16,27 @@ namespace BurgerMasters.Controllers
     [ApiController]
     public class AccountController : BaseController
     {
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
+        private readonly IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(
+            IUserService userService,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            IHttpContextAccessor httpContextAccessor)
         {
+            _userService = userService;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Register")]
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Response type with status and (error message/s or userInfo)</returns>
+        [HttpPost("Register"), AllowAnonymous] 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)] 
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -55,14 +60,11 @@ namespace BurgerMasters.Controllers
 
                 if (isValidBirthDate)
                 {
-                    ApplicationUser newApplicationUser = new ApplicationUser()
-                    {
-                        UserName = model.UserName,
-                        Email = model.Email,
-                        Birthday = validBirthdate,
-                    };
-
-                    var result = await _userManager.CreateAsync(newApplicationUser, model.Password);
+                    var result = await _userService.RegisterAsync(
+                        model.UserName,
+                        model.Email,
+                        model.Password,
+                        validBirthdate);
 
                     if (result.Succeeded == false)
                     {
@@ -72,8 +74,6 @@ namespace BurgerMasters.Controllers
                             status = 409
                         });
                     }
-
-                    await _signInManager.SignInAsync(newApplicationUser, isPersistent: false);
                 }
 
                 userInfo = new ExportUserDto()
@@ -95,14 +95,17 @@ namespace BurgerMasters.Controllers
             });
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Login")]
+        /// <summary>
+        /// Logs in a user.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Response type with status and (errorMessage or userInfo)</returns>
+        [HttpPost("Login"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -118,9 +121,9 @@ namespace BurgerMasters.Controllers
 
             try
             {
-                ApplicationUser existingUser = await _userManager.FindByEmailAsync(model.Email);
+                var result = await _userService.LoginAsync(model.Email, model.Password);
 
-                if (existingUser == null)
+                if (result == null)
                 {
                     return NotFound(new
                     {
@@ -128,8 +131,6 @@ namespace BurgerMasters.Controllers
                         status = 404
                     });
                 }
-
-                var result = await _signInManager.PasswordSignInAsync(existingUser, model.Password, false, false);
 
                 if (result.Succeeded == false)
                 {
@@ -139,6 +140,8 @@ namespace BurgerMasters.Controllers
                         status = 401
                     });
                 }
+
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
 
                 userInfo = new ExportUserDto()
                 {
@@ -153,6 +156,8 @@ namespace BurgerMasters.Controllers
                 return BadRequest(error.Message);
             }
 
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+
             return Ok(new
             {
                 userInfo,
@@ -160,12 +165,17 @@ namespace BurgerMasters.Controllers
             });
         }
 
+        /// <summary>
+        /// Logs out the currently authenticated user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("Logout")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            await _userService.LogoutAsync();
 
             return Ok();
         }
