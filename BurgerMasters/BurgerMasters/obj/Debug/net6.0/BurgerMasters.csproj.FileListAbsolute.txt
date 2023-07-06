@@ -156,3 +156,11 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Sy
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\System.Web.Http.dll
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Scrutor.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

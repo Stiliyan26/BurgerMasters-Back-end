@@ -3,8 +3,13 @@ using BurgerMasters.Core.Services;
 using BurgerMasters.Extensions;
 using BurgerMasters.Infrastructure.Data;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +26,42 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standart Authorization header using the Bearer scheme (\"bearer {token} \")",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+
+builder.Services.AddAuthentication(x => {
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    }); 
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "AllowOrigin", 
+    options.AddPolicy(name: "AllowOrigin",
         builder =>
         {
             builder.WithOrigins("http://localhost:3000", "http://localhost:3000")
@@ -32,7 +70,8 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddHttpContextAccessor();
+//builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -56,6 +95,7 @@ app.UseCors("AllowOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

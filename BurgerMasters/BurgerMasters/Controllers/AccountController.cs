@@ -6,8 +6,13 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
-using System.Net;
 using BurgerMasters.Core.Contracts;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BurgerMasters.Controllers
 {
@@ -18,12 +23,14 @@ namespace BurgerMasters.Controllers
     {
         private readonly IUserService _userService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ITokenService _tokenService;
         public AccountController(
             IUserService userService,
-            UserManager<ApplicationUser> userManager,
-            IHttpContextAccessor httpContextAccessor)
+            ITokenService tokenService,
+            UserManager<ApplicationUser> userManager)
         {
             _userService = userService;
+            _tokenService = tokenService;
             _userManager = userManager;
         }
 
@@ -32,11 +39,11 @@ namespace BurgerMasters.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns>Response type with status and (error message/s or userInfo)</returns>
-        [HttpPost("Register"), AllowAnonymous] 
+        [HttpPost("Register"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)] 
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -118,12 +125,13 @@ namespace BurgerMasters.Controllers
             }
 
             ExportUserDto userInfo;
+            string token;
 
             try
             {
-                var result = await _userService.LoginAsync(model.Email, model.Password);
+                var userLoggedIn = await _userService.LoginAsync(model.Email, model.Password);
 
-                if (result == null)
+                if (userLoggedIn == null)
                 {
                     return NotFound(new
                     {
@@ -132,7 +140,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if (result.Succeeded == false)
+                if (userLoggedIn.Succeeded == false)
                 {
                     return Unauthorized(new
                     {
@@ -150,31 +158,36 @@ namespace BurgerMasters.Controllers
                     Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
                 };
 
+                token = _tokenService.GenerateToken(userInfo);
             }
             catch (Exception error)
             {
                 return BadRequest(error.Message);
             }
 
-            bool isAuthenticated = User.Identity.IsAuthenticated;
-
             return Ok(new
             {
-                userInfo,
+                token,
                 status = 200
             });
+        }
+
+        [HttpGet("Admins")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminEndpoint()
+        {
+            return Ok("You accesed Admin endpoint!");
         }
 
         /// <summary>
         /// Logs out the currently authenticated user
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [Route("Logout")]
+        [HttpGet("Logout")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Logout()
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
             await _userService.LogoutAsync();
 
             return Ok();

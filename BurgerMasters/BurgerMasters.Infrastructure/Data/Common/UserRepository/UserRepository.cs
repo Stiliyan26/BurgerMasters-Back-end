@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BurgerMasters.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
 {
@@ -50,20 +52,6 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
 
             if (result.Succeeded)
             {
-                //await _signInManager.SignInAsync(existingUser, false);
-
-                /*var claims = new[]
-                {   
-                    new Claim(ClaimTypes.Name, existingUser.UserName),
-                    new Claim(ClaimTypes.Email, existingUser.Email)
-                    // Add any additional claims as needed
-                };
-
-                var identity = new ClaimsIdentity(claims, "ApplicationCookie");
-                var principal = new ClaimsPrincipal(identity);
-
-                _httpContextAccessor.HttpContext.User = principal;
-*/
                 return SignInResult.Success;
             }
 

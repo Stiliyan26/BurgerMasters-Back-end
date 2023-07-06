@@ -3,13 +3,13 @@ using BurgerMasters.Core.Contracts;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace BurgerMasters.Core.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        
 
         public UserService(IUserRepository userRepository)
         {
