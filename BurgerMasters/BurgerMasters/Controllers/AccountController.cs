@@ -150,12 +150,15 @@ namespace BurgerMasters.Controllers
                 }
 
                 var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                var roles = await _userManager.GetRolesAsync(existingUser);
+                var role = roles.FirstOrDefault();
 
                 userInfo = new ExportUserDto()
                 {
                     Username = existingUser.UserName,
                     Email = existingUser.Email,
-                    Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty
+                    Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty,
+                    Role = role ?? ""
                 };
 
                 token = _tokenService.GenerateToken(userInfo);
@@ -164,6 +167,7 @@ namespace BurgerMasters.Controllers
             {
                 return BadRequest(error.Message);
             }
+
 
             return Ok(new
             {

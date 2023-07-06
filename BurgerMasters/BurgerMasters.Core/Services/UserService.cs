@@ -4,6 +4,7 @@ using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace BurgerMasters.Core.Services
 {
