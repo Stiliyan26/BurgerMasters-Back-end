@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Newtonsoft.Json.Linq;
 
 namespace BurgerMasters.Controllers
 {
@@ -56,6 +57,7 @@ namespace BurgerMasters.Controllers
             }
 
             ExportUserDto userInfo;
+            string token;
 
             try
             {
@@ -87,8 +89,15 @@ namespace BurgerMasters.Controllers
                 {
                     Username = model.UserName,
                     Email = model.Email,
-                    Birthday = model.Birthday
+                    Birthday = model.Birthday,
                 };
+
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                var userId = existingUser.Id;
+
+                var claims = _tokenService.GetClaims(userInfo, userId);
+                //Generating a token
+                token = _tokenService.GenerateToken(userInfo, userId);
             }
             catch (Exception error)
             {
@@ -97,7 +106,7 @@ namespace BurgerMasters.Controllers
 
             return Ok(new
             {
-                userInfo,
+                token,  
                 status = 200
             });
         }

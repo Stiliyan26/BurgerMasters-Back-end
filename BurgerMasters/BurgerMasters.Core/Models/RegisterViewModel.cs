@@ -19,7 +19,8 @@ namespace BurgerMasters.Core.Models
         [RegularExpression(@"^.{4,}@(abv|gmail|outlook|yahoo|hotmail)\.(bg|com|net|org)$")]
         public string Email { get; set; } = null!;
 
-        public string? Birthday { get; set; }
+        [Required]
+        public string Birthday { get; set; } = null!;
 
         [Required]
         [StringLength(20, MinimumLength = 6)]
