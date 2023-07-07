@@ -193,6 +193,11 @@ namespace BurgerMasters.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Refreshes the token
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpPost("RefreshToken"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RefreshToken([FromQuery] string userId)
