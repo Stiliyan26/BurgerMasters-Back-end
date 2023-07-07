@@ -13,7 +13,5 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
             string password, DateTime birthdate);
 
         Task<SignInResult> LoginAsync(string email, string password);
-
-        Task LogoutAsync();
     }
 }

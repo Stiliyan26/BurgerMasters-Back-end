@@ -57,10 +57,5 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
 
             return SignInResult.Failed;
         }
-
-        public async Task LogoutAsync()
-        {
-            await _signInManager.SignOutAsync();
-        }
     }
 }

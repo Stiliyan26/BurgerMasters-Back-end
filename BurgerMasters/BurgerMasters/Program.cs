@@ -70,7 +70,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-//builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

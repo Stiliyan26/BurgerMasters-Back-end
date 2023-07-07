@@ -150,6 +150,7 @@ namespace BurgerMasters.Controllers
                 }
 
                 var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                var userId = existingUser.Id;
                 var roles = await _userManager.GetRolesAsync(existingUser);
                 var role = roles.FirstOrDefault();
 
@@ -161,13 +162,16 @@ namespace BurgerMasters.Controllers
                     Role = role ?? ""
                 };
 
-                token = _tokenService.GenerateToken(userInfo);
+                var claims = _tokenService.GetClaims(userInfo, userId);
+                //Generating a token
+                token = _tokenService.GenerateToken(userInfo, userId);
+                //Setting User Identity
+                _userService.SetUserIdentity(userInfo, userId);
             }
             catch (Exception error)
             {
                 return BadRequest(error.Message);
             }
-
 
             return Ok(new
             {
@@ -176,25 +180,50 @@ namespace BurgerMasters.Controllers
             });
         }
 
-        [HttpGet("Admins")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminEndpoint()
-        {
-            return Ok("You accesed Admin endpoint!");
-        }
-
         /// <summary>
         /// Logs out the currently authenticated user
         /// </summary>
         /// <returns></returns>
         [HttpGet("Logout")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Logout()
         {
             await _userService.LogoutAsync();
 
             return Ok();
+        }
+
+        [HttpPost("RefreshToken"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> RefreshToken([FromQuery] string userId)
+        {
+            string refreshToken = "";
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
+            if (user != null)
+            {
+                {
+                    ExportUserDto userInfo = new ExportUserDto
+                    {
+                        Email = user.Email,
+                        Username = user.UserName,
+                        Birthday = user.Birthday.ToString("yyyy-MM-dd"),
+                        Role = role ?? "",
+                    };
+
+                    refreshToken = _tokenService.GenerateRefreshToken(userInfo, userId);
+
+                    return Ok(new
+                    {
+                        refreshToken,
+                        status = 200
+                    });
+                }
+            }
+
+            return BadRequest("Refresh token generator failed!");
         }
     }
 }

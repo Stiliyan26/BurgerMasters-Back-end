@@ -10,8 +10,10 @@ namespace BurgerMasters.Core.Contracts
 {
     public interface ITokenService
     {
-        string GenerateToken(ExportUserDto userInfo);
+        string GenerateToken(ExportUserDto userInfo, string userId);
 
-        ClaimsPrincipal GetClaimsPrincipalFromToken(string token);
+        string GenerateRefreshToken(ExportUserDto userInfo, string userId);
+
+        Claim[] GetClaims(ExportUserDto userInfo, string userId);
     }
 }

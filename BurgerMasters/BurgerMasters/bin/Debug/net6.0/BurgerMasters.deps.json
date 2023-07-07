@@ -1524,6 +1524,7 @@
       "BurgerMasters.Core/1.0.0": {
         "dependencies": {
           "BurgerMasters.Infrastructure": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.1",
           "Microsoft.AspNetCore.Identity": "2.2.0"
         },
         "runtime": {
