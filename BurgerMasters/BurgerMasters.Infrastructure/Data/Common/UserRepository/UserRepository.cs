@@ -29,8 +29,8 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
             var user = new ApplicationUser()
             {
                 UserName = username,
-                Email = email,  
-                Birthday = birthdate
+                Email = email,
+                Birthdate = birthdate
             };
 
             var result = await _userManager.CreateAsync(user, password);

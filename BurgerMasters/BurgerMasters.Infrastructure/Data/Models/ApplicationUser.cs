@@ -9,6 +9,6 @@ namespace BurgerMasters.Infrastructure.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public DateTime Birthday { get; set; }
+        public DateTime Birthdate { get; set; }
     }
 }

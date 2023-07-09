@@ -20,7 +20,7 @@ namespace BurgerMasters.Core.Models
         public string Email { get; set; } = null!;
 
         [Required]
-        public string Birthday { get; set; } = null!;
+        public string Birthdate { get; set; } = null!;
 
         [Required]
         [StringLength(20, MinimumLength = 6)]

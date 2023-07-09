@@ -63,11 +63,11 @@ namespace BurgerMasters.Controllers
             {
                 DateTime validBirthdate;
 
-                bool isValidBirthDate = DateTime
-                        .TryParseExact(model.Birthday, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                bool isValidBirthdate = DateTime
+                        .TryParseExact(model.Birthdate, "yyyy-MM-dd", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out validBirthdate);
 
-                if (isValidBirthDate)
+                if (isValidBirthdate)
                 {
                     var result = await _userService.RegisterAsync(
                         model.UserName,
@@ -89,7 +89,7 @@ namespace BurgerMasters.Controllers
                 {
                     Username = model.UserName,
                     Email = model.Email,
-                    Birthday = model.Birthday,
+                    Birthdate = model.Birthdate,
                 };
 
                 var existingUser = await _userManager.FindByEmailAsync(model.Email);
@@ -167,7 +167,7 @@ namespace BurgerMasters.Controllers
                 {
                     Username = existingUser.UserName,
                     Email = existingUser.Email,
-                    Birthday = existingUser.Birthday.ToString("yyyy-MM-dd") ?? string.Empty,
+                    Birthdate = existingUser.Birthdate.ToString("yyyy-MM-dd") ?? string.Empty,
                     Role = role ?? ""
                 };
 
@@ -223,7 +223,7 @@ namespace BurgerMasters.Controllers
                     {
                         Email = user.Email,
                         Username = user.UserName,
-                        Birthday = user.Birthday.ToString("yyyy-MM-dd"),
+                        Birthdate = user.Birthdate.ToString("yyyy-MM-dd"),
                         Role = role ?? "",
                     };
 
