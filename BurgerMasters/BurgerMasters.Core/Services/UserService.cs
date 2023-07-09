@@ -12,7 +12,7 @@ namespace BurgerMasters.Core.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _userRepo;
         private readonly ITokenService _tokenService;
         private IHttpContextAccessor _httpContextAccessor;
 
@@ -21,7 +21,7 @@ namespace BurgerMasters.Core.Services
             ITokenService tokenService,
             IHttpContextAccessor httpContextAccessor)
         {
-            _userRepository = userRepository;
+            _userRepo = userRepository;
             _tokenService = tokenService;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -29,12 +29,12 @@ namespace BurgerMasters.Core.Services
         public async Task<IdentityResult> RegisterAsync(string username, string email,
             string password, DateTime birthdate)
         {
-            return await _userRepository.RegisterAsync(username, email, password, birthdate);
+            return await _userRepo.RegisterAsync(username, email, password, birthdate);
         }
 
         public async Task<SignInResult> LoginAsync(string email, string password)
         {
-            return await _userRepository.LoginAsync(email, password);      
+            return await _userRepo.LoginAsync(email, password);      
         }
 
         /// <summary>
