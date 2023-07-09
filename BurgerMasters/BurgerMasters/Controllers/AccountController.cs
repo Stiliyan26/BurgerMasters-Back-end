@@ -74,7 +74,7 @@ namespace BurgerMasters.Controllers
                         model.Email,
                         model.Password,
                         validBirthdate);
-
+                    //Checks if the user is created
                     if (result.Succeeded == false)
                     {
                         return Conflict(new
@@ -175,6 +175,7 @@ namespace BurgerMasters.Controllers
                 //Generating a token
                 token = _tokenService.GenerateToken(userInfo, userId);
                 //Setting User Identity
+
                 _userService.SetUserIdentity(userInfo, userId);
             }
             catch (Exception error)
@@ -194,6 +195,7 @@ namespace BurgerMasters.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("Logout")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Logout()
         {
