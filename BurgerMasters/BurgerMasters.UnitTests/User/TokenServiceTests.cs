@@ -45,7 +45,7 @@ namespace BurgerMasters.UnitTests.User
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mysecretkey123dasdad3e23dadasda"));
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var token = _tokenService.GenerateToken(userInfo, userId);
+            var token = _tokenService.GenerateToken(userInfo);
 
             // Act
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -87,7 +87,7 @@ namespace BurgerMasters.UnitTests.User
             var userId = "12345";
 
             // Act
-            var claims = _tokenService.GetClaims(userInfo, userId);
+            var claims = _tokenService.GetClaims(userInfo);
 
             // Assert
             Assert.AreEqual(5, claims.Length);

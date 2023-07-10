@@ -56,7 +56,6 @@ namespace BurgerMasters.Controllers
                 });
             }
 
-            ExportUserDto userInfo;
             string token;
 
             try
@@ -69,11 +68,7 @@ namespace BurgerMasters.Controllers
 
                 if (isValidBirthdate)
                 {
-                    var result = await _userService.RegisterAsync(
-                        model.UserName,
-                        model.Email,
-                        model.Password,
-                        validBirthdate);
+                    var result = await _userService.RegisterAsync(model, validBirthdate);
                     //Checks if the user is created
                     if (result.Succeeded == false)
                     {
@@ -85,19 +80,11 @@ namespace BurgerMasters.Controllers
                     }
                 }
 
-                userInfo = new ExportUserDto()
-                {
-                    Username = model.UserName,
-                    Email = model.Email,
-                    Birthdate = model.Birthdate,
-                };
-
-                var existingUser = await _userManager.FindByEmailAsync(model.Email);
-                var userId = existingUser.Id;
-
-                var claims = _tokenService.GetClaims(userInfo, userId);
-                //Generating a token
-                token = _tokenService.GenerateToken(userInfo, userId);
+                ExportUserDto userInfo = await _userService.GetUserInfo(model.Email);
+                //Generating Token
+                token = _tokenService.GenerateToken(userInfo);
+                //Setting User Identity
+                _userService.SetUserIdentity(userInfo);
             }
             catch (Exception error)
             {
@@ -133,12 +120,11 @@ namespace BurgerMasters.Controllers
                 });
             }
 
-            ExportUserDto userInfo;
             string token;
 
             try
             {
-                var userLoggedIn = await _userService.LoginAsync(model.Email, model.Password);
+                var userLoggedIn = await _userService.LoginAsync(model);
 
                 if (userLoggedIn == null)
                 {
@@ -158,25 +144,11 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                var existingUser = await _userManager.FindByEmailAsync(model.Email);
-                var userId = existingUser.Id;
-                var roles = await _userManager.GetRolesAsync(existingUser);
-                var role = roles.FirstOrDefault();
-
-                userInfo = new ExportUserDto()
-                {
-                    Username = existingUser.UserName,
-                    Email = existingUser.Email,
-                    Birthdate = existingUser.Birthdate.ToString("yyyy-MM-dd") ?? string.Empty,
-                    Role = role ?? ""
-                };
-
-                var claims = _tokenService.GetClaims(userInfo, userId);
-                //Generating a token
-                token = _tokenService.GenerateToken(userInfo, userId);
+                ExportUserDto userInfo = await _userService.GetUserInfo(model.Email);
+                //Generating Token
+                token = _tokenService.GenerateToken(userInfo);
                 //Setting User Identity
-
-                _userService.SetUserIdentity(userInfo, userId);
+                _userService.SetUserIdentity(userInfo);
             }
             catch (Exception error)
             {
@@ -195,7 +167,6 @@ namespace BurgerMasters.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("Logout")]
-        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Logout()
         {
@@ -213,7 +184,6 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RefreshToken([FromQuery] string userId)
         {
-            string refreshToken = "";
             var user = await _userManager.FindByIdAsync(userId);
             var roles = await _userManager.GetRolesAsync(user);
             var role = roles.FirstOrDefault();
@@ -223,13 +193,14 @@ namespace BurgerMasters.Controllers
                 {
                     ExportUserDto userInfo = new ExportUserDto
                     {
+                        Id = userId,
                         Email = user.Email,
                         Username = user.UserName,
                         Birthdate = user.Birthdate.ToString("yyyy-MM-dd"),
                         Role = role ?? "",
                     };
 
-                    refreshToken = _tokenService.GenerateRefreshToken(userInfo, userId);
+                    string refreshToken = _tokenService.GenerateRefreshToken(userInfo);
 
                     return Ok(new
                     {

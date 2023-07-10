@@ -23,9 +23,38 @@ namespace BurgerMasters.Infrastructure.Data
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<ApplicationUserMenuItem> ApplicationUserMenuItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<ApplicationUserMenuItem>(ui =>
+                {
+                    ui.HasKey(x => new { x.ApplicationUserId, x.MenuItemId });
+                });
+
+            modelBuilder
+                .Entity<ItemType>()
+                .HasData(
+                    new ItemType()
+                    {
+                        Id = 1,
+                        Name = "Burger"
+                    },
+                    new ItemType()
+                    {
+                        Id = 2,
+                        Name = "Drink"
+                    },
+                    new ItemType()
+                    {
+                        Id = 3,
+                        Name = "Fries"
+                    }
+                );
+
             base.OnModelCreating(modelBuilder);
         }
     }

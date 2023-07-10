@@ -2,6 +2,7 @@
 using BurgerMasters.Core.Models;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
+using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
@@ -20,6 +21,7 @@ namespace BurgerMasters.UnitTests.User
         private Mock<IUserRepository> _userRepoMock;
         private Mock<ITokenService> _tokenServiceMock;
         private Mock<IHttpContextAccessor> _httpContextAccessorMock;
+        private Mock<UserManager<ApplicationUser>> _userManagerMock;
         private UserService _userService;
 
         [SetUp]
@@ -29,11 +31,13 @@ namespace BurgerMasters.UnitTests.User
             _userRepoMock = new Mock<IUserRepository>();
             _tokenServiceMock = new Mock<ITokenService>();
             _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            _userManagerMock = new Mock<UserManager<ApplicationUser>>();
 
             _userService = new UserService(
                 _userRepoMock.Object,
                 _tokenServiceMock.Object,
-                _httpContextAccessorMock.Object);
+                _httpContextAccessorMock.Object,
+                _userManagerMock.Object);
         }
 
         [Test]
@@ -45,13 +49,20 @@ namespace BurgerMasters.UnitTests.User
             string password = "password";
             DateTime birthdate = new DateTime(2003, 6, 29);
 
+            RegisterViewModel model = new RegisterViewModel()
+            {
+                UserName = username,
+                Email = email,
+                Password = password
+            };
+
             var expectedResult = IdentityResult.Success;
 
             _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, password, birthdate))
                 .ReturnsAsync(expectedResult);
 
             //Act
-            var result = await _userService.RegisterAsync(username, email, password, birthdate);
+            var result = await _userService.RegisterAsync(model, birthdate);
 
             //Assert
             Assert.AreEqual(expectedResult, result);
@@ -66,13 +77,20 @@ namespace BurgerMasters.UnitTests.User
             string password = "password";
             DateTime birthdate = new DateTime(2003, 6, 29);
 
+            RegisterViewModel model = new RegisterViewModel()
+            {
+                UserName = username,
+                Email = email,
+                Password = password
+            };
+
             var expectedResult = IdentityResult.Failed(new IdentityError { Description = "Registration failed." }); ;
 
             _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, password, birthdate))
                 .ReturnsAsync(expectedResult);
 
             //Act
-            var result = await _userService.RegisterAsync(username, email, password, birthdate);
+            var result = await _userService.RegisterAsync(model, birthdate);
 
             //Assert
             Assert.AreEqual(expectedResult, result);
@@ -86,13 +104,19 @@ namespace BurgerMasters.UnitTests.User
             string email = "test@abv.bg";
             string password = "password123";
 
+            LoginViewModel model = new LoginViewModel()
+            {
+                Email = email,
+                Password = password
+            };
+
             var expectedResult = SignInResult.Success;
 
             _userRepoMock.Setup(repo => repo.LoginAsync(email, password))
                 .ReturnsAsync(expectedResult);
 
             //Act
-            var result = await _userService.LoginAsync(email, password);
+            var result = await _userService.LoginAsync(model);
 
             //Assert
             Assert.AreEqual(expectedResult, result);
@@ -104,13 +128,19 @@ namespace BurgerMasters.UnitTests.User
             string email = "test@abv.bg";
             string password = "password123";
 
+            LoginViewModel model = new LoginViewModel()
+            {
+                Email = email,
+                Password = password
+            };
+
             var expectedResult = SignInResult.Failed;
 
             _userRepoMock.Setup(repo => repo.LoginAsync(email, password))
                 .ReturnsAsync(expectedResult);
 
             //Act
-            var result = await _userService.LoginAsync(email, password);
+            var result = await _userService.LoginAsync(model);
 
             //Assert
             Assert.AreEqual(expectedResult, result);

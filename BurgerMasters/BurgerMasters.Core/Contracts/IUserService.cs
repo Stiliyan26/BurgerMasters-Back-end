@@ -11,13 +11,14 @@ namespace BurgerMasters.Core.Contracts
 {
     public interface IUserService
     {
-        Task<IdentityResult> RegisterAsync(string username, string email,
-            string password, DateTime birthdate);
+        Task<IdentityResult> RegisterAsync(RegisterViewModel model, DateTime birthdate);
 
-        Task<SignInResult> LoginAsync(string email, string password);
+        Task<SignInResult> LoginAsync(LoginViewModel model);
 
         Task LogoutAsync();
 
-        void SetUserIdentity(ExportUserDto userInfo, string userId);
+        Task<ExportUserDto> GetUserInfo(string email);
+
+        void SetUserIdentity(ExportUserDto userInfo);
     }
 }
