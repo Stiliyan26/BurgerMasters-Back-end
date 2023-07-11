@@ -1,4 +1,4 @@
-﻿using BurgerMasters.Core.Models;
+﻿using BurgerMasters.Core.Models.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

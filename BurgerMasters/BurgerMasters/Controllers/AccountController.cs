@@ -1,19 +1,11 @@
 ﻿using BurgerMasters.Constants;
-using BurgerMasters.Core.Models;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using BurgerMasters.Core.Contracts;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Newtonsoft.Json.Linq;
+using BurgerMasters.Core.Models.Auth;
 
 namespace BurgerMasters.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using BurgerMasters.Core.Contracts;
-using BurgerMasters.Core.Models;
+using BurgerMasters.Core.Models.Auth;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authentication;

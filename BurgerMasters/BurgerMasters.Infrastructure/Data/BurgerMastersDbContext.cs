@@ -35,6 +35,10 @@ namespace BurgerMasters.Infrastructure.Data
                     ui.HasKey(x => new { x.ApplicationUserId, x.MenuItemId });
                 });
 
+            modelBuilder.Entity<MenuItem>()
+                .Property(m => m.Price)
+                .HasColumnType("decimal(18,2)");
+
             modelBuilder
                 .Entity<ItemType>()
                 .HasData(

@@ -71,7 +71,6 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\Bu
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.AssemblyInfoInputs.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.AssemblyInfo.cs
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.csproj.CoreCompileInputs.cache
-C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.MvcApplicationPartsAssemblyInfo.cs
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.MvcApplicationPartsAssemblyInfo.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\staticwebassets\msbuild.BurgerMasters.Microsoft.AspNetCore.StaticWebAssets.props
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\staticwebassets\msbuild.build.BurgerMasters.props

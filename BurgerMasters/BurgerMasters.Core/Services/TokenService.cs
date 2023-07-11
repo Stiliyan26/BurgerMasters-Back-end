@@ -1,5 +1,5 @@
 ﻿using BurgerMasters.Core.Contracts;
-using BurgerMasters.Core.Models;
+using BurgerMasters.Core.Models.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

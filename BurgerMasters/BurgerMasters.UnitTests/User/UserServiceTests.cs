@@ -1,18 +1,12 @@
 ﻿using BurgerMasters.Core.Contracts;
-using BurgerMasters.Core.Models;
+using BurgerMasters.Core.Models.Auth;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerMasters.UnitTests.User
 {
@@ -25,13 +19,16 @@ namespace BurgerMasters.UnitTests.User
         private UserService _userService;
 
         [SetUp]
-
         public void Setup()
         {
             _userRepoMock = new Mock<IUserRepository>();
             _tokenServiceMock = new Mock<ITokenService>();
             _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
-            _userManagerMock = new Mock<UserManager<ApplicationUser>>();
+
+            // Create a mock of the UserManager<ApplicationUser> class
+            _userManagerMock = new Mock<UserManager<ApplicationUser>>(
+                Mock.Of<IUserStore<ApplicationUser>>(),
+                null, null, null, null, null, null, null, null);
 
             _userService = new UserService(
                 _userRepoMock.Object,

@@ -1,15 +1,12 @@
 ﻿using BurgerMasters.Core.Models;
+using BurgerMasters.Core.Models.Auth;
 using BurgerMasters.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerMasters.UnitTests.User
 {
@@ -32,11 +29,12 @@ namespace BurgerMasters.UnitTests.User
             // Arrange
             var userInfo = new ExportUserDto
             {
+                Id = "1234",
                 Username = "testuser",
                 Email = "testuser@example.com",
                 Birthdate = DateTime.Now.ToString()
             };
-            var userId = "12345";
+            
 
             _configurationMock.SetupGet(c => c["Jwt:Key"]).Returns("mysecretkey123dasdad3e23dadasda");
             _configurationMock.SetupGet(c => c["Jwt:Issuer"]).Returns("myissuer");
@@ -67,7 +65,7 @@ namespace BurgerMasters.UnitTests.User
             var claimsPrincipal = tokenHandler.ValidateToken(token, validationParameters, out _);
             var claimsIdentity = claimsPrincipal.Identity as ClaimsIdentity;
 
-            Assert.AreEqual(userId, claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            Assert.AreEqual(userInfo.Id, claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             Assert.AreEqual(userInfo.Email, claimsIdentity.FindFirst(ClaimTypes.Email)?.Value);
             Assert.AreEqual(userInfo.Username, claimsIdentity.FindFirst(ClaimTypes.Name)?.Value);
             Assert.AreEqual(userInfo.Birthdate.ToString(), claimsIdentity.FindFirst(ClaimTypes.DateOfBirth)?.Value);
@@ -79,20 +77,19 @@ namespace BurgerMasters.UnitTests.User
             // Arrange
             var userInfo = new ExportUserDto
             {
+                Id = "12345",
                 Username = "testuser",
                 Email = "testuser@example.com",
                 Birthdate = DateTime.Now.ToString(),
                 Role = "admin"
             };
-            var userId = "12345";
-
             // Act
             var claims = _tokenService.GetClaims(userInfo);
 
             // Assert
             Assert.AreEqual(5, claims.Length);
 
-            Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.NameIdentifier && c.Value == userId));
+            Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.NameIdentifier && c.Value == userInfo.Id));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.Email && c.Value == userInfo.Email));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.Name && c.Value == userInfo.Username));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.DateOfBirth && c.Value == userInfo.Birthdate.ToString()));
