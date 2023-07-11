@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace BurgerMasters.Controllers
 {
+    [EnableCors]
+    [Route("/api/[controller]")]
+    [ApiController]
     [Authorize]
     public class BaseController : ControllerBase
     {

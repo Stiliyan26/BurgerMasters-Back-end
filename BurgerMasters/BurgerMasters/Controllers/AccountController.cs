@@ -17,9 +17,6 @@ using Newtonsoft.Json.Linq;
 
 namespace BurgerMasters.Controllers
 {
-    [EnableCors]
-    [Route("/api/[controller]")]
-    [ApiController]
     public class AccountController : BaseController
     {
         private readonly IUserService _userService;

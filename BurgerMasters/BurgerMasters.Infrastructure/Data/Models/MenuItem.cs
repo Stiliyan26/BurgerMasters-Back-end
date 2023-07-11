@@ -13,7 +13,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(80)]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
@@ -30,9 +30,13 @@ namespace BurgerMasters.Infrastructure.Data.Models
         public string? Description { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+        [Required]
+        [MaxLength(50)]
+        public string CreaterId { get; set; } = null!;
 
         public ICollection<ApplicationUserMenuItem> ApplicationUserMenuItems { get; set; }
             = new List<ApplicationUserMenuItem>();

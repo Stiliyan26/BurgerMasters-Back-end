@@ -2,6 +2,7 @@ using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Extensions;
 using BurgerMasters.Infrastructure.Data;
+using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -68,11 +69,16 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+builder.Services.AddAntiforgery();
 
 builder.Services.AddHttpContextAccessor();
+//User services
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+//Menu services
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 
 //Prevents from returning automatically 400 Bad Request after failing Model validation!!!
 builder.Services.Configure<ApiBehaviorOptions>(options =>
