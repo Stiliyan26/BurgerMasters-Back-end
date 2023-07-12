@@ -1,4 +1,5 @@
-﻿using BurgerMasters.Infrastructure.Data.Models;
+﻿using BurgerMasters.Core.Models.MenuItemModels;
+using BurgerMasters.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace BurgerMasters.Core.Contracts
     public interface IMenuItemService
     {
         IEnumerable<ItemType> GetAllItemTypes();
+
+        Task CreateMenuItem(CreateMenuItemViewModel createItemModel, string userId);
     }
 }

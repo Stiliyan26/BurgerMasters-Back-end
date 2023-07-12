@@ -128,7 +128,6 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
         {
             return await DbSet<T>().FindAsync(id);
         }
-
         public async Task<T> GetByIdsAsync<T>(object[] id) where T : class
         {
             return await DbSet<T>().FindAsync(id);
