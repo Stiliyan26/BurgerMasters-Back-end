@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurgerMasters.Infrastructure.Migrations
 {
     [DbContext(typeof(BurgerMastersDbContext))]
-    [Migration("20230711145958_CreaterIdLengthAdded")]
-    partial class CreaterIdLengthAdded
+    [Migration("20230713185027_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,8 +156,9 @@ namespace BurgerMasters.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()

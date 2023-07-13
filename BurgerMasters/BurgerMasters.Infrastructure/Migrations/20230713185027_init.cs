@@ -175,12 +175,13 @@ namespace BurgerMasters.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     ItemTypeId = table.Column<int>(type: "int", nullable: false),
                     PortionSize = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreaterId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -16,7 +16,7 @@ namespace BurgerMasters.Controllers
             _menuItemService = menuItemService;
         }
 
-        [HttpPost("CreateMenuItem")]
+        [HttpPost("CreateMenuItem")]//Add Admin role
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -51,11 +51,29 @@ namespace BurgerMasters.Controllers
 
         [HttpGet("AllItemTypes"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetAllItemTypes()
+        public IActionResult AllItemTypes()
         {
             IEnumerable<ItemType> allItemTypes = _menuItemService.GetAllItemTypes();
 
             return Ok(allItemTypes);
+        }
+
+
+        [HttpGet("AllItemsByType")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AllItemsByType([FromQuery] string itemType)
+        {
+            try
+            {
+                IEnumerable<MenuItemViewModel> result = _menuItemService.GetAll(itemType);
+
+                return Ok(result);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
     }
 }

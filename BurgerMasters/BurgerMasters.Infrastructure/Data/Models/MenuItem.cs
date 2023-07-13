@@ -27,7 +27,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
         public int PortionSize { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(300)]
         public string Description { get; set; } = null!;
 
         [Required]

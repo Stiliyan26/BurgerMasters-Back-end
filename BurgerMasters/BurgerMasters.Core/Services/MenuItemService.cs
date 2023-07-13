@@ -43,6 +43,37 @@ namespace BurgerMasters.Core.Services
             }
         }
 
+        public IEnumerable<MenuItemViewModel> GetAll(string itemType)
+        {
+            return _repo.AllReadonly<MenuItem>()
+                .Where(mi => mi.IsActive && mi.ItemType.Name == itemType)
+                .Select(mi => new MenuItemViewModel
+                {
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    ItemType = mi.ItemType.Name,
+                    PortionSize = mi.PortionSize,
+                    Price = mi.Price,
+                })
+                .ToList();
+        }
+/*
+        public IEnumerable<MenuItemViewModel> GetAllFries()
+        {
+            return _repo.AllReadonly<MenuItem>()
+                .Where(mi => mi.IsActive && mi.ItemType.Name == "Fries")
+                .Select(mi => new MenuItemViewModel
+                {
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    PortionSize = mi.PortionSize,
+                    Price = mi.Price,
+                })
+                .ToList();
+        }*/
+
         public IEnumerable<ItemType> GetAllItemTypes()
         {
             return _repo.AllReadonly<ItemType>();

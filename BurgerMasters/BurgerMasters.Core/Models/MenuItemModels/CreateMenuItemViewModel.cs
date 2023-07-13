@@ -13,7 +13,7 @@ namespace BurgerMasters.Core.Models.MenuItemModels
     {
         [Required]
         [StringLength(50, MinimumLength = 5)]
-        [RegularExpression(@"^[A-Za-z\s]{5,50}$")]
+        [RegularExpression(@"^[A-Za-z\s'-]{5,50}$")]
         public string Name { get; set; } = null!;
 
         [Required]
@@ -28,7 +28,7 @@ namespace BurgerMasters.Core.Models.MenuItemModels
         public int PortionSize { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 10)]
+        [StringLength(300, MinimumLength = 10)]
         public string Description { get; set; } = null!;
 
         [Required]

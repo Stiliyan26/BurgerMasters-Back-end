@@ -4,21 +4,19 @@
 
 namespace BurgerMasters.Infrastructure.Migrations
 {
-    public partial class descriptionRequired : Migration
+    public partial class descriptionLength : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
                 name: "Description",
                 table: "MenuItems",
-                type: "nvarchar(100)",
-                maxLength: 100,
+                type: "nvarchar(300)",
+                maxLength: 300,
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
-                oldMaxLength: 100,
-                oldNullable: true);
+                oldType: "nvarchar(150)",
+                oldMaxLength: 150);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -26,12 +24,12 @@ namespace BurgerMasters.Infrastructure.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Description",
                 table: "MenuItems",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: true,
+                type: "nvarchar(150)",
+                maxLength: 150,
+                nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
-                oldMaxLength: 100);
+                oldType: "nvarchar(300)",
+                oldMaxLength: 300);
         }
     }
 }
