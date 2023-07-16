@@ -44,6 +44,9 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
         /// <returns>Single record</returns>
         Task<T> GetByIdAsync<T>(object id) where T : class;
 
+        Task<T> GetByIdIncludeTypesAsync<T>(object id, Expression<Func<T, object>> include)
+            where T : class;
+
         Task<T> GetByIdsAsync<T>(object[] id) where T : class;
 
         /// <summary>

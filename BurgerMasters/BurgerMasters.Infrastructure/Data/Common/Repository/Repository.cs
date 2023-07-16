@@ -128,6 +128,15 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
         {
             return await DbSet<T>().FindAsync(id);
         }
+
+        public async Task<T> GetByIdIncludeTypesAsync<T>(object id, Expression<Func<T, object>> include) 
+            where T : class
+        {
+            var query = DbSet<T>()
+                .Include(include);
+
+            return await query.FirstOrDefaultAsync(x => EF.Property<object>(x, "Id").Equals(id));
+        }
         public async Task<T> GetByIdsAsync<T>(object[] id) where T : class
         {
             return await DbSet<T>().FindAsync(id);

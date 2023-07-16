@@ -1,18 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.5774" branch-rate="0.5625" version="1.9" timestamp="1689112274" lines-covered="272" lines-valid="471" branches-covered="18" branches-valid="32">
+<coverage line-rate="0.5539000000000001" branch-rate="0.5625" version="1.9" timestamp="1689365784" lines-covered="272" lines-valid="491" branches-covered="18" branches-valid="32">
   <sources>
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="BurgerMasters.Core" line-rate="0.5089" branch-rate="0.25" complexity="37">
+    <package name="BurgerMasters.Core" line-rate="0.4318" branch-rate="0.25" complexity="44">
       <classes>
-        <class name="BurgerMasters.Core.Services.MenuItemService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="2">
+        <class name="BurgerMasters.Core.Services.MenuItemService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="3">
           <methods>
-            <method name="GetAllItemTypes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="GetAll" signature="(System.String)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="47" hits="0" branch="False" />
                 <line number="48" hits="0" branch="False" />
                 <line number="49" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="GetAllItemTypes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="78" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(BurgerMasters.Infrastructure.Data.Common.Repository.IRepository)" line-rate="0" branch-rate="1" complexity="1">
@@ -28,6 +46,20 @@
             <line number="47" hits="0" branch="False" />
             <line number="48" hits="0" branch="False" />
             <line number="49" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="78" hits="0" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
             <line number="17" hits="0" branch="False" />
             <line number="18" hits="0" branch="False" />
             <line number="19" hits="0" branch="False" />
@@ -370,6 +402,48 @@
             <line number="28" hits="0" branch="False" />
             <line number="32" hits="0" branch="False" />
             <line number="36" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.MenuItemModels.MenuItemViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\MenuItemModels\MenuItemViewModel.cs" line-rate="0" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Name" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ImageUrl" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ItemType" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PortionSize" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Price" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="22" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Models.Auth.ExportUserDto" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Auth\ExportUserDto.cs" line-rate="1" branch-rate="1" complexity="5">

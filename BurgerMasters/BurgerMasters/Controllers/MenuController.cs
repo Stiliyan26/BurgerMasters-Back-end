@@ -16,38 +16,6 @@ namespace BurgerMasters.Controllers
             _menuItemService = menuItemService;
         }
 
-        [HttpPost("CreateMenuItem")]//Add Admin role
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-
-        public async Task<IActionResult> CreateMenuItem([FromBody]CreateMenuItemViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(new
-                {
-                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
-                    status = 422
-                });
-            }
-            string userId = GetUserId();
-
-            try
-            {
-                await _menuItemService.CreateMenuItem(model, userId);
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-
-            return Ok(new
-            {
-                itemType = model.ItemType,
-                status = 200
-            });;
-        }
 
         [HttpGet("AllItemTypes"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -66,9 +34,25 @@ namespace BurgerMasters.Controllers
         {
             try
             {
-                IEnumerable<MenuItemViewModel> result = _menuItemService.GetAll(itemType);
+                IEnumerable<MenuItemViewModel> menuItems = _menuItemService.GetAll(itemType);
 
-                return Ok(result);
+                return Ok(menuItems);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("ItemDetailsById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ItemDetails([FromQuery] int itemId)
+        {
+            try
+            {
+                DetailsMenuItemViewModel itemDetails = await _menuItemService.GetItemById(itemId);
+                return Ok(itemDetails); 
             }
             catch (Exception error)
             {

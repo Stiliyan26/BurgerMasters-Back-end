@@ -58,25 +58,25 @@ namespace BurgerMasters.Core.Services
                 })
                 .ToList();
         }
-/*
-        public IEnumerable<MenuItemViewModel> GetAllFries()
-        {
-            return _repo.AllReadonly<MenuItem>()
-                .Where(mi => mi.IsActive && mi.ItemType.Name == "Fries")
-                .Select(mi => new MenuItemViewModel
-                {
-                    Id = mi.Id,
-                    Name = mi.Name,
-                    ImageUrl = mi.ImageUrl,
-                    PortionSize = mi.PortionSize,
-                    Price = mi.Price,
-                })
-                .ToList();
-        }*/
-
         public IEnumerable<ItemType> GetAllItemTypes()
         {
             return _repo.AllReadonly<ItemType>();
+        }
+
+        public async Task<DetailsMenuItemViewModel> GetItemById(int id)
+        {
+            MenuItem menuItem = await _repo.GetByIdIncludeTypesAsync<MenuItem>(id, m => m.ItemType);
+
+            return new DetailsMenuItemViewModel()
+            {
+                Id = menuItem.Id,
+                Name = menuItem.Name,
+                ImageUrl = menuItem.ImageUrl,
+                ItemType = menuItem.ItemType.Name,
+                PortionSize = menuItem.PortionSize,
+                Price = menuItem.Price,
+                Description = menuItem.Description
+            };
         }
     }
 }

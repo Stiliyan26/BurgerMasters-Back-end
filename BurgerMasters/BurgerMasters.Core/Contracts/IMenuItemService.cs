@@ -15,5 +15,7 @@ namespace BurgerMasters.Core.Contracts
         Task CreateMenuItem(CreateMenuItemViewModel createItemModel, string userId);
 
         IEnumerable<MenuItemViewModel> GetAll(string itemType);
+
+        Task<DetailsMenuItemViewModel> GetItemById(int id);
     }
 }
