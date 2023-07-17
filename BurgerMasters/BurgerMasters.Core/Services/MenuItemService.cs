@@ -63,9 +63,32 @@ namespace BurgerMasters.Core.Services
             return _repo.AllReadonly<ItemType>();
         }
 
+        public IEnumerable<MenuItemViewModel> GetFourSimilarItemsByType(string itemType, int itemId)
+        {
+            return _repo.AllReadonly<MenuItem>()
+                .Where(mi =>
+                    mi.IsActive
+                    && mi.ItemType.Name == itemType //Should be the same type
+                    && mi.Id != itemId // Should not include the current product from details
+                 )
+                .OrderBy(mi => Guid.NewGuid())
+                .Take(4)
+                .Select(mi => new MenuItemViewModel
+                {
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    ItemType = mi.ItemType.Name,
+                    PortionSize = mi.PortionSize,
+                    Price = mi.Price,
+                })
+                .ToList();
+        }
+
         public async Task<DetailsMenuItemViewModel> GetItemById(int id)
         {
-            MenuItem menuItem = await _repo.GetByIdIncludeTypesAsync<MenuItem>(id, m => m.ItemType);
+            MenuItem menuItem = await _repo
+                .GetByIdIncludeTypesAsync<MenuItem>(id, m => m.ItemType);
 
             return new DetailsMenuItemViewModel()
             {
@@ -77,6 +100,22 @@ namespace BurgerMasters.Core.Services
                 Price = menuItem.Price,
                 Description = menuItem.Description
             };
+        }
+
+        public IEnumerable<MenuItemViewModel> GetMyItems(string userId)
+        {
+            return _repo.AllReadonly<MenuItem>()
+                .Where(mi => mi.IsActive && mi.CreaterId == userId)
+                .Select(mi => new MenuItemViewModel
+                {
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    ItemType = mi.ItemType.Name,
+                    PortionSize = mi.PortionSize,
+                    Price = mi.Price,
+                })
+                .ToList();
         }
     }
 }

@@ -59,5 +59,23 @@ namespace BurgerMasters.Controllers
                 return BadRequest(error.Message);
             }
         }
+
+        [HttpGet("SimilarProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult SimilarProducts([FromQuery] string itemType, int itemId)
+        {
+            try
+            {
+                IEnumerable<MenuItemViewModel> items = _menuItemService
+                    .GetFourSimilarItemsByType(itemType, itemId);
+
+                return Ok(items);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

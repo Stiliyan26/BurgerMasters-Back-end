@@ -20,9 +20,12 @@ namespace BurgerMasters.Controllers
         [HttpPost("CreateMenuItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-
-        public async Task<IActionResult> CreateMenuItem([FromBody] CreateMenuItemViewModel model)
+        public async Task<IActionResult> CreateMenuItem(
+            [FromBody] CreateMenuItemViewModel model,
+            [FromQuery] string userId
+        )
         {
             if (!ModelState.IsValid)
             {
@@ -32,22 +35,65 @@ namespace BurgerMasters.Controllers
                     status = 422
                 });
             }
-            string userId = GetUserId();
+
+            string curretnIdentityId = GetUserId();
+            //Checks is the same user sending the request!
+            if (userId != curretnIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
 
             try
             {
-                await _menuItemService.CreateMenuItem(model, userId);
+                await _menuItemService.CreateMenuItem(model, curretnIdentityId);
+
+                return Ok(new
+                {
+                    itemType = model.ItemType,
+                    status = 200
+                });
             }
             catch (Exception error)
             {
                 return BadRequest(error.Message);
             }
+        }
 
-            return Ok(new
+        [HttpGet("MyItems")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public IActionResult MyItems([FromQuery] string userId)
+        {
+            try
             {
-                itemType = model.ItemType,
-                status = 200
-            });
+                string curretnIdentityId = GetUserId();
+                //Checks is the same user sending the request!
+                if (userId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                IEnumerable<MenuItemViewModel> myItems = _menuItemService.GetMyItems(userId);
+
+                return Ok(new
+                {
+                    myItems,
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
     }
 }

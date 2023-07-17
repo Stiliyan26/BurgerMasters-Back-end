@@ -15,5 +15,8 @@
 
 
         public const string UNPROCESSABLE_ENTITY_ERROR_MSG = "Input data is invalid!";
+
+
+        public const string ADMIN_ID_DIFFRENCE = "Admin id is not the same!";
     }
 }

@@ -17,5 +17,9 @@ namespace BurgerMasters.Core.Contracts
         IEnumerable<MenuItemViewModel> GetAll(string itemType);
 
         Task<DetailsMenuItemViewModel> GetItemById(int id);
+
+        IEnumerable<MenuItemViewModel> GetFourSimilarItemsByType(string itemType, int itemId);
+
+        IEnumerable<MenuItemViewModel> GetMyItems(string userId);
     }
 }

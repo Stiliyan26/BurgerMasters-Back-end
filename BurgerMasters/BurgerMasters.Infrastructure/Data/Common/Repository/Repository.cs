@@ -133,9 +133,11 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
             where T : class
         {
             var query = DbSet<T>()
-                .Include(include);
+                .Include(include)
+                .Where(x => EF.Property<bool>(x, "IsActive") == true);
 
-            return await query.FirstOrDefaultAsync(x => EF.Property<object>(x, "Id").Equals(id));
+            return await query
+                .FirstOrDefaultAsync(x => EF.Property<object>(x, "Id").Equals(id));
         }
         public async Task<T> GetByIdsAsync<T>(object[] id) where T : class
         {
