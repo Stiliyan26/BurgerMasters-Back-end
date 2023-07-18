@@ -102,10 +102,37 @@ namespace BurgerMasters.Core.Services
             };
         }
 
-        public IEnumerable<MenuItemViewModel> GetMyItems(string userId)
+        public IEnumerable<MenuItemViewModel> GetMyItemsByType(string userId, string itemType)
         {
             return _repo.AllReadonly<MenuItem>()
-                .Where(mi => mi.IsActive && mi.CreaterId == userId)
+                .Where(mi => 
+                    mi.IsActive 
+                    && mi.CreaterId == userId //Only by the creator
+                    && mi.ItemType.Name == itemType)
+                .Select(mi => new MenuItemViewModel
+                {
+                    Id = mi.Id,
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    ItemType = mi.ItemType.Name,
+                    PortionSize = mi.PortionSize,
+                    Price = mi.Price,
+                })
+                .ToList();
+        }
+
+        public IEnumerable<MenuItemViewModel> GetFourSimilarItemsByTypeAndCreator(
+            string itemType, int itemId, string creatorId)
+        {
+            return _repo.AllReadonly<MenuItem>()
+                .Where(mi =>
+                    mi.IsActive
+                    && mi.ItemType.Name == itemType //Should be the same type
+                    && mi.Id != itemId // Should not include the current product from details
+                    && mi.CreaterId == creatorId // Only by the creator
+                 )
+                .OrderBy(mi => Guid.NewGuid())
+                .Take(4)
                 .Select(mi => new MenuItemViewModel
                 {
                     Id = mi.Id,

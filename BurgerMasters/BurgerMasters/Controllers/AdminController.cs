@@ -63,11 +63,11 @@ namespace BurgerMasters.Controllers
             }
         }
 
-        [HttpGet("MyItems")]
+        [HttpGet("MyItemsByType")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public IActionResult MyItems([FromQuery] string userId)
+        public IActionResult MyItemsByType([FromQuery] string userId, string itemType)
         {
             try
             {
@@ -82,13 +82,35 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                IEnumerable<MenuItemViewModel> myItems = _menuItemService.GetMyItems(userId);
+                IEnumerable<MenuItemViewModel> myItems = _menuItemService
+                    .GetMyItemsByType(userId, itemType);
 
                 return Ok(new
                 {
                     myItems,
                     status = 200
                 });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("SimilarProductsByCreator")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult SimilarProductsByCreator([FromQuery] 
+            string itemType,
+            int itemId,
+            string creatorId)
+        {
+            try
+            {
+                IEnumerable<MenuItemViewModel> items =
+                    _menuItemService.GetFourSimilarItemsByTypeAndCreator(itemType, itemId, creatorId);
+
+                return Ok(items);
             }
             catch (Exception error)
             {

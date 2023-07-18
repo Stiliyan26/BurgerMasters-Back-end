@@ -20,6 +20,9 @@ namespace BurgerMasters.Core.Contracts
 
         IEnumerable<MenuItemViewModel> GetFourSimilarItemsByType(string itemType, int itemId);
 
-        IEnumerable<MenuItemViewModel> GetMyItems(string userId);
+        IEnumerable<MenuItemViewModel> GetMyItemsByType(string userId, string itemType);
+
+        IEnumerable<MenuItemViewModel> GetFourSimilarItemsByTypeAndCreator(string itemType,
+            int itemId, string creatorId);
     }
 }

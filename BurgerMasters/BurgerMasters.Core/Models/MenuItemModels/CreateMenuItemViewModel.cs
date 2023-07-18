@@ -24,7 +24,7 @@ namespace BurgerMasters.Core.Models.MenuItemModels
         public string ItemType { get; set; } = null!;
 
         [Required]
-        [Range(200, 800)]
+        [Range(150, 800)]
         public int PortionSize { get; set; }
 
         [Required]
