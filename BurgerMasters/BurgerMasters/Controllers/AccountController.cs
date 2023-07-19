@@ -119,7 +119,7 @@ namespace BurgerMasters.Controllers
                 {
                     return NotFound(new
                     {
-                        errorMessage = ValidationConstants.NOT_FOUND_ERROR_MSG,
+                        errorMessage = ValidationConstants.NOT_FOUND_USER_ERROR_MSG,
                         status = 404
                     });
                 }

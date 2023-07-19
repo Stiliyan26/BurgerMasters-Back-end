@@ -67,7 +67,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public IActionResult MyItemsByType([FromQuery] string userId, string itemType)
+        public async Task<IActionResult> MyItemsByType([FromQuery] string userId, string itemType)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                IEnumerable<MenuItemViewModel> myItems = _menuItemService
+                IEnumerable<MenuItemViewModel> myItems = await _menuItemService
                     .GetMyItemsByType(userId, itemType);
 
                 return Ok(new
@@ -100,17 +100,85 @@ namespace BurgerMasters.Controllers
         [HttpGet("SimilarProductsByCreator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult SimilarProductsByCreator([FromQuery] 
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> SimilarProductsByCreator([FromQuery] 
             string itemType,
             int itemId,
             string creatorId)
         {
             try
             {
-                IEnumerable<MenuItemViewModel> items =
-                    _menuItemService.GetFourSimilarItemsByTypeAndCreator(itemType, itemId, creatorId);
+                string curretnIdentityId = GetUserId();
 
-                return Ok(items);
+                if (creatorId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                if ((await _menuItemService.ItemExists(itemId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                IEnumerable<MenuItemViewModel> items =
+                    await _menuItemService.GetFourSimilarItemsByTypeAndCreator(itemType, itemId, creatorId);
+
+                return Ok(new
+                {
+                    items,
+                    status = 200,
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("CreatorItemById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> CreatorItemById([FromQuery] int itemId, string creatorId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (creatorId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                DetailsMenuItemViewModel item = await _menuItemService.CreatorItemById(itemId, creatorId);
+
+                return Ok(new
+                {
+                    item,
+                    status = 200
+                });
             }
             catch (Exception error)
             {

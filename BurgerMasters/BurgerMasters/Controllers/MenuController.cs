@@ -30,11 +30,11 @@ namespace BurgerMasters.Controllers
         [HttpGet("AllItemsByType")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult AllItemsByType([FromQuery] string itemType)
+        public async Task<IActionResult> AllItemsByType([FromQuery] string itemType)
         {
             try
             {
-                IEnumerable<MenuItemViewModel> menuItems = _menuItemService.GetAll(itemType);
+                IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAll(itemType);
 
                 return Ok(menuItems);
             }
@@ -47,12 +47,28 @@ namespace BurgerMasters.Controllers
         [HttpGet("ItemDetailsById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> ItemDetails([FromQuery] int itemId)
         {
             try
             {
-                DetailsMenuItemViewModel itemDetails = await _menuItemService.GetItemById(itemId);
-                return Ok(itemDetails); 
+                if ((await _menuItemService.ItemExists(itemId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                DetailsMenuItemViewModel item = await _menuItemService.GetItemById(itemId);
+
+                return Ok(new
+                {
+                    item,
+                    status = 200
+                }); 
             }
             catch (Exception error)
             {
@@ -63,14 +79,29 @@ namespace BurgerMasters.Controllers
         [HttpGet("SimilarProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult SimilarProducts([FromQuery] string itemType, int itemId)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> SimilarProducts([FromQuery] string itemType, int itemId)
         {
             try
             {
-                IEnumerable<MenuItemViewModel> items = _menuItemService
+                if ((await _menuItemService.ItemExists(itemId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                IEnumerable<MenuItemViewModel> items = await _menuItemService
                     .GetFourSimilarItemsByType(itemType, itemId);
 
-                return Ok(items);
+                return Ok(new
+                {
+                    items,
+                    status = 200,
+                });
             }
             catch (Exception error)
             {

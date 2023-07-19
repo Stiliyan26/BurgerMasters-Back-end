@@ -86,4 +86,3 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\re
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.pdb
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.genruntimeconfig.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\ref\BurgerMasters.dll
-C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.MvcApplicationPartsAssemblyInfo.cs

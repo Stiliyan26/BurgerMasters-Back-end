@@ -14,15 +14,21 @@ namespace BurgerMasters.Core.Contracts
 
         Task CreateMenuItem(CreateMenuItemViewModel createItemModel, string userId);
 
-        IEnumerable<MenuItemViewModel> GetAll(string itemType);
+        Task<IEnumerable<MenuItemViewModel>> GetAll(string itemType);
 
         Task<DetailsMenuItemViewModel> GetItemById(int id);
 
-        IEnumerable<MenuItemViewModel> GetFourSimilarItemsByType(string itemType, int itemId);
+        Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByType(string itemType, int itemId);
 
-        IEnumerable<MenuItemViewModel> GetMyItemsByType(string userId, string itemType);
+        Task<IEnumerable<MenuItemViewModel>> GetMyItemsByType(string userId, string itemType);
 
-        IEnumerable<MenuItemViewModel> GetFourSimilarItemsByTypeAndCreator(string itemType,
+        Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAndCreator(string itemType,
             int itemId, string creatorId);
+
+        Task<bool> ItemExistsByCreatorId(int itemId, string creatorId);
+
+        Task<DetailsMenuItemViewModel> CreatorItemById(int itemId, string creatorId);
+
+        Task<bool> ItemExists(int itemId);
     }
 }

@@ -2,6 +2,7 @@
 using BurgerMasters.Core.Models.MenuItemModels;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +44,9 @@ namespace BurgerMasters.Core.Services
             }
         }
 
-        public IEnumerable<MenuItemViewModel> GetAll(string itemType)
+        public async Task<IEnumerable<MenuItemViewModel>> GetAll(string itemType)
         {
-            return _repo.AllReadonly<MenuItem>()
+            return await _repo.AllReadonly<MenuItem>()
                 .Where(mi => mi.IsActive && mi.ItemType.Name == itemType)
                 .Select(mi => new MenuItemViewModel
                 {
@@ -56,16 +57,17 @@ namespace BurgerMasters.Core.Services
                     PortionSize = mi.PortionSize,
                     Price = mi.Price,
                 })
-                .ToList();
+                .ToListAsync();
         }
         public IEnumerable<ItemType> GetAllItemTypes()
         {
             return _repo.AllReadonly<ItemType>();
         }
 
-        public IEnumerable<MenuItemViewModel> GetFourSimilarItemsByType(string itemType, int itemId)
+        public async Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByType
+            (string itemType, int itemId)
         {
-            return _repo.AllReadonly<MenuItem>()
+            return await _repo.AllReadonly<MenuItem>()
                 .Where(mi =>
                     mi.IsActive
                     && mi.ItemType.Name == itemType //Should be the same type
@@ -82,7 +84,7 @@ namespace BurgerMasters.Core.Services
                     PortionSize = mi.PortionSize,
                     Price = mi.Price,
                 })
-                .ToList();
+                .ToListAsync();
         }
 
         public async Task<DetailsMenuItemViewModel> GetItemById(int id)
@@ -102,11 +104,11 @@ namespace BurgerMasters.Core.Services
             };
         }
 
-        public IEnumerable<MenuItemViewModel> GetMyItemsByType(string userId, string itemType)
+        public async Task<IEnumerable<MenuItemViewModel>> GetMyItemsByType(string userId, string itemType)
         {
-            return _repo.AllReadonly<MenuItem>()
-                .Where(mi => 
-                    mi.IsActive 
+            return await _repo.AllReadonly<MenuItem>()
+                .Where(mi =>
+                    mi.IsActive
                     && mi.CreaterId == userId //Only by the creator
                     && mi.ItemType.Name == itemType)
                 .Select(mi => new MenuItemViewModel
@@ -118,13 +120,13 @@ namespace BurgerMasters.Core.Services
                     PortionSize = mi.PortionSize,
                     Price = mi.Price,
                 })
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<MenuItemViewModel> GetFourSimilarItemsByTypeAndCreator(
+        public async Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAndCreator(
             string itemType, int itemId, string creatorId)
         {
-            return _repo.AllReadonly<MenuItem>()
+            return await _repo.AllReadonly<MenuItem>()
                 .Where(mi =>
                     mi.IsActive
                     && mi.ItemType.Name == itemType //Should be the same type
@@ -142,7 +144,36 @@ namespace BurgerMasters.Core.Services
                     PortionSize = mi.PortionSize,
                     Price = mi.Price,
                 })
-                .ToList();
+                .ToListAsync();
+        }
+
+        public async Task<bool> ItemExists(int itemId)
+        {
+            return await _repo.AllReadonly<MenuItem>()
+                .AnyAsync(mi => mi.IsActive && mi.Id == itemId);
+        }
+
+        public async Task<DetailsMenuItemViewModel> CreatorItemById(int itemId, string creatorId)
+        {
+            return await _repo.AllReadonly<MenuItem>()
+                    .Where(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId)
+                    .Select(mi => new DetailsMenuItemViewModel()
+                    {
+                        Id = mi.Id,
+                        Name = mi.Name,
+                        ImageUrl = mi.ImageUrl,
+                        ItemType = mi.ItemType.Name,
+                        PortionSize = mi.PortionSize,
+                        Price = mi.Price,
+                        Description = mi.Description
+                    })
+                    .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> ItemExistsByCreatorId(int itemId, string creatorId)
+        {
+            return await _repo.AllReadonly<MenuItem>()
+                .AnyAsync(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId);
         }
     }
 }
