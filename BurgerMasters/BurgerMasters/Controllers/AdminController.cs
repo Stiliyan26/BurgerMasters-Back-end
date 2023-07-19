@@ -283,5 +283,47 @@ namespace BurgerMasters.Controllers
                 return BadRequest(error.Message);
             }
         }
+
+
+        [HttpDelete("DeleteItem")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> DeleteItem([FromQuery]int itemId, string creatorId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (creatorId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                await _menuItemService.DeleteMenuItem(itemId, creatorId);
+
+                return Ok(new
+                {
+                    status = 204
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

@@ -210,5 +210,19 @@ namespace BurgerMasters.Core.Services
                 await _repo.SaveChangesAsync();
             }
         }
+
+        public async Task DeleteMenuItem(int itemId, string creatorId)
+        {
+            MenuItem itemToDelte = await _repo.All<MenuItem>()
+                .Where(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId)
+                .FirstOrDefaultAsync();
+
+            if (itemToDelte != null)
+            {
+                itemToDelte.IsActive = false;
+
+                await _repo.SaveChangesAsync();
+            }
+        }
     }
 }

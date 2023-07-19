@@ -34,5 +34,7 @@ namespace BurgerMasters.Core.Contracts
         Task<ViewEditItemInfoViewModel> GetEditItemInfoByItemId(int itemId, string creatorId);
 
         Task EditMenuItem(FormMenuItemViewModel item, int itemId, string creatorId);
+
+        Task DeleteMenuItem(int itemId,string creatorId);
     }
 }
