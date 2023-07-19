@@ -10,5 +10,7 @@ namespace BurgerMasters.Core.Models.MenuItemModels
     public class DetailsMenuItemViewModel : MenuItemViewModel
     {
         public string Description { get; set; } = null!;
+
+        public string CreatorId { get; set; } = null!;
     }
 }

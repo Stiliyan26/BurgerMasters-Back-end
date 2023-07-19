@@ -23,7 +23,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> CreateMenuItem(
-            [FromBody] CreateMenuItemViewModel model,
+            [FromBody] FormMenuItemViewModel model,
             [FromQuery] string userId
         )
         {
@@ -101,7 +101,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> SimilarProductsByCreator([FromQuery] 
+        public async Task<IActionResult> SimilarProductsByCreator([FromQuery]
             string itemType,
             int itemId,
             string creatorId)
@@ -177,6 +177,104 @@ namespace BurgerMasters.Controllers
                 return Ok(new
                 {
                     item,
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("EditItemInfo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EditItemInfo([FromQuery] int itemId, string creatorId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (creatorId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+                ViewEditItemInfoViewModel item = await _menuItemService
+                    .GetEditItemInfoByItemId(itemId, creatorId);
+
+                return Ok(new
+                {
+                    item,
+                    status = 200
+                });
+
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpPut("EditMenuItem")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public async Task<IActionResult> EditMenuItem([FromBody] FormMenuItemViewModel model,
+            [FromQuery] int itemId, string creatorId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(new
+                {
+                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                    status = 422
+                });
+            }
+
+            try
+            {
+                string curretnIdentityId = GetUserId();
+                //Checks is the same user sending the request!
+                if (creatorId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                        status = 404
+                    });
+                }
+
+
+                await _menuItemService.EditMenuItem(model, itemId, creatorId);
+
+                return Ok(new
+                {
+                    itemId,
                     status = 200
                 });
             }

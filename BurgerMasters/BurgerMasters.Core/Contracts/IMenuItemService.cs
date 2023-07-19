@@ -12,7 +12,7 @@ namespace BurgerMasters.Core.Contracts
     {
         IEnumerable<ItemType> GetAllItemTypes();
 
-        Task CreateMenuItem(CreateMenuItemViewModel createItemModel, string userId);
+        Task CreateMenuItem(FormMenuItemViewModel createItemModel, string userId);
 
         Task<IEnumerable<MenuItemViewModel>> GetAll(string itemType);
 
@@ -22,6 +22,8 @@ namespace BurgerMasters.Core.Contracts
 
         Task<IEnumerable<MenuItemViewModel>> GetMyItemsByType(string userId, string itemType);
 
+        Task<bool> ItemExists(int itemId);
+
         Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAndCreator(string itemType,
             int itemId, string creatorId);
 
@@ -29,6 +31,8 @@ namespace BurgerMasters.Core.Contracts
 
         Task<DetailsMenuItemViewModel> CreatorItemById(int itemId, string creatorId);
 
-        Task<bool> ItemExists(int itemId);
+        Task<ViewEditItemInfoViewModel> GetEditItemInfoByItemId(int itemId, string creatorId);
+
+        Task EditMenuItem(FormMenuItemViewModel item, int itemId, string creatorId);
     }
 }

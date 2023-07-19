@@ -20,7 +20,7 @@ namespace BurgerMasters.Core.Services
             _repo = repo;
         }
 
-        public async Task CreateMenuItem(CreateMenuItemViewModel createItemModel, string userId)
+        public async Task CreateMenuItem(FormMenuItemViewModel createItemModel, string userId)
         {
             ItemType itemType = GetAllItemTypes()
                 .FirstOrDefault(i => i.Name == createItemModel.ItemType);
@@ -100,7 +100,8 @@ namespace BurgerMasters.Core.Services
                 ItemType = menuItem.ItemType.Name,
                 PortionSize = menuItem.PortionSize,
                 Price = menuItem.Price,
-                Description = menuItem.Description
+                Description = menuItem.Description,
+                CreatorId = menuItem.CreaterId
             };
         }
 
@@ -165,7 +166,8 @@ namespace BurgerMasters.Core.Services
                         ItemType = mi.ItemType.Name,
                         PortionSize = mi.PortionSize,
                         Price = mi.Price,
-                        Description = mi.Description
+                        Description = mi.Description,
+                        CreatorId = mi.CreaterId
                     })
                     .FirstOrDefaultAsync();
         }
@@ -174,6 +176,39 @@ namespace BurgerMasters.Core.Services
         {
             return await _repo.AllReadonly<MenuItem>()
                 .AnyAsync(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId);
+        }
+
+        public async Task<ViewEditItemInfoViewModel> GetEditItemInfoByItemId(int itemId, string creatorId)
+        {
+            return await _repo.AllReadonly<MenuItem>()
+                .Where(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId)
+                .Select(mi => new ViewEditItemInfoViewModel()
+                {
+                    Name = mi.Name,
+                    ImageUrl = mi.ImageUrl,
+                    ItemType = mi.ItemType.Name,
+                    PortionSize = mi.PortionSize,
+                    Description = mi.Description,
+                    Price = mi.Price
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task EditMenuItem(FormMenuItemViewModel item, int itemId, string creatorId)
+        {
+            MenuItem menuItem = await _repo.All<MenuItem>()
+                .FirstOrDefaultAsync(mi => mi.IsActive && mi.Id == itemId && mi.CreaterId == creatorId);
+
+            if (menuItem != null)
+            {
+                menuItem.Name = item.Name;
+                menuItem.ImageUrl = item.ImageUrl;
+                menuItem.PortionSize = item.PortionSize;
+                menuItem.Description = item.Description;
+                menuItem.Price = item.Price;
+
+                await _repo.SaveChangesAsync();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BurgerMasters.Core.Models.MenuItemModels
 {
-    public class CreateMenuItemViewModel
+    public class FormMenuItemViewModel
     {
         [Required]
         [StringLength(50, MinimumLength = 5)]
@@ -20,8 +20,7 @@ namespace BurgerMasters.Core.Models.MenuItemModels
         [StringLength(80, MinimumLength = 5)]
         public string ImageUrl { get; set; } = null!;
 
-        [Required]
-        public string ItemType { get; set; } = null!;
+        public string? ItemType { get; set; }
 
         [Required]
         [Range(150, 800)]
