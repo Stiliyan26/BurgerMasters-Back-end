@@ -22,6 +22,6 @@ namespace BurgerMasters.Infrastructure.Data.Models
         [ForeignKey(nameof(MenuItemId))]
         public MenuItem MenuItem { get; set; }
 
-        public int ItemQuantity { get; set; } = 1;
+        public int ItemQuantity { get; set; }
     }
 }

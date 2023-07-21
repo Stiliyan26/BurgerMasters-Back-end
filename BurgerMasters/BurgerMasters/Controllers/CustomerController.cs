@@ -100,5 +100,38 @@ namespace BurgerMasters.Controllers
                 return BadRequest(error.Message);
             }
         }
+
+
+        [HttpDelete("RemoveCartItem")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> RemoveCartItem([FromQuery] int itemId, string userId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (userId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.USER_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                await _menuItemService.RemoveItemFromCartById(itemId, userId);
+
+                return Ok(new
+                {
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

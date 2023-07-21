@@ -93,24 +93,30 @@ namespace BurgerMasters.Core.Services
 
         public async Task AddItemToUserCartAsync(CartInfoViewModel model)
         {
-            bool isAlreadyAddedToCart = await _repo.AllReadonly<ApplicationUserMenuItem>()
-                .AnyAsync(ui =>
-                    ui.MenuItem.IsActive
-                    && ui.MenuItemId == model.ItemId
-                    && ui.ApplicationUserId == model.UserId);
+            ApplicationUserMenuItem? existingTransaction = 
+                await _repo.All<ApplicationUserMenuItem>()
+                    .FirstOrDefaultAsync(ui =>
+                        ui.MenuItem.IsActive
+                        && ui.MenuItemId == model.ItemId
+                        && ui.ApplicationUserId == model.UserId);
 
-            if (isAlreadyAddedToCart == false)
+            if (existingTransaction == null)
             {
-                ApplicationUserMenuItem cart = new ApplicationUserMenuItem
+                ApplicationUserMenuItem newTransaction = new ApplicationUserMenuItem
                 {
                     ApplicationUserId = model.UserId,
                     MenuItemId = model.ItemId,
                     ItemQuantity = model.Quantity,
                 };
 
-                await _repo.AddAsync(cart);
-                await _repo.SaveChangesAsync();
+                await _repo.AddAsync(newTransaction);
+            } 
+            else
+            {
+                existingTransaction.ItemQuantity += model.Quantity;
             }
+
+            await _repo.SaveChangesAsync();
         }
 
 
@@ -131,6 +137,21 @@ namespace BurgerMasters.Core.Services
                     Quantity = ui.ItemQuantity
                 })
                 .ToListAsync();
+        }
+
+        public async Task RemoveItemFromCartById(int itemId, string userId)
+        {
+            ApplicationUserMenuItem userItem = await _repo.All<ApplicationUserMenuItem>()
+                .FirstOrDefaultAsync(ui => 
+                    ui.MenuItem.IsActive
+                    && ui.MenuItemId == itemId
+                    && ui.ApplicationUserId == userId);
+
+            if (userItem != null)
+            {
+                _repo.Delete(userItem);
+                await _repo.SaveChangesAsync();
+            }
         }
     }
 }
