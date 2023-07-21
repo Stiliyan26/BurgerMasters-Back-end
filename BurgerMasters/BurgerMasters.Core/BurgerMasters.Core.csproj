@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BurgerMasters.Infrastructure\BurgerMasters.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Form\" />
+  </ItemGroup>
+
 </Project>

@@ -98,6 +98,9 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("ApplicationUserId", "MenuItemId");
 
                     b.HasIndex("MenuItemId");
@@ -323,7 +326,7 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ApplicationUserMenuItem", b =>
                 {
                     b.HasOne("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("ApplicationUserMenuItems")
+                        .WithMany("CartItems")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -403,7 +406,7 @@ namespace BurgerMasters.Infrastructure.Migrations
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("ApplicationUserMenuItems");
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ItemType", b =>

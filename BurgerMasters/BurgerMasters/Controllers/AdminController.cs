@@ -1,6 +1,7 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.MenuItemModels;
+using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,11 @@ namespace BurgerMasters.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
-        private readonly IMenuItemService _menuItemService;
+        private readonly IAdminService _adminService;
 
-        public AdminController(IMenuItemService menuItemService)
+        public AdminController(IAdminService adminService)
         {
-            _menuItemService = menuItemService;
+            _adminService = adminService;
         }
 
         [HttpPost("CreateMenuItem")]
@@ -49,7 +50,7 @@ namespace BurgerMasters.Controllers
 
             try
             {
-                await _menuItemService.CreateMenuItem(model, curretnIdentityId);
+                await _adminService.CreateMenuItemAsync(model, curretnIdentityId);
 
                 return Ok(new
                 {
@@ -67,13 +68,13 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> MyItemsByType([FromQuery] string userId, string itemType)
+        public async Task<IActionResult> MyItemsByType([FromQuery] string creatorId, string itemType)
         {
             try
             {
                 string curretnIdentityId = GetUserId();
                 //Checks is the same user sending the request!
-                if (userId != curretnIdentityId)
+                if (creatorId != curretnIdentityId)
                 {
                     return Conflict(new
                     {
@@ -82,8 +83,8 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                IEnumerable<MenuItemViewModel> myItems = await _menuItemService
-                    .GetMyItemsByType(userId, itemType);
+                IEnumerable<MenuItemViewModel> myItems = await _adminService
+                    .GetCreatorItemsByTypeAsync(creatorId, itemType);
 
                 return Ok(new
                 {
@@ -119,7 +120,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if ((await _menuItemService.ItemExists(itemId)) == false)
+                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
                 {
                     return NotFound(new
                     {
@@ -129,7 +130,8 @@ namespace BurgerMasters.Controllers
                 }
 
                 IEnumerable<MenuItemViewModel> items =
-                    await _menuItemService.GetFourSimilarItemsByTypeAndCreator(itemType, itemId, creatorId);
+                    await _adminService
+                        .GetFourSimilarItemsByTypeAndCreatorAsync(itemType, itemId, creatorId);
 
                 return Ok(new
                 {
@@ -147,6 +149,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
 
         public async Task<IActionResult> CreatorItemById([FromQuery] int itemId, string creatorId)
         {
@@ -163,7 +166,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
                 {
                     return NotFound(new
                     {
@@ -172,7 +175,8 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                DetailsMenuItemViewModel item = await _menuItemService.CreatorItemById(itemId, creatorId);
+                DetailsMenuItemViewModel item = await _adminService
+                    .CreatorItemByIdAsync(itemId, creatorId);
 
                 return Ok(new
                 {
@@ -189,6 +193,7 @@ namespace BurgerMasters.Controllers
         [HttpGet("EditItemInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditItemInfo([FromQuery] int itemId, string creatorId)
         {
@@ -205,7 +210,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
                 {
                     return NotFound(new
                     {
@@ -214,8 +219,8 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                ViewEditItemInfoViewModel item = await _menuItemService
-                    .GetEditItemInfoByItemId(itemId, creatorId);
+                ViewEditItemInfoViewModel item = await _adminService
+                    .GetEditItemInfoByItemIdAsync(itemId, creatorId);
 
                 return Ok(new
                 {
@@ -260,7 +265,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
                 {
                     return NotFound(new
                     {
@@ -270,7 +275,7 @@ namespace BurgerMasters.Controllers
                 }
 
 
-                await _menuItemService.EditMenuItem(model, itemId, creatorId);
+                await _adminService.EditMenuItemAsync(model, itemId, creatorId);
 
                 return Ok(new
                 {
@@ -288,6 +293,7 @@ namespace BurgerMasters.Controllers
         [HttpDelete("DeleteItem")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> DeleteItem([FromQuery]int itemId, string creatorId)
         {
@@ -304,7 +310,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                if ((await _menuItemService.ItemExistsByCreatorId(itemId, creatorId)) == false)
+                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
                 {
                     return NotFound(new
                     {
@@ -313,7 +319,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                await _menuItemService.DeleteMenuItem(itemId, creatorId);
+                await _adminService.DeleteMenuItemAsync(itemId, creatorId);
 
                 return Ok(new
                 {

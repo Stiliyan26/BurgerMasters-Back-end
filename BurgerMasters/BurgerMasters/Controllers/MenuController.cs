@@ -34,7 +34,7 @@ namespace BurgerMasters.Controllers
         {
             try
             {
-                IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAll(itemType);
+                IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAllAsync(itemType);
 
                 return Ok(menuItems);
             }
@@ -53,7 +53,7 @@ namespace BurgerMasters.Controllers
         {
             try
             {
-                if ((await _menuItemService.ItemExists(itemId)) == false)
+                if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
                 {
                     return NotFound(new
                     {
@@ -62,7 +62,7 @@ namespace BurgerMasters.Controllers
                     });
                 }
 
-                DetailsMenuItemViewModel item = await _menuItemService.GetItemById(itemId);
+                DetailsMenuItemViewModel item = await _menuItemService.GetItemByIdAsync(itemId);
 
                 return Ok(new
                 {
@@ -85,7 +85,7 @@ namespace BurgerMasters.Controllers
         {
             try
             {
-                if ((await _menuItemService.ItemExists(itemId)) == false)
+                if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
                 {
                     return NotFound(new
                     {
@@ -95,7 +95,7 @@ namespace BurgerMasters.Controllers
                 }
 
                 IEnumerable<MenuItemViewModel> items = await _menuItemService
-                    .GetFourSimilarItemsByType(itemType, itemId);
+                    .GetFourSimilarItemsByTypeAsync(itemType, itemId);
 
                 return Ok(new
                 {

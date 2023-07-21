@@ -1,4 +1,6 @@
-﻿using BurgerMasters.Core.Models.MenuItemModels;
+﻿using BurgerMasters.Core.Models.MenuItem;
+using BurgerMasters.Core.Models.MenuItemModels;
+using BurgerMasters.Core.Models.Transactions;
 using BurgerMasters.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -12,29 +14,16 @@ namespace BurgerMasters.Core.Contracts
     {
         IEnumerable<ItemType> GetAllItemTypes();
 
-        Task CreateMenuItem(FormMenuItemViewModel createItemModel, string userId);
+        Task<IEnumerable<MenuItemViewModel>> GetAllAsync(string itemType);
 
-        Task<IEnumerable<MenuItemViewModel>> GetAll(string itemType);
+        Task<DetailsMenuItemViewModel> GetItemByIdAsync(int id);
 
-        Task<DetailsMenuItemViewModel> GetItemById(int id);
+        Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAsync(string itemType, int itemId);
 
-        Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByType(string itemType, int itemId);
+        Task<bool> ItemExistsAsync(int itemId);
 
-        Task<IEnumerable<MenuItemViewModel>> GetMyItemsByType(string userId, string itemType);
+        Task AddItemToUserCartAsync(CartInfoViewModel model);
 
-        Task<bool> ItemExists(int itemId);
-
-        Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAndCreator(string itemType,
-            int itemId, string creatorId);
-
-        Task<bool> ItemExistsByCreatorId(int itemId, string creatorId);
-
-        Task<DetailsMenuItemViewModel> CreatorItemById(int itemId, string creatorId);
-
-        Task<ViewEditItemInfoViewModel> GetEditItemInfoByItemId(int itemId, string creatorId);
-
-        Task EditMenuItem(FormMenuItemViewModel item, int itemId, string creatorId);
-
-        Task DeleteMenuItem(int itemId,string creatorId);
+        Task<IEnumerable<CartItemInfoViewModel>> GetAllCartItemsByUserIdAsync(string userId);
     }
 }

@@ -76,9 +76,14 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-//Menu services
+
 builder.Services.AddScoped<IRepository, Repository>();
+
+//Menu services
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
+//Admin service
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 
 //Prevents from returning automatically 400 Bad Request after failing Model validation!!!
 builder.Services.Configure<ApiBehaviorOptions>(options =>
