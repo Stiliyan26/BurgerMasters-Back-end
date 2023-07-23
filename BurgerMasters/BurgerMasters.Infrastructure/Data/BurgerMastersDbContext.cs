@@ -23,9 +23,16 @@ namespace BurgerMasters.Infrastructure.Data
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        
         public DbSet<MenuItem> MenuItems { get; set; }
+
         public DbSet<ItemType> ItemTypes { get; set; }
+
         public DbSet<ApplicationUserMenuItem> ApplicationUserMenuItems { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

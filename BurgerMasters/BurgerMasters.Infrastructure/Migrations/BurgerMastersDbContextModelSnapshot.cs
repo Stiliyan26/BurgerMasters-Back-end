@@ -190,6 +190,54 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.ToTable("MenuItems");
                 });
 
+            modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -353,6 +401,36 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.Navigation("ItemType");
                 });
 
+            modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.Order", b =>
+                {
+                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.OrderDetail", b =>
+                {
+                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.MenuItem", "MenuItem")
+                        .WithMany()
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MenuItem");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -417,6 +495,11 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.MenuItem", b =>
                 {
                     b.Navigation("ApplicationUserMenuItems");
+                });
+
+            modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }
