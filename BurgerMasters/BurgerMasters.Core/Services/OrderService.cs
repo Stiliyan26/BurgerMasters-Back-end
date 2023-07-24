@@ -2,12 +2,8 @@
 using BurgerMasters.Core.Models.Transactions;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Models;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerMasters.Core.Services
 {
@@ -19,7 +15,7 @@ namespace BurgerMasters.Core.Services
         {
             _repo = repo;
         }
-        public async Task CreateOrder(OrderViewModel orderInfo)
+        public async Task CreateOrderAsync(OrderViewModel orderInfo)
         {
             string format = "yyyy-MM-dd HH:mm";
             DateTime validOrderDate;
@@ -29,10 +25,10 @@ namespace BurgerMasters.Core.Services
 
             if (isOrderDateValid)
             {
-                ICollection<OrderDetail> orderDetails = orderInfo.OrderDetails
+                ICollection<OrderDetail> orderDetails = orderInfo.MenuItems
                     .Select(od => new OrderDetail()
                     {
-                        MenuItemId = od.Id,
+                        MenuItemId = od.MenuItemId,
                         Quantity = od.Quantity,
                     })
                     .ToList();
@@ -48,6 +44,21 @@ namespace BurgerMasters.Core.Services
                 await _repo.AddAsync(newOrder);
                 await _repo.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<ExportOrderViewModel>> GetAllPendingOrdersAsync()
+        {
+            return await _repo.AllReadonly<Order>()
+                .Where(o => o.IsPending == true)
+                .Select(o => new ExportOrderViewModel()
+                {
+                    OrderId = o.Id,
+                    Username = o.ApplicationUser.UserName,
+                    OrderDate = o.OrderDate.ToString("yyyy-MM-dd HH:mm"),
+                    Address = o.ApplicationUser.Address,
+                    TotalPrice = o.TotalPrice
+                })
+                .ToListAsync();
         }
     }
 }

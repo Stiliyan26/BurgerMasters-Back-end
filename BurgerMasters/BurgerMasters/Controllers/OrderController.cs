@@ -1,7 +1,9 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.Transactions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Web.Http.ModelBinding;
 
 namespace BurgerMasters.Controllers
@@ -32,10 +34,43 @@ namespace BurgerMasters.Controllers
 
             try
             {
-                await _orderService.CreateOrder(orderInfo);
+                await _orderService.CreateOrderAsync(orderInfo);
 
                 return Ok(new
                 {
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("AllPendingOrders"), Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> AllPendingOrders([FromQuery] string adminId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (adminId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+                IEnumerable<ExportOrderViewModel> orders = await _orderService
+                    .GetAllPendingOrdersAsync();
+
+                return Ok(new
+                {
+                    orders,
                     status = 200
                 });
             }

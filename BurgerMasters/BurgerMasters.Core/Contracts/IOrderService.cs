@@ -9,6 +9,8 @@ namespace BurgerMasters.Core.Contracts
 {
     public interface IOrderService
     {
-        Task CreateOrder(OrderViewModel orderInfo);
+        Task CreateOrderAsync(OrderViewModel orderInfo);
+
+        Task<IEnumerable<ExportOrderViewModel>> GetAllPendingOrdersAsync();
     }
 }

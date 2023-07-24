@@ -4,6 +4,7 @@ using BurgerMasters.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurgerMasters.Infrastructure.Migrations
 {
     [DbContext(typeof(BurgerMastersDbContext))]
-    partial class BurgerMastersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724185239_IsPendingAddded")]
+    partial class IsPendingAddded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

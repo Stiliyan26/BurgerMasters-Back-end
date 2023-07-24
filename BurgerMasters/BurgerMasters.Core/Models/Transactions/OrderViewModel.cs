@@ -17,8 +17,8 @@ namespace BurgerMasters.Core.Models.Transactions
         [Required]
         public string UserId { get; set; }
 
-        public ICollection<OrderDetailViewModel> OrderDetails { get; set; }
-            = new List<OrderDetailViewModel>();
+        public ICollection<OrderMenuItemViewModel> MenuItems { get; set; }
+            = new List<OrderMenuItemViewModel>();
 
         [Required]
         public decimal OrderPrice { get; set; }

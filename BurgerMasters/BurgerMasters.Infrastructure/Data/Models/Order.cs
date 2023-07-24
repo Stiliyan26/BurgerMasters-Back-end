@@ -19,6 +19,8 @@ namespace BurgerMasters.Infrastructure.Data.Models
         [Required]
         public string UserId { get; set; }
 
+        public bool IsPending { get; set; } = true;
+
         [ForeignKey(nameof(UserId))]
         public ApplicationUser ApplicationUser { get; set; }
 
