@@ -37,7 +37,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
 
         [Required]
         [MaxLength(50)]
-        public string CreaterId { get; set; } = null!;
+        public string CreatorId { get; set; } = null!;
 
         public ICollection<ApplicationUserMenuItem> ApplicationUserMenuItems { get; set; }
             = new List<ApplicationUserMenuItem>();

@@ -32,7 +32,8 @@ namespace BurgerMasters.Core.Services
 
         public async Task<IdentityResult> RegisterAsync(RegisterViewModel model, DateTime birthdate)
         {
-            return await _userRepo.RegisterAsync(model.UserName, model.Email, model.Password, birthdate);
+            return await _userRepo
+                .RegisterAsync(model.UserName, model.Email, model.Address, model.Password, birthdate);
         }
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
@@ -66,6 +67,7 @@ namespace BurgerMasters.Core.Services
             {
                 Id = userId,
                 Username = existingUser.UserName,
+                Address = existingUser.Address,
                 Email = existingUser.Email,
                 Birthdate = existingUser.Birthdate.ToString("yyyy-MM-dd") ?? string.Empty,
                 Role = role ?? ""

@@ -32,6 +32,7 @@ namespace BurgerMasters.UnitTests.User
                 Id = "1234",
                 Username = "testuser",
                 Email = "testuser@example.com",
+                Address = "Orehova gora number 20",
                 Birthdate = DateTime.Now.ToString()
             };
             
@@ -67,6 +68,7 @@ namespace BurgerMasters.UnitTests.User
 
             Assert.AreEqual(userInfo.Id, claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             Assert.AreEqual(userInfo.Email, claimsIdentity.FindFirst(ClaimTypes.Email)?.Value);
+            Assert.AreEqual(userInfo.Address, claimsIdentity.FindFirst(ClaimTypes.StreetAddress)?.Value);
             Assert.AreEqual(userInfo.Username, claimsIdentity.FindFirst(ClaimTypes.Name)?.Value);
             Assert.AreEqual(userInfo.Birthdate.ToString(), claimsIdentity.FindFirst(ClaimTypes.DateOfBirth)?.Value);
         }
@@ -80,6 +82,7 @@ namespace BurgerMasters.UnitTests.User
                 Id = "12345",
                 Username = "testuser",
                 Email = "testuser@example.com",
+                Address = "Orehova gora number 20",
                 Birthdate = DateTime.Now.ToString(),
                 Role = "admin"
             };
@@ -87,10 +90,11 @@ namespace BurgerMasters.UnitTests.User
             var claims = _tokenService.GetClaims(userInfo);
 
             // Assert
-            Assert.AreEqual(5, claims.Length);
+            Assert.AreEqual(6, claims.Length);
 
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.NameIdentifier && c.Value == userInfo.Id));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.Email && c.Value == userInfo.Email));
+            Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.StreetAddress && c.Value == userInfo.Address));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.Name && c.Value == userInfo.Username));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.DateOfBirth && c.Value == userInfo.Birthdate.ToString()));
             Assert.IsTrue(claims.Any(c => c.Type == ClaimTypes.Role && c.Value == userInfo.Role));

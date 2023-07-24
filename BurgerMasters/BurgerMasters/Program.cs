@@ -83,7 +83,8 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 //Admin service
 builder.Services.AddScoped<IAdminService, AdminService>();
-
+//Oreder service
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 //Prevents from returning automatically 400 Bad Request after failing Model validation!!!
 builder.Services.Configure<ApiBehaviorOptions>(options =>

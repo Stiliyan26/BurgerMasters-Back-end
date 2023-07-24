@@ -23,13 +23,14 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public async Task<IdentityResult> RegisterAsync(string username, string email,
+        public async Task<IdentityResult> RegisterAsync(string username, string email, string address,
             string password, DateTime birthdate)
         {
             var user = new ApplicationUser()
             {
                 UserName = username,
                 Email = email,
+                Address = address,
                 Birthdate = birthdate
             };
 

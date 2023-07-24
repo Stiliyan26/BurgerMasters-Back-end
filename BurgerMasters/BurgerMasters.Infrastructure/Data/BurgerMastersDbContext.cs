@@ -46,6 +46,10 @@ namespace BurgerMasters.Infrastructure.Data
                 .Property(m => m.Price)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<Order>()
+                .Property(m => m.TotalPrice)
+                .HasColumnType("decimal(18,2)");
+
             modelBuilder
                 .Entity<ItemType>()
                 .HasData(

@@ -23,6 +23,10 @@ namespace BurgerMasters.Core.Models.Auth
         public string Birthdate { get; set; } = null!;
 
         [Required]
+        [MaxLength(80)]
+        public string Address { get; set; } = null!;
+
+        [Required]
         [StringLength(20, MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;

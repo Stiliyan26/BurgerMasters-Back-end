@@ -11,7 +11,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
     public class Order
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }
@@ -24,5 +24,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
 
         public ICollection<OrderDetail> OrderDetails { get; set; } 
             = new List<OrderDetail>();
+
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace BurgerMasters.Core.Services
                 new Claim(ClaimTypes.NameIdentifier, userInfo.Id),
                 new Claim(ClaimTypes.Email, userInfo.Email),
                 new Claim(ClaimTypes.Name, userInfo.Username),
+                new Claim(ClaimTypes.StreetAddress, userInfo.Address),
                 new Claim(ClaimTypes.DateOfBirth, userInfo.Birthdate.ToString()),
                 new Claim(ClaimTypes.Role, userInfo.Role ?? string.Empty)
             };

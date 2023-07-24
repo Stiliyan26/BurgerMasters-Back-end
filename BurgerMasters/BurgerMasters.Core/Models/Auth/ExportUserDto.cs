@@ -14,6 +14,8 @@ namespace BurgerMasters.Core.Models.Auth
 
         public string Email { get; set; } = null!;
 
+        public string Address { get; set; } = null!;
+
         public string Birthdate { get; set; } = null!;
 
         public string Role { get; set; } = null!;

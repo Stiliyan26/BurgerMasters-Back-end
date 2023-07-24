@@ -79,7 +79,7 @@ namespace BurgerMasters.Core.Services
                 PortionSize = menuItem.PortionSize,
                 Price = menuItem.Price,
                 Description = menuItem.Description,
-                CreatorId = menuItem.CreaterId
+                CreatorId = menuItem.CreatorId
             };
         }
 

@@ -44,18 +44,21 @@ namespace BurgerMasters.UnitTests.User
             string username = "Peter12";
             string email = "peter@abv.bg";
             string password = "password";
+            string address = "Orehova gora number 20";
+
             DateTime birthdate = new DateTime(2003, 6, 29);
 
             RegisterViewModel model = new RegisterViewModel()
             {
                 UserName = username,
                 Email = email,
+                Address = address,
                 Password = password
             };
 
             var expectedResult = IdentityResult.Success;
 
-            _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, password, birthdate))
+            _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, address, password, birthdate))
                 .ReturnsAsync(expectedResult);
 
             //Act
@@ -72,18 +75,20 @@ namespace BurgerMasters.UnitTests.User
             string username = "Peter12";
             string email = "peter@abv.bg";
             string password = "password";
+            string address = "Orehova gora number 20";
             DateTime birthdate = new DateTime(2003, 6, 29);
 
             RegisterViewModel model = new RegisterViewModel()
             {
                 UserName = username,
                 Email = email,
+                Address = address,
                 Password = password
             };
 
             var expectedResult = IdentityResult.Failed(new IdentityError { Description = "Registration failed." }); ;
 
-            _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, password, birthdate))
+            _userRepoMock.Setup(repo => repo.RegisterAsync(username, email, address, password, birthdate))
                 .ReturnsAsync(expectedResult);
 
             //Act

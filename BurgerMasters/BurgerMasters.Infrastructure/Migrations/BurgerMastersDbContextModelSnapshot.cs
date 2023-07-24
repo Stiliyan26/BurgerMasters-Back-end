@@ -30,6 +30,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
@@ -151,7 +156,7 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CreaterId")
+                    b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -192,14 +197,15 @@ namespace BurgerMasters.Infrastructure.Migrations
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -223,8 +229,8 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -420,15 +426,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.Order", "Order")
+                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.Order", null)
                         .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("MenuItem");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

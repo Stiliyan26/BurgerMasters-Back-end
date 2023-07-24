@@ -19,9 +19,13 @@
 
         public const string ADMIN_ID_DIFFRENCE = "Admin id is not the same as the current user!";
 
+
         public const string USER_ID_DIFFRENCE = "User id is not the same as the current user!";
 
 
         public const string NOT_FOUND_ITEM_ERROR_MSG = "Item does not exist!";
+
+
+        public const string ORDER_DATA_INAVLID_MSG = "Your order data is invalid!";
     }
 }

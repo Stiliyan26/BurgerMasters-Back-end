@@ -38,13 +38,14 @@ namespace BurgerMasters.UnitTests.User
             string username = "Kiril20";
             string email = "kiril@abv.bg";
             string password = "KR#20%2003";
+            string address = "Orehova gora number 20";
             DateTime birthdate = DateTime.Parse("2003-03-15");
 
             _userManagerMock.Setup(um => um.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Success);
 
             //Act
-            var result = await _userRepo.RegisterAsync(username, email, password, birthdate);
+            var result = await _userRepo.RegisterAsync(username, email, address, password, birthdate);
 
             //Assert
             Assert.That(result, Is.EqualTo(IdentityResult.Success));
@@ -57,13 +58,14 @@ namespace BurgerMasters.UnitTests.User
             string username = "Kiril10";
             string email = "kiro@abv.com";
             string password = "Ki12$24%2003";
+            string address = "Orehova gora number 20";
             DateTime birthdate = new DateTime(2000, 1, 1);
 
             _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError { Code = "Error", Description = "Failed to create user." }));
 
             // Act
-            var result = await _userRepo.RegisterAsync(username, email, password, birthdate);
+            var result = await _userRepo.RegisterAsync(username, email, address, password, birthdate);
 
             // Assert
             Assert.IsFalse(result.Succeeded);
