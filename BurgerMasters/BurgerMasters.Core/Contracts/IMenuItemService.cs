@@ -21,11 +21,5 @@ namespace BurgerMasters.Core.Contracts
         Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAsync(string itemType, int itemId);
 
         Task<bool> ItemExistsAsync(int itemId);
-
-        Task AddItemToUserCartAsync(CartInfoViewModel model);
-
-        Task<IEnumerable<CartItemInfoViewModel>> GetAllCartItemsByUserIdAsync(string userId);
-
-        Task RemoveItemFromCartById(int itemId, string userId);
     }
 }

@@ -81,6 +81,8 @@ builder.Services.AddScoped<IRepository, Repository>();
 
 //Menu services
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
+//Cart service
+builder.Services.AddScoped<ICartService, CartService>();
 //Admin service
 builder.Services.AddScoped<IAdminService, AdminService>();
 //Oreder service
