@@ -7,10 +7,13 @@ using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +42,8 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-builder.Services.AddAuthentication(x => {
+builder.Services.AddAuthentication(x =>
+{
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
@@ -57,7 +61,7 @@ builder.Services.AddAuthentication(x => {
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(builder.Configuration["Jwt:Key"]))
         };
-    }); 
+    });
 
 builder.Services.AddCors(options =>
 {
@@ -69,8 +73,15 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
-builder.Services.AddAntiforgery();
 
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            //Inclueds nested collection in the response 
+            options.JsonSerializerOptions.IncludeFields = true;
+        });
+
+builder.Services.AddAntiforgery();
 builder.Services.AddHttpContextAccessor();
 //User services
 builder.Services.AddScoped<ITokenService, TokenService>();

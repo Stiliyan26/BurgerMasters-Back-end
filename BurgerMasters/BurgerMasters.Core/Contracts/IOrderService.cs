@@ -12,5 +12,7 @@ namespace BurgerMasters.Core.Contracts
         Task CreateOrderAsync(OrderViewModel orderInfo);
 
         Task<IEnumerable<ExportOrderViewModel>> GetAllPendingOrdersAsync();
+
+        Task<OrderDetailsViewModel> GetOrderByIdAsync(string userId, Guid orderId);
     }
 }

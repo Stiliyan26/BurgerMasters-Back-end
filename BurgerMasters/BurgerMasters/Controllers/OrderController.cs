@@ -11,6 +11,7 @@ namespace BurgerMasters.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderService _orderService;
+        private readonly ILogger _logger;
 
         public OrderController(IOrderService orderService)
         {
@@ -71,6 +72,48 @@ namespace BurgerMasters.Controllers
                 return Ok(new
                 {
                     orders,
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("OrderById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> OrderById([FromQuery] string userId, Guid orderId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (userId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                var orderInfo = await _orderService.GetOrderByIdAsync(userId, orderId);
+
+                if (orderInfo == null)
+                {
+                    return NotFound(new
+                    {
+                        errorMessage = ValidationConstants.ITEM_NOT_FOUND
+                    });
+                }
+
+                return Ok(new
+                {
+                    orderInfo,
                     status = 200
                 });
             }
