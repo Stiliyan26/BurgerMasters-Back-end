@@ -201,6 +201,9 @@ namespace BurgerMasters.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsPending")
                         .HasColumnType("bit");
 

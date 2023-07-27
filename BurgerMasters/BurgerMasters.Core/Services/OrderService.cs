@@ -15,6 +15,7 @@ namespace BurgerMasters.Core.Services
         {
             _repo = repo;
         }
+
         public async Task CreateOrderAsync(OrderViewModel orderInfo)
         {
             string format = "yyyy-MM-dd HH:mm";
@@ -46,10 +47,10 @@ namespace BurgerMasters.Core.Services
             }
         }
 
-        public async Task<IEnumerable<ExportOrderViewModel>> GetAllPendingOrdersAsync()
+        public async Task<IEnumerable<ExportOrderViewModel>> GetAllOrdersByStatus(bool isPending)
         {
             return await _repo.AllReadonly<Order>()
-                .Where(o => o.IsPending == true)
+                .Where(o => o.IsPending == isPending && o.IsActive == true)
                 .Select(o => new ExportOrderViewModel()
                 {
                     OrderId = o.Id,
@@ -61,10 +62,10 @@ namespace BurgerMasters.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<OrderDetailsViewModel> GetOrderByIdAsync(string userId, Guid orderId)
+        public async Task<OrderDetailsViewModel> GetOrderByIdAsync(Guid orderId)
         {
             return await _repo.AllReadonly<Order>()
-                .Where(o => o.Id == orderId)
+                .Where(o => o.Id == orderId && o.IsActive == true)
                 .Select(o => new OrderDetailsViewModel()
                 {
                     OrderId = o.Id,
@@ -85,6 +86,53 @@ namespace BurgerMasters.Core.Services
                         .ToList()
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Order> GetOrderById(Guid orderId)
+        {
+            return await _repo.GetByIdAsync<Order>(orderId);
+        }
+
+        public async Task AcceptOrderAsync(Guid orderId)
+        {
+            Order orderToAccept = await GetOrderById(orderId);
+
+            if (orderToAccept != null 
+                && orderToAccept.IsPending == true 
+                && orderToAccept.IsActive)
+            {
+                orderToAccept.IsPending = false;
+
+                await _repo.SaveChangesAsync();
+            }
+        }
+
+        public async Task UnacceptOrderAsync(Guid orderId)
+        {
+            Order orderToUnaccept = await GetOrderById(orderId);
+
+            if (orderToUnaccept != null 
+                && orderToUnaccept.IsPending == false 
+                && orderToUnaccept.IsActive)
+            {
+                orderToUnaccept.IsPending = true;
+
+                await _repo.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeclineOrderAsync(Guid orderId)
+        {
+            Order orderToDecline = await GetOrderById(orderId);
+
+            if (orderToDecline != null
+                && orderToDecline.IsPending == true
+                && orderToDecline.IsActive)
+            {
+                orderToDecline.IsActive = false;
+
+                await _repo.SaveChangesAsync();
+            }
         }
     }
 }

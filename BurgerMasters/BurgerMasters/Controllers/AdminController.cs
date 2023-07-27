@@ -239,6 +239,7 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> EditMenuItem([FromBody] FormMenuItemViewModel model,
             [FromQuery] int itemId, string creatorId)
@@ -290,7 +291,7 @@ namespace BurgerMasters.Controllers
         }
 
 
-        [HttpDelete("DeleteItem")]
+        [HttpPatch("DeleteItem")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
