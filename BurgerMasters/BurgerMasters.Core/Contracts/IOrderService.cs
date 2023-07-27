@@ -23,5 +23,7 @@ namespace BurgerMasters.Core.Contracts
         Task UnacceptOrderAsync(Guid orderId);
 
         Task DeclineOrderAsync(Guid orderId);
+
+        Task<IEnumerable<ExportOrderViewModel>> GetAllOrdersByUserId(string userId);
     }
 }

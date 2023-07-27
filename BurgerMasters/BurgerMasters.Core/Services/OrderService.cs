@@ -134,5 +134,20 @@ namespace BurgerMasters.Core.Services
                 await _repo.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<ExportOrderViewModel>> GetAllOrdersByUserId(string userId)
+        {
+            return await _repo.AllReadonly<Order>()
+                .Where(o => o.UserId == userId)
+                .Select(o => new ExportOrderViewModel()
+                {
+                    OrderId = o.Id,
+                    Username = o.ApplicationUser.UserName,
+                    OrderDate = o.OrderDate.ToString("yyyy-MM-dd HH:mm"),
+                    Address = o.ApplicationUser.Address,
+                    TotalPrice = o.TotalPrice
+                })
+                .ToListAsync();
+        }
     }
 }

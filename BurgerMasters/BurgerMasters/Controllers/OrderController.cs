@@ -197,7 +197,6 @@ namespace BurgerMasters.Controllers
         [HttpPatch("DeclineOrder"), Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> DeclineOrder(
             [FromQuery] string adminId,
@@ -220,6 +219,39 @@ namespace BurgerMasters.Controllers
 
                 return Ok(new
                 {
+                    status = 200
+                });
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+        [HttpGet("AllOfMyOrders"), Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> AllOfMyOrders([FromQuery] string userId)
+        {
+            try
+            {
+                string curretnIdentityId = GetUserId();
+
+                if (userId != curretnIdentityId)
+                {
+                    return Conflict(new
+                    {
+                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                        status = 409
+                    });
+                }
+
+                var orders = await _orderService.GetAllOrdersByUserId(userId);
+
+                return Ok(new
+                {
+                    orders,
                     status = 200
                 });
             }
