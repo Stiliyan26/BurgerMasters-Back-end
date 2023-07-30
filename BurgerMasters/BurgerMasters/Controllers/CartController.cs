@@ -1,7 +1,9 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.MenuItem;
+using BurgerMasters.Core.Models.MenuItemModels;
 using BurgerMasters.Core.Models.Transactions;
+using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Web.Http.ModelBinding;
 
@@ -19,6 +21,83 @@ namespace BurgerMasters.Controllers
             _menuItemService = menuItemService;
         }
 
+        private IActionResult HandleInvalidModelState()
+        {
+            return UnprocessableEntity(new
+            {
+                errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                status = 422
+            });
+        }
+
+        //Cheks if the user sending the request is the same as the logged in user
+        private IActionResult ValidateUserId(string userId)
+        {
+            string currentIdentityId = GetUserId();
+
+            if (userId != currentIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
+
+            return null;
+        }
+
+        //Checks if the item exists
+        private async Task<IActionResult> ItemExistsHandler(int itemId)
+        {
+            if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
+            {
+                return NotFound(new
+                {
+                    errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                    status = 404
+                });
+            }
+
+            return null;
+        }
+
+        //Validation template
+        private async Task<IActionResult> ProcessActionResult
+            (Func<Task<IActionResult>> action, int itemId, string userId)
+        {
+            if (userId != null)
+            {
+                IActionResult userIdValidationResult = ValidateUserId(userId);
+
+                if (userIdValidationResult != null)
+                {
+                    return userIdValidationResult;
+                }
+            }
+
+            try
+            {
+                if (itemId != -1)
+                {
+                    IActionResult itemExistsValidationResult =
+                        await ItemExistsHandler(itemId);
+
+                    if (itemExistsValidationResult != null)
+                    {
+                        return itemExistsValidationResult;
+                    }
+                }
+
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
+
         [HttpPost("AddItemToCart")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -29,46 +108,18 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(new
-                {
-                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
-                    status = 422
-                });
+                return HandleInvalidModelState();
             }
 
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (model.UserId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.USER_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _menuItemService.ItemExistsAsync(model.ItemId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 await _cartService.AddItemToUserCartAsync(model);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, model.ItemId, model.UserId);
         }
 
         [HttpGet("AllCartItems")]
@@ -78,19 +129,8 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> AllCartItems([FromQuery] string userId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (userId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.USER_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 var cartItems = await _cartService
                     .GetAllCartItemsByUserIdAsync(userId);
 
@@ -104,11 +144,7 @@ namespace BurgerMasters.Controllers
                     cartItems,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, -1, userId);
         }
 
 
@@ -118,30 +154,15 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> RemoveCartItem([FromQuery] int itemId, string userId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (userId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.USER_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 await _cartService.RemoveItemFromCartById(itemId, userId);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, userId);
         }
 
 
@@ -151,30 +172,15 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CleanUpCart([FromQuery] string userId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (userId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.USER_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 await _cartService.CleanUpCartAsync(userId);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, -1, userId);
         }
     }
 }

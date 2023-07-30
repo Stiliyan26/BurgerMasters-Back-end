@@ -144,3 +144,4 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\obj\Debug
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\obj\Debug\net6.0\BurgerMasters.UnitTests.pdb
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\obj\Debug\net6.0\BurgerMasters.UnitTests.genruntimeconfig.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\obj\Debug\net6.0\ref\BurgerMasters.UnitTests.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll

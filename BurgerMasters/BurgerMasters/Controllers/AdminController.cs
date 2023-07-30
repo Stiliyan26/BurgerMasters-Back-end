@@ -18,6 +18,87 @@ namespace BurgerMasters.Controllers
             _adminService = adminService;
         }
 
+        private IActionResult HandleInvalidModelState()
+        {
+            return UnprocessableEntity(new
+            {
+                errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                status = 422
+            });
+        }
+
+        private IActionResult NotFoundHandler()
+        {
+            return NotFound(new
+            {
+                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                status = 404
+            });
+        }
+
+        //Cheks if the user sending the request is the same as the logged in user
+        private IActionResult ValidateUserId(string userId)
+        {
+            string currentIdentityId = GetUserId();
+
+            if (userId != currentIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
+
+            return null;
+        }
+
+        //Check if the item is created by the Current Admin
+        private async Task<IActionResult> CheckItemExistsByCreatorId(int itemId, string creatorId)
+        {
+            if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
+            {
+                return NotFoundHandler();
+            }
+
+            return null;
+        }
+
+        //Validatiom template
+        private async Task<IActionResult> ProcessActionResult
+            (Func<Task<IActionResult>> action, int itemId, string userId)
+        {
+            if (userId != null)
+            {
+                IActionResult userIdValidationResult = ValidateUserId(userId);
+
+                if (userIdValidationResult != null)
+                {
+                    return userIdValidationResult;
+                }
+            }
+
+            try
+            {
+                if (itemId != -1)
+                {
+                    IActionResult itemExistsValidationResult = 
+                        await CheckItemExistsByCreatorId(itemId, userId);
+
+                    if (itemExistsValidationResult != null)
+                    {
+                        return itemExistsValidationResult;
+                    }
+                }
+
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
         [HttpPost("CreateMenuItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -30,59 +111,28 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(new
-                {
-                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
-                    status = 422
-                });
+                return HandleInvalidModelState();
             }
 
-            string curretnIdentityId = GetUserId();
-            //Checks is the same user sending the request!
-            if (userId != curretnIdentityId)
+            return await ProcessActionResult(async () =>
             {
-                return Conflict(new
-                {
-                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                    status = 409
-                });
-            }
-
-            try
-            {
-                await _adminService.CreateMenuItemAsync(model, curretnIdentityId);
+                await _adminService.CreateMenuItemAsync(model, userId);
 
                 return Ok(new
                 {
                     itemType = model.ItemType,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, -1, userId);
         }
 
         [HttpGet("MyItemsByType")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
         public async Task<IActionResult> MyItemsByType([FromQuery] string creatorId, string itemType)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-                //Checks is the same user sending the request!
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 IEnumerable<MenuItemViewModel> myItems = await _adminService
                     .GetCreatorItemsByTypeAsync(creatorId, itemType);
 
@@ -91,11 +141,7 @@ namespace BurgerMasters.Controllers
                     myItems,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, -1, creatorId);
         }
 
         [HttpGet("SimilarProductsByCreator")]
@@ -107,28 +153,8 @@ namespace BurgerMasters.Controllers
             int itemId,
             string creatorId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 IEnumerable<MenuItemViewModel> items =
                     await _adminService
                         .GetFourSimilarItemsByTypeAndCreatorAsync(itemType, itemId, creatorId);
@@ -138,11 +164,7 @@ namespace BurgerMasters.Controllers
                     items,
                     status = 200,
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, creatorId);
         }
 
         [HttpGet("CreatorItemById")]
@@ -153,28 +175,8 @@ namespace BurgerMasters.Controllers
 
         public async Task<IActionResult> CreatorItemById([FromQuery] int itemId, string creatorId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 DetailsMenuItemViewModel item = await _adminService
                     .CreatorItemByIdAsync(itemId, creatorId);
 
@@ -183,11 +185,7 @@ namespace BurgerMasters.Controllers
                     item,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, creatorId);
         }
 
         [HttpGet("EditItemInfo")]
@@ -197,28 +195,8 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditItemInfo([FromQuery] int itemId, string creatorId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 ViewEditItemInfoViewModel item = await _adminService
                     .GetEditItemInfoByItemIdAsync(itemId, creatorId);
 
@@ -227,12 +205,7 @@ namespace BurgerMasters.Controllers
                     item,
                     status = 200
                 });
-
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, creatorId);
         }
 
         [HttpPut("EditMenuItem")]
@@ -246,36 +219,11 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(new
-                {
-                    errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
-                    status = 422
-                });
+                return HandleInvalidModelState();
             }
 
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-                //Checks is the same user sending the request!
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
-
                 await _adminService.EditMenuItemAsync(model, itemId, creatorId);
 
                 return Ok(new
@@ -283,11 +231,7 @@ namespace BurgerMasters.Controllers
                     itemId,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, creatorId);
         }
 
 
@@ -296,41 +240,17 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> DeleteItem([FromQuery]int itemId, string creatorId)
+        public async Task<IActionResult> DeleteItem([FromQuery] int itemId, string creatorId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (creatorId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
-                if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 await _adminService.DeleteMenuItemAsync(itemId, creatorId);
 
                 return Ok(new
                 {
                     status = 204
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId, creatorId);
         }
     }
 }

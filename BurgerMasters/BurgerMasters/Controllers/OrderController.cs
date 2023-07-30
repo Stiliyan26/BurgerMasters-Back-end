@@ -1,9 +1,11 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.Transactions;
+using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Web.Http.ModelBinding;
 
@@ -12,11 +14,69 @@ namespace BurgerMasters.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderService _orderService;
-        private readonly ILogger _logger;
 
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
+        }
+
+        private IActionResult HandleInvalidModelState()
+        {
+            return UnprocessableEntity(new
+            {
+                errorMessage = ValidationConstants.ORDER_DATA_INAVLID_MSG,
+                status = 422
+            });
+        }
+
+        private IActionResult NotFoundHandler()
+        {
+            return NotFound(new
+            {
+                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                status = 404
+            });
+        }
+
+        //Cheks if the user sending the request is the same as the logged in user
+        private IActionResult ValidateUserId(string userId)
+        {
+            string currentIdentityId = GetUserId();
+
+            if (userId != currentIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
+
+            return null;
+        }
+
+        //Validation template
+        private async Task<IActionResult> ProcessActionResult
+           (Func<Task<IActionResult>> action, string userId)
+        {
+            if (userId != null)
+            {
+                IActionResult userIdValidationResult = ValidateUserId(userId);
+
+                if (userIdValidationResult != null)
+                {
+                    return userIdValidationResult;
+                }
+            }
+
+            try
+            {
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
 
         [HttpPost("SentOrder")]
@@ -27,14 +87,10 @@ namespace BurgerMasters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return UnprocessableEntity(new
-                {
-                    errorMessage = ValidationConstants.ORDER_DATA_INAVLID_MSG,
-                    status = 422
-                });
+                return HandleInvalidModelState();
             }
 
-            try
+            return await ProcessActionResult(async () =>
             {
                 await _orderService.CreateOrderAsync(orderInfo);
 
@@ -42,44 +98,31 @@ namespace BurgerMasters.Controllers
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, orderInfo.UserId);
         }
 
         [HttpGet("AllOrdersByStatus"), Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> AllOrdersByStatus([FromQuery] string adminId, bool isPending)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (adminId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 var orders = await _orderService.GetAllOrdersByStatus(isPending);
+
+                if (orders == null)
+                {
+                    return NotFoundHandler();
+                }
 
                 return Ok(new
                 {
                     orders,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, adminId);
         }
 
         [HttpGet("OrderById")]
@@ -89,28 +132,13 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> OrderById([FromQuery] string userId, Guid orderId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (userId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 var orderInfo = await _orderService.GetOrderByIdAsync(orderId);
 
                 if (orderInfo == null)
                 {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.ITEM_NOT_FOUND,
-                        status = 404
-                    });
+                    return NotFoundHandler();
                 }
 
                 return Ok(new
@@ -118,11 +146,7 @@ namespace BurgerMasters.Controllers
                     orderInfo,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, userId);
         }
 
 
@@ -134,30 +158,15 @@ namespace BurgerMasters.Controllers
             [FromQuery] string adminId,
             [FromBody] Guid orderId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (adminId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 await _orderService.AcceptOrderAsync(orderId);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, adminId);
         }
 
         [HttpPatch("UnacceptOrder"), Authorize(Roles = "Admin")]
@@ -168,30 +177,15 @@ namespace BurgerMasters.Controllers
             [FromQuery] string adminId,
             [FromBody] Guid orderId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (adminId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 await _orderService.UnacceptOrderAsync(orderId);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, adminId);
         }
 
         [HttpPatch("DeclineOrder"), Authorize(Roles = "Admin")]
@@ -202,51 +196,25 @@ namespace BurgerMasters.Controllers
             [FromQuery] string adminId,
             [FromBody] Guid orderId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (adminId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 await _orderService.DeclineOrderAsync(orderId);
 
                 return Ok(new
                 {
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, adminId);
         }
 
-        [HttpGet("AllOfMyOrders"), Authorize(Roles = "Admin")]
+        [HttpGet("AllOfMyOrders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> AllOfMyOrders([FromQuery] string userId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                string curretnIdentityId = GetUserId();
-
-                if (userId != curretnIdentityId)
-                {
-                    return Conflict(new
-                    {
-                        errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                        status = 409
-                    });
-                }
-
                 var orders = await _orderService.GetAllOrdersByUserId(userId);
 
                 return Ok(new
@@ -254,11 +222,7 @@ namespace BurgerMasters.Controllers
                     orders,
                     status = 200
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, userId);
         }
     }
 }

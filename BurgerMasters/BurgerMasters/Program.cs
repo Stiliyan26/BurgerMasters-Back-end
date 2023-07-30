@@ -12,8 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,23 +79,8 @@ builder.Services.AddControllers()
             options.JsonSerializerOptions.IncludeFields = true;
         });
 
-builder.Services.AddAntiforgery();
-builder.Services.AddHttpContextAccessor();
-//User services
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IRepository, Repository>();
-
-//Menu services
-builder.Services.AddScoped<IMenuItemService, MenuItemService>();
-//Cart service
-builder.Services.AddScoped<ICartService, CartService>();
-//Admin service
-builder.Services.AddScoped<IAdminService, AdminService>();
-//Oreder service
-builder.Services.AddScoped<IOrderService, OrderService>();
+//All custom services
+builder.Services.AddCustomServices();
 
 //Prevents from returning automatically 400 Bad Request after failing Model validation!!!
 builder.Services.Configure<ApiBehaviorOptions>(options =>
@@ -119,7 +102,6 @@ app.UseCors("AllowOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllers();
 

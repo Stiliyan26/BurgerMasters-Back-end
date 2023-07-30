@@ -16,12 +16,61 @@ namespace BurgerMasters.Controllers
             _menuItemService = menuItemService;
         }
 
+        private IActionResult NotFoundHandler()
+        {
+            return NotFound(new
+            {
+                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                status = 404
+            });
+        }
+
+        //Checks if the item exists
+        private async Task<IActionResult> ItemExistsHandler(int itemId)
+        {
+            if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
+            {
+                return NotFoundHandler();
+            }
+
+            return null;
+        }
+
+        //Validation template
+        private async Task<IActionResult> ProcessActionResult
+            (Func<Task<IActionResult>> action, int itemId)
+        {
+            try
+            {
+                if (itemId != -1)
+                {
+                    IActionResult itemExistsResult = await ItemExistsHandler(itemId);
+
+                    if (itemExistsResult != null)
+                    {
+                        return itemExistsResult;
+                    }
+                }
+
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
 
         [HttpGet("AllItemTypes"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult AllItemTypes()
         {
             IEnumerable<ItemType> allItemTypes = _menuItemService.GetAllItemTypes();
+
+            if (allItemTypes == null)
+            {
+                return NotFoundHandler();
+            }
 
             return Ok(allItemTypes);
         }
@@ -30,18 +79,20 @@ namespace BurgerMasters.Controllers
         [HttpGet("AllItemsByType")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllItemsByType([FromQuery] string itemType)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
                 IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAllAsync(itemType);
 
+                if (menuItems == null)
+                {
+                    NotFoundHandler();
+                }
+
                 return Ok(menuItems);
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, -1);
         }
 
         [HttpGet("ItemDetailsById")]
@@ -51,29 +102,16 @@ namespace BurgerMasters.Controllers
 
         public async Task<IActionResult> ItemDetails([FromQuery] int itemId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 DetailsMenuItemViewModel item = await _menuItemService.GetItemByIdAsync(itemId);
 
                 return Ok(new
                 {
                     item,
                     status = 200
-                }); 
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+                });
+            }, itemId);
         }
 
         [HttpGet("SimilarProducts")]
@@ -83,30 +121,17 @@ namespace BurgerMasters.Controllers
 
         public async Task<IActionResult> SimilarProducts([FromQuery] string itemType, int itemId)
         {
-            try
+            return await ProcessActionResult(async () =>
             {
-                if ((await _menuItemService.ItemExistsAsync(itemId)) == false)
-                {
-                    return NotFound(new
-                    {
-                        errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                        status = 404
-                    });
-                }
-
                 IEnumerable<MenuItemViewModel> items = await _menuItemService
-                    .GetFourSimilarItemsByTypeAsync(itemType, itemId);
+                  .GetFourSimilarItemsByTypeAsync(itemType, itemId);
 
                 return Ok(new
                 {
                     items,
                     status = 200,
                 });
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
+            }, itemId);
         }
     }
 }

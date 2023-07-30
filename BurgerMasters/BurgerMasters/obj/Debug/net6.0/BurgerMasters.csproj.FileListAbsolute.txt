@@ -87,3 +87,4 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\Bu
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.genruntimeconfig.cache
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\ref\BurgerMasters.dll
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\obj\Debug\net6.0\BurgerMasters.MvcApplicationPartsAssemblyInfo.cs
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll
