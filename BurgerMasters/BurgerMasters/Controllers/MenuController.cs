@@ -4,16 +4,21 @@ using BurgerMasters.Core.Models.MenuItemModels;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BurgerMasters.Controllers
 {
     public class MenuController : BaseController
     {
         private readonly IMenuItemService _menuItemService;
+        private readonly IMemoryCache _memoryCache;
 
-        public MenuController(IMenuItemService menuItemService)
+        public MenuController(
+            IMenuItemService menuItemService,
+            IMemoryCache memoryCache)
         {
             _menuItemService = menuItemService;
+            _memoryCache = memoryCache;
         }
 
         private IActionResult NotFoundHandler()
@@ -82,6 +87,11 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllItemsByType([FromQuery] string itemType)
         {
+            if (_memoryCache.TryGetValue<IEnumerable<MenuItemViewModel>>(itemType, out var cachedMenuItems))
+            {
+                return Ok(cachedMenuItems);
+            }
+
             return await ProcessActionResult(async () =>
             {
                 IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAllAsync(itemType);
@@ -89,6 +99,14 @@ namespace BurgerMasters.Controllers
                 if (menuItems == null)
                 {
                     NotFoundHandler();
+                }
+                else
+                {
+                    var cacheEntryOptions = new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                    };
+                    _memoryCache.Set(itemType, menuItems, cacheEntryOptions);
                 }
 
                 return Ok(menuItems);

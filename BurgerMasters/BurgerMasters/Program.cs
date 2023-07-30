@@ -79,6 +79,17 @@ builder.Services.AddControllers()
             options.JsonSerializerOptions.IncludeFields = true;
         });
 
+//Prevent from CSRF
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "MyApp_CSRF";
+    options.FormFieldName = "MyApp_CSRF_TOKEN";
+    options.HeaderName = "X-CSRF-TOKEN";
+});
+
+builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpContextAccessor();
 //All custom services
 builder.Services.AddCustomServices();
 

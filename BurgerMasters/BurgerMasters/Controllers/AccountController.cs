@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.Auth;
+using System.Net;
 
 namespace BurgerMasters.Controllers
 {
@@ -22,6 +23,16 @@ namespace BurgerMasters.Controllers
             _userService = userService;
             _tokenService = tokenService;
             _userManager = userManager;
+        }
+
+        private void HtmlEncoderUserInputsRegister(RegisterViewModel model)
+        {
+            model.UserName = WebUtility.HtmlEncode(model.UserName);
+            model.Email = WebUtility.HtmlEncode(model.Email);   
+            model.Birthdate = WebUtility.HtmlEncode(model.Birthdate);
+            model.Address = WebUtility.HtmlEncode(model.Address);
+            model.Password = WebUtility.HtmlEncode(model.Password);
+            model.ConfirmPassword = WebUtility.HtmlEncode(model.ConfirmPassword);
         }
 
         /// <summary>
@@ -45,6 +56,8 @@ namespace BurgerMasters.Controllers
                 });
             }
 
+            //HTML encode user inputs to prevent XSS attacks
+            HtmlEncoderUserInputsRegister(model);
             string token;
 
             try
@@ -87,6 +100,11 @@ namespace BurgerMasters.Controllers
             });
         }
 
+        private void HtmlEncoderUserInputsLogin(LoginViewModel model)
+        {
+            model.Email = WebUtility.HtmlEncode(model.Email);
+            model.Password = WebUtility.HtmlEncode(model.Password);
+        }
         /// <summary>
         /// Logs in a user.
         /// </summary>
@@ -108,6 +126,8 @@ namespace BurgerMasters.Controllers
                     status = 422
                 });
             }
+
+            HtmlEncoderUserInputsLogin(model);
 
             string token;
 
