@@ -1,4 +1,5 @@
-﻿using BurgerMasters.Infrastructure.Data.Models;
+﻿using BurgerMasters.Infrastructure.Data.Configuration;
+using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -50,25 +51,9 @@ namespace BurgerMasters.Infrastructure.Data
                 .Property(m => m.TotalPrice)
                 .HasColumnType("decimal(18,2)");
 
-            modelBuilder
-                .Entity<ItemType>()
-                .HasData(
-                    new ItemType()
-                    {
-                        Id = 1,
-                        Name = "Burger"
-                    },
-                    new ItemType()
-                    {
-                        Id = 2,
-                        Name = "Drink"
-                    },
-                    new ItemType()
-                    {
-                        Id = 3,
-                        Name = "Fries"
-                    }
-                );
+            //Configurations 
+            modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
+                
 
             base.OnModelCreating(modelBuilder);
         }

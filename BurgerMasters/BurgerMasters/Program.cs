@@ -87,11 +87,11 @@ builder.Services.AddAntiforgery(options =>
     options.HeaderName = "X-CSRF-TOKEN";
 });
 
-builder.Services.AddMemoryCache();
-
 builder.Services.AddHttpContextAccessor();
 //All custom services
 builder.Services.AddCustomServices();
+//Set memory cache
+builder.Services.AddMemoryCache();
 
 //Prevents from returning automatically 400 Bad Request after failing Model validation!!!
 builder.Services.Configure<ApiBehaviorOptions>(options =>

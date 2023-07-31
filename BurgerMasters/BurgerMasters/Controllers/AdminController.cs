@@ -18,87 +18,6 @@ namespace BurgerMasters.Controllers
             _adminService = adminService;
         }
 
-        private IActionResult HandleInvalidModelState()
-        {
-            return UnprocessableEntity(new
-            {
-                errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
-                status = 422
-            });
-        }
-
-        private IActionResult NotFoundHandler()
-        {
-            return NotFound(new
-            {
-                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                status = 404
-            });
-        }
-
-        //Cheks if the user sending the request is the same as the logged in user
-        private IActionResult ValidateUserId(string userId)
-        {
-            string currentIdentityId = GetUserId();
-
-            if (userId != currentIdentityId)
-            {
-                return Conflict(new
-                {
-                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                    status = 409
-                });
-            }
-
-            return null;
-        }
-
-        //Check if the item is created by the Current Admin
-        private async Task<IActionResult> CheckItemExistsByCreatorId(int itemId, string creatorId)
-        {
-            if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
-            {
-                return NotFoundHandler();
-            }
-
-            return null;
-        }
-
-        //Validatiom template
-        private async Task<IActionResult> ProcessActionResult
-            (Func<Task<IActionResult>> action, int itemId, string userId)
-        {
-            if (userId != null)
-            {
-                IActionResult userIdValidationResult = ValidateUserId(userId);
-
-                if (userIdValidationResult != null)
-                {
-                    return userIdValidationResult;
-                }
-            }
-
-            try
-            {
-                if (itemId != -1)
-                {
-                    IActionResult itemExistsValidationResult = 
-                        await CheckItemExistsByCreatorId(itemId, userId);
-
-                    if (itemExistsValidationResult != null)
-                    {
-                        return itemExistsValidationResult;
-                    }
-                }
-
-                return action().Result;
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
         [HttpPost("CreateMenuItem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -251,6 +170,90 @@ namespace BurgerMasters.Controllers
                     status = 204
                 });
             }, itemId, creatorId);
+        }
+
+
+        //Helper methods
+
+        private IActionResult HandleInvalidModelState()
+        {
+            return UnprocessableEntity(new
+            {
+                errorMessage = ValidationConstants.UNPROCESSABLE_ENTITY_ERROR_MSG,
+                status = 422
+            });
+        }
+
+        private IActionResult NotFoundHandler()
+        {
+            return NotFound(new
+            {
+                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                status = 404
+            });
+        }
+
+        //Cheks if the user sending the request is the same as the logged in user
+        private IActionResult ValidateUserId(string userId)
+        {
+            string currentIdentityId = GetUserId();
+
+            if (userId != currentIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
+
+            return null;
+        }
+
+        //Check if the item is created by the Current Admin
+        private async Task<IActionResult> CheckItemExistsByCreatorId(int itemId, string creatorId)
+        {
+            if ((await _adminService.ItemExistsByCreatorIdAsync(itemId, creatorId)) == false)
+            {
+                return NotFoundHandler();
+            }
+
+            return null;
+        }
+
+        //Validatiom template
+        private async Task<IActionResult> ProcessActionResult
+            (Func<Task<IActionResult>> action, int itemId, string userId)
+        {
+            if (userId != null)
+            {
+                IActionResult userIdValidationResult = ValidateUserId(userId);
+
+                if (userIdValidationResult != null)
+                {
+                    return userIdValidationResult;
+                }
+            }
+
+            try
+            {
+                if (itemId != -1)
+                {
+                    IActionResult itemExistsValidationResult =
+                        await CheckItemExistsByCreatorId(itemId, userId);
+
+                    if (itemExistsValidationResult != null)
+                    {
+                        return itemExistsValidationResult;
+                    }
+                }
+
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
     }
 }

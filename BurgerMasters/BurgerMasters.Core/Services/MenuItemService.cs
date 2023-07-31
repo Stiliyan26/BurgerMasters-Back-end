@@ -38,9 +38,10 @@ namespace BurgerMasters.Core.Services
                 .ToListAsync();
         }
 
-        public IEnumerable<ItemType> GetAllItemTypes()
+        public async Task<IEnumerable<ItemType>> GetAllItemTypesAsync()
         {
-            return _repo.AllReadonly<ItemType>();
+            return await _repo.AllReadonly<ItemType>()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAsync

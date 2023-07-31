@@ -6,6 +6,7 @@ using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Web.Http.ModelBinding;
 
@@ -18,65 +19,6 @@ namespace BurgerMasters.Controllers
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-        }
-
-        private IActionResult HandleInvalidModelState()
-        {
-            return UnprocessableEntity(new
-            {
-                errorMessage = ValidationConstants.ORDER_DATA_INAVLID_MSG,
-                status = 422
-            });
-        }
-
-        private IActionResult NotFoundHandler()
-        {
-            return NotFound(new
-            {
-                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
-                status = 404
-            });
-        }
-
-        //Cheks if the user sending the request is the same as the logged in user
-        private IActionResult ValidateUserId(string userId)
-        {
-            string currentIdentityId = GetUserId();
-
-            if (userId != currentIdentityId)
-            {
-                return Conflict(new
-                {
-                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
-                    status = 409
-                });
-            }
-
-            return null;
-        }
-
-        //Validation template
-        private async Task<IActionResult> ProcessActionResult
-           (Func<Task<IActionResult>> action, string userId)
-        {
-            if (userId != null)
-            {
-                IActionResult userIdValidationResult = ValidateUserId(userId);
-
-                if (userIdValidationResult != null)
-                {
-                    return userIdValidationResult;
-                }
-            }
-
-            try
-            {
-                return action().Result;
-            }
-            catch (Exception error)
-            {
-                return BadRequest(error.Message);
-            }
         }
 
         [HttpPost("SentOrder")]
@@ -210,6 +152,7 @@ namespace BurgerMasters.Controllers
         [HttpGet("AllOfMyOrders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> AllOfMyOrders([FromQuery] string userId)
         {
@@ -217,12 +160,78 @@ namespace BurgerMasters.Controllers
             {
                 var orders = await _orderService.GetAllOrdersByUserId(userId);
 
+                if (orders == null)
+                {
+                    return NotFoundHandler();
+                }
+
                 return Ok(new
                 {
                     orders,
                     status = 200
                 });
             }, userId);
+        }
+
+        //Helper methods
+
+        private IActionResult HandleInvalidModelState()
+        {
+            return UnprocessableEntity(new
+            {
+                errorMessage = ValidationConstants.ORDER_DATA_INAVLID_MSG,
+                status = 422
+            });
+        }
+
+        private IActionResult NotFoundHandler()
+        {
+            return NotFound(new
+            {
+                errorMessage = ValidationConstants.NOT_FOUND_ITEM_ERROR_MSG,
+                status = 404
+            });
+        }
+
+        //Cheks if the user sending the request is the same as the logged in user
+        private IActionResult ValidateUserId(string userId)
+        {
+            string currentIdentityId = GetUserId();
+
+            if (userId != currentIdentityId)
+            {
+                return Conflict(new
+                {
+                    errorMessage = ValidationConstants.ADMIN_ID_DIFFRENCE,
+                    status = 409
+                });
+            }
+
+            return null;
+        }
+
+        //Validation template
+        private async Task<IActionResult> ProcessActionResult
+           (Func<Task<IActionResult>> action, string userId)
+        {
+            if (userId != null)
+            {
+                IActionResult userIdValidationResult = ValidateUserId(userId);
+
+                if (userIdValidationResult != null)
+                {
+                    return userIdValidationResult;
+                }
+            }
+
+            try
+            {
+                return action().Result;
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
         }
     }
 }

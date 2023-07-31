@@ -12,7 +12,7 @@ namespace BurgerMasters.Core.Contracts
 {
     public interface IMenuItemService
     {
-        IEnumerable<ItemType> GetAllItemTypes();
+        Task<IEnumerable<ItemType>> GetAllItemTypesAsync();
 
         Task<IEnumerable<MenuItemViewModel>> GetAllAsync(string itemType);
 
