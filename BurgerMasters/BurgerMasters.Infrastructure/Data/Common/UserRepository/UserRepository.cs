@@ -35,6 +35,7 @@ namespace BurgerMasters.Infrastructure.Data.Common.UserRepository
             };
 
             var result = await _userManager.CreateAsync(user, password);
+            await _userManager.AddToRoleAsync(user, "User");
 
             return result;
         }

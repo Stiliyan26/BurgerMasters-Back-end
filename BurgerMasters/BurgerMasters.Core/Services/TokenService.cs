@@ -52,7 +52,7 @@ namespace BurgerMasters.Core.Services
                 new Claim(ClaimTypes.Name, userInfo.Username),
                 new Claim(ClaimTypes.StreetAddress, userInfo.Address),
                 new Claim(ClaimTypes.DateOfBirth, userInfo.Birthdate.ToString()),
-                new Claim(ClaimTypes.Role, userInfo.Role ?? string.Empty)
+                new Claim(ClaimTypes.Role, userInfo.Role ?? "User")
             };
         }
     }

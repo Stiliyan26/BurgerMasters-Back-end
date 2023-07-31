@@ -25,7 +25,7 @@ namespace BurgerMasters.Controllers
             _userManager = userManager;
         }
 
-        private void HtmlEncoderUserInputsRegister(RegisterViewModel model)
+        private static void HtmlEncoderUserInputsRegister(RegisterViewModel model)
         {
             model.UserName = WebUtility.HtmlEncode(model.UserName);
             model.Email = WebUtility.HtmlEncode(model.Email);   
@@ -100,7 +100,7 @@ namespace BurgerMasters.Controllers
             });
         }
 
-        private void HtmlEncoderUserInputsLogin(LoginViewModel model)
+        private static void HtmlEncoderUserInputsLogin(LoginViewModel model)
         {
             model.Email = WebUtility.HtmlEncode(model.Email);
             model.Password = WebUtility.HtmlEncode(model.Password);
@@ -206,7 +206,7 @@ namespace BurgerMasters.Controllers
                         Email = user.Email,
                         Username = user.UserName,
                         Birthdate = user.Birthdate.ToString("yyyy-MM-dd"),
-                        Role = role ?? "",
+                        Role = role ?? "User",
                     };
 
                     string refreshToken = _tokenService.GenerateRefreshToken(userInfo);

@@ -93,6 +93,44 @@ namespace BurgerMasters.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            AccessFailedCount = 0,
+                            Address = "Street: 17, bul. Cherni vrah",
+                            Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "58b0b991-9d19-4eb2-92b1-fb0f34e5cf68",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN12",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKRb3RnkUVn/4gLSgSZnDWUF+VQiAAv12GD4CTQJDGppr+R8tQIOCEPpZaj0czHYfA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "49ec931c-5447-4112-8c23-bc827b746bcd",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin12"
+                        },
+                        new
+                        {
+                            Id = "e130798b-a521-45ad-85df-b232eaaadc09",
+                            AccessFailedCount = 0,
+                            Address = "Street: 17, bul. Cherni vrah",
+                            Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "0d7659a2-6f42-4e1a-b450-ff4b7bd48bb1",
+                            Email = "user@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@GMAIL.COM",
+                            NormalizedUserName = "USER13",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBUbBX/sTnZYW8PlShUlr7ked7FE6avzGJHcjNlWu30ketwFqn05uJIA0ll4fLStrg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "eb4f7d61-cd44-4a3d-9cfb-34cb1e698c08",
+                            TwoFactorEnabled = false,
+                            UserName = "User13"
+                        });
                 });
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ApplicationUserMenuItem", b =>
@@ -145,6 +183,26 @@ namespace BurgerMasters.Infrastructure.Migrations
                         {
                             Id = 3,
                             Name = "Fries"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Hotdog"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Grill"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Salad"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Sandwich"
                         });
                 });
 
@@ -193,6 +251,116 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.HasIndex("ItemTypeId");
 
                     b.ToTable("MenuItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Burger sauce, Black Angus ground beef mixed with cheddar, Melted Irish red cheddar, Crispy bacon, Caramelized onions",
+                            ImageUrl = "JuicyLucy.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "THE JUICY LUCY",
+                            PortionSize = 350,
+                            Price = 17.40m
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Pineapple butter with rum, 200g Black Angus ground beef, Grilled pineapple, Crispy bacon with brown sugar",
+                            ImageUrl = "PineappleBaconRun.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Pineapple Bacon Run",
+                            PortionSize = 380,
+                            Price = 19.40m
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, Homemade pickle, Caramelized onions",
+                            ImageUrl = "RustySavage.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "RUSTY SAVAGE",
+                            PortionSize = 630,
+                            Price = 27.49m
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Grilled onions, Thunder spicy sauce (tomato sauce, jalapeño, pickle, sweet apricot), Black Angus ground beef, Homemade cheddar sauce, Homemade pickle",
+                            ImageUrl = "Tunder.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "THUNDER",
+                            PortionSize = 380,
+                            Price = 17.49m
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Burger sauce, Iceberg, Black Angus ground beef, Crispy bacon, American cheese, Tomato, Pickled red onion",
+                            ImageUrl = "American.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "American Cheese Burger",
+                            PortionSize = 320,
+                            Price = 14.99m
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade potatoes, Vegetable Oil, Salt",
+                            ImageUrl = "RegularFries.webp",
+                            IsActive = true,
+                            ItemTypeId = 3,
+                            Name = "Regular Fries",
+                            PortionSize = 170,
+                            Price = 4.99m
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade potatoes, Vegetable Oil, Salt, Homemade hot sauce",
+                            ImageUrl = "SpicyFries.webp",
+                            IsActive = true,
+                            ItemTypeId = 3,
+                            Name = "Spicy Fries",
+                            PortionSize = 240,
+                            Price = 6.99m
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade potatoes, Vegetable Oil, Salt, Pepper, House fried sauce and jalapenos",
+                            ImageUrl = "CheddarFries.webp",
+                            IsActive = true,
+                            ItemTypeId = 3,
+                            Name = "Cheddar Fries",
+                            PortionSize = 300,
+                            Price = 7.99m
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Onions, Flour, Bread crumbs, Salt and pepper",
+                            ImageUrl = "OnionRings.webp",
+                            IsActive = true,
+                            ItemTypeId = 3,
+                            Name = "Breaded onion rings",
+                            PortionSize = 250,
+                            Price = 6.99m
+                        });
                 });
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.Order", b =>
@@ -275,6 +443,22 @@ namespace BurgerMasters.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "453a4524-0cd1-46e6-abde-3219df401504",
+                            ConcurrencyStamp = "49fd23aa-14dd-4209-9623-bcabe30f70b3",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
+                            ConcurrencyStamp = "fcdd5e4f-2eb8-4497-ac04-5e721257c97f",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -362,6 +546,18 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            RoleId = "453a4524-0cd1-46e6-abde-3219df401504"
+                        },
+                        new
+                        {
+                            UserId = "e130798b-a521-45ad-85df-b232eaaadc09",
+                            RoleId = "a439eb91-8c15-4e7a-abef-7f4ebc004826"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

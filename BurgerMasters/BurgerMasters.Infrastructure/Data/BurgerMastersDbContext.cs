@@ -12,12 +12,8 @@ using System.Threading.Tasks;
 
 namespace BurgerMasters.Infrastructure.Data
 {
-    public class BurgerMastersDbContext : IdentityDbContext<ApplicationUser>
+    public class BurgerMastersDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
-        public BurgerMastersDbContext()
-        {
-        }
-
         public BurgerMastersDbContext(DbContextOptions<BurgerMastersDbContext> options)
             : base(options)
         {
@@ -51,9 +47,16 @@ namespace BurgerMasters.Infrastructure.Data
                 .Property(m => m.TotalPrice)
                 .HasColumnType("decimal(18,2)");
 
-            //Configurations 
+            //Roles configuration
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            //User configuration
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            //Users Roles configuration
+            modelBuilder.ApplyConfiguration(new UserRolesConfiguration());
+            //Item configuration 
             modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
-                
+            //Menu items configuration
+            modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

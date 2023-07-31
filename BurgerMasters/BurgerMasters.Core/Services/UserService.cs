@@ -70,7 +70,7 @@ namespace BurgerMasters.Core.Services
                 Address = existingUser.Address,
                 Email = existingUser.Email,
                 Birthdate = existingUser.Birthdate.ToString("yyyy-MM-dd") ?? string.Empty,
-                Role = role ?? ""
+                Role = role ?? "User"
             };
         }
         /// <summary>

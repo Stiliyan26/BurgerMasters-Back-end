@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.387" branch-rate="0.4772" version="1.9" timestamp="1690219906" lines-covered="288" lines-valid="744" branches-covered="21" branches-valid="44">
+<coverage line-rate="0.3123" branch-rate="0.3181" version="1.9" timestamp="1690804251" lines-covered="288" lines-valid="922" branches-covered="21" branches-valid="66">
   <sources>
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="BurgerMasters.Core" line-rate="0.1757" branch-rate="0.125" complexity="81">
+    <package name="BurgerMasters.Core" line-rate="0.12240000000000001" branch-rate="0.0526" complexity="134">
       <classes>
         <class name="BurgerMasters.Core.Services.AdminService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\AdminService.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
@@ -362,15 +362,212 @@
             <line number="106" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="BurgerMasters.Core.Services.MenuItemService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="2">
+        <class name="BurgerMasters.Core.Services.CartService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\CartService.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
-            <method name="GetAllItemTypes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(BurgerMasters.Infrastructure.Data.Common.Repository.IRepository)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="41" hits="0" branch="False" />
-                <line number="42" hits="0" branch="False" />
-                <line number="43" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
               </lines>
             </method>
+          </methods>
+          <lines>
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.CartService/&lt;AddItemToUserCartAsync&gt;d__2" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\CartService.cs" line-rate="0" branch-rate="0" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="False" />
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+                <line number="32" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="480" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+                <line number="38" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="28" hits="0" branch="False" />
+            <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="32" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="480" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="38" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.CartService/&lt;CleanUpCartAsync&gt;d__5" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\CartService.cs" line-rate="0" branch-rate="0" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="86" hits="0" branch="False" />
+                <line number="87" hits="0" branch="False" />
+                <line number="88" hits="0" branch="False" />
+                <line number="89" hits="0" branch="False" />
+                <line number="91" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="320" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="92" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
+                <line number="94" hits="0" branch="False" />
+                <line number="95" hits="0" branch="False" />
+                <line number="96" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="86" hits="0" branch="False" />
+            <line number="87" hits="0" branch="False" />
+            <line number="88" hits="0" branch="False" />
+            <line number="89" hits="0" branch="False" />
+            <line number="91" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="320" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="92" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="94" hits="0" branch="False" />
+            <line number="95" hits="0" branch="False" />
+            <line number="96" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.CartService/&lt;GetAllCartItemsByUserIdAsync&gt;d__3" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\CartService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="61" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+                <line number="64" hits="0" branch="False" />
+                <line number="65" hits="0" branch="False" />
+                <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="61" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
+            <line number="64" hits="0" branch="False" />
+            <line number="65" hits="0" branch="False" />
+            <line number="66" hits="0" branch="False" />
+            <line number="67" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.CartService/&lt;RemoveItemFromCartById&gt;d__4" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\CartService.cs" line-rate="0" branch-rate="0" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="71" hits="0" branch="False" />
+                <line number="72" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
+                <line number="75" hits="0" branch="False" />
+                <line number="76" hits="0" branch="False" />
+                <line number="78" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="443" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="81" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+                <line number="83" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="71" hits="0" branch="False" />
+            <line number="72" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="75" hits="0" branch="False" />
+            <line number="76" hits="0" branch="False" />
+            <line number="78" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="443" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="81" hits="0" branch="False" />
+            <line number="82" hits="0" branch="False" />
+            <line number="83" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.MenuItemService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
             <method name=".ctor" signature="(BurgerMasters.Infrastructure.Data.Common.Repository.IRepository)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="20" hits="0" branch="False" />
@@ -381,75 +578,10 @@
             </method>
           </methods>
           <lines>
-            <line number="41" hits="0" branch="False" />
-            <line number="42" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
             <line number="20" hits="0" branch="False" />
             <line number="21" hits="0" branch="False" />
             <line number="22" hits="0" branch="False" />
             <line number="23" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;AddItemToUserCartAsync&gt;d__7" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="0" complexity="2">
-          <methods>
-            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
-              <lines>
-                <line number="95" hits="0" branch="False" />
-                <line number="96" hits="0" branch="False" />
-                <line number="97" hits="0" branch="False" />
-                <line number="98" hits="0" branch="False" />
-                <line number="99" hits="0" branch="False" />
-                <line number="100" hits="0" branch="False" />
-                <line number="101" hits="0" branch="False" />
-                <line number="103" hits="0" branch="True" condition-coverage="0% (0/2)">
-                  <conditions>
-                    <condition number="480" type="jump" coverage="0%" />
-                  </conditions>
-                </line>
-                <line number="104" hits="0" branch="False" />
-                <line number="105" hits="0" branch="False" />
-                <line number="106" hits="0" branch="False" />
-                <line number="107" hits="0" branch="False" />
-                <line number="108" hits="0" branch="False" />
-                <line number="109" hits="0" branch="False" />
-                <line number="110" hits="0" branch="False" />
-                <line number="112" hits="0" branch="False" />
-                <line number="113" hits="0" branch="False" />
-                <line number="115" hits="0" branch="False" />
-                <line number="116" hits="0" branch="False" />
-                <line number="117" hits="0" branch="False" />
-                <line number="119" hits="0" branch="False" />
-                <line number="120" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="95" hits="0" branch="False" />
-            <line number="96" hits="0" branch="False" />
-            <line number="97" hits="0" branch="False" />
-            <line number="98" hits="0" branch="False" />
-            <line number="99" hits="0" branch="False" />
-            <line number="100" hits="0" branch="False" />
-            <line number="101" hits="0" branch="False" />
-            <line number="103" hits="0" branch="True" condition-coverage="0% (0/2)">
-              <conditions>
-                <condition number="480" type="jump" coverage="0%" />
-              </conditions>
-            </line>
-            <line number="104" hits="0" branch="False" />
-            <line number="105" hits="0" branch="False" />
-            <line number="106" hits="0" branch="False" />
-            <line number="107" hits="0" branch="False" />
-            <line number="108" hits="0" branch="False" />
-            <line number="109" hits="0" branch="False" />
-            <line number="110" hits="0" branch="False" />
-            <line number="112" hits="0" branch="False" />
-            <line number="113" hits="0" branch="False" />
-            <line number="115" hits="0" branch="False" />
-            <line number="116" hits="0" branch="False" />
-            <line number="117" hits="0" branch="False" />
-            <line number="119" hits="0" branch="False" />
-            <line number="120" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Services.MenuItemService/&lt;GetAllAsync&gt;d__2" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
@@ -490,56 +622,28 @@
             <line number="39" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;GetAllCartItemsByUserIdAsync&gt;d__8" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;GetAllItemTypesAsync&gt;d__3" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="124" hits="0" branch="False" />
-                <line number="125" hits="0" branch="False" />
-                <line number="126" hits="0" branch="False" />
-                <line number="127" hits="0" branch="False" />
-                <line number="128" hits="0" branch="False" />
-                <line number="129" hits="0" branch="False" />
-                <line number="130" hits="0" branch="False" />
-                <line number="131" hits="0" branch="False" />
-                <line number="132" hits="0" branch="False" />
-                <line number="133" hits="0" branch="False" />
-                <line number="134" hits="0" branch="False" />
-                <line number="135" hits="0" branch="False" />
-                <line number="136" hits="0" branch="False" />
-                <line number="137" hits="0" branch="False" />
-                <line number="138" hits="0" branch="False" />
-                <line number="139" hits="0" branch="False" />
-                <line number="140" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="124" hits="0" branch="False" />
-            <line number="125" hits="0" branch="False" />
-            <line number="126" hits="0" branch="False" />
-            <line number="127" hits="0" branch="False" />
-            <line number="128" hits="0" branch="False" />
-            <line number="129" hits="0" branch="False" />
-            <line number="130" hits="0" branch="False" />
-            <line number="131" hits="0" branch="False" />
-            <line number="132" hits="0" branch="False" />
-            <line number="133" hits="0" branch="False" />
-            <line number="134" hits="0" branch="False" />
-            <line number="135" hits="0" branch="False" />
-            <line number="136" hits="0" branch="False" />
-            <line number="137" hits="0" branch="False" />
-            <line number="138" hits="0" branch="False" />
-            <line number="139" hits="0" branch="False" />
-            <line number="140" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Services.MenuItemService/&lt;GetFourSimilarItemsByTypeAsync&gt;d__4" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="47" hits="0" branch="False" />
-                <line number="48" hits="0" branch="False" />
                 <line number="49" hits="0" branch="False" />
                 <line number="50" hits="0" branch="False" />
                 <line number="51" hits="0" branch="False" />
@@ -558,12 +662,12 @@
                 <line number="64" hits="0" branch="False" />
                 <line number="65" hits="0" branch="False" />
                 <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="47" hits="0" branch="False" />
-            <line number="48" hits="0" branch="False" />
             <line number="49" hits="0" branch="False" />
             <line number="50" hits="0" branch="False" />
             <line number="51" hits="0" branch="False" />
@@ -582,15 +686,345 @@
             <line number="64" hits="0" branch="False" />
             <line number="65" hits="0" branch="False" />
             <line number="66" hits="0" branch="False" />
+            <line number="67" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Services.MenuItemService/&lt;GetItemByIdAsync&gt;d__5" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
+                <line number="71" hits="0" branch="False" />
+                <line number="72" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
+                <line number="75" hits="0" branch="False" />
+                <line number="76" hits="0" branch="False" />
+                <line number="77" hits="0" branch="False" />
+                <line number="78" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="81" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+                <line number="83" hits="0" branch="False" />
+                <line number="84" hits="0" branch="False" />
+                <line number="85" hits="0" branch="False" />
+                <line number="86" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="71" hits="0" branch="False" />
+            <line number="72" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
+            <line number="75" hits="0" branch="False" />
+            <line number="76" hits="0" branch="False" />
+            <line number="77" hits="0" branch="False" />
+            <line number="78" hits="0" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="81" hits="0" branch="False" />
+            <line number="82" hits="0" branch="False" />
+            <line number="83" hits="0" branch="False" />
+            <line number="84" hits="0" branch="False" />
+            <line number="85" hits="0" branch="False" />
+            <line number="86" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;ItemExistsAsync&gt;d__6" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="89" hits="0" branch="False" />
+                <line number="90" hits="0" branch="False" />
+                <line number="91" hits="0" branch="False" />
+                <line number="92" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="89" hits="0" branch="False" />
+            <line number="90" hits="0" branch="False" />
+            <line number="91" hits="0" branch="False" />
+            <line number="92" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name=".ctor" signature="(BurgerMasters.Infrastructure.Data.Common.Repository.IRepository)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="16" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;&gt;c" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="&lt;CreateOrderAsync&gt;b__2_0" signature="(BurgerMasters.Core.Models.Transactions.OrderMenuItemViewModel)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;AcceptOrderAsync&gt;d__6" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="0" complexity="6">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="6">
+              <lines>
+                <line number="97" hits="0" branch="False" />
+                <line number="98" hits="0" branch="False" />
+                <line number="100" hits="0" branch="True" condition-coverage="0% (0/6)">
+                  <conditions>
+                    <condition number="163" type="jump" coverage="0%" />
+                    <condition number="176" type="jump" coverage="0%" />
+                    <condition number="194" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="101" hits="0" branch="False" />
+                <line number="102" hits="0" branch="False" />
+                <line number="103" hits="0" branch="False" />
+                <line number="104" hits="0" branch="False" />
+                <line number="106" hits="0" branch="False" />
+                <line number="107" hits="0" branch="False" />
+                <line number="108" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="97" hits="0" branch="False" />
+            <line number="98" hits="0" branch="False" />
+            <line number="100" hits="0" branch="True" condition-coverage="0% (0/6)">
+              <conditions>
+                <condition number="163" type="jump" coverage="0%" />
+                <condition number="176" type="jump" coverage="0%" />
+                <condition number="194" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="101" hits="0" branch="False" />
+            <line number="102" hits="0" branch="False" />
+            <line number="103" hits="0" branch="False" />
+            <line number="104" hits="0" branch="False" />
+            <line number="106" hits="0" branch="False" />
+            <line number="107" hits="0" branch="False" />
+            <line number="108" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;CreateOrderAsync&gt;d__2" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="0" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="88" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="28" hits="0" branch="False" />
+                <line number="29" hits="0" branch="False" />
+                <line number="35" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+                <line number="38" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="88" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="28" hits="0" branch="False" />
+            <line number="29" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="38" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;DeclineOrderAsync&gt;d__8" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="0" complexity="6">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="6">
+              <lines>
+                <line number="125" hits="0" branch="False" />
+                <line number="126" hits="0" branch="False" />
+                <line number="128" hits="0" branch="True" condition-coverage="0% (0/6)">
+                  <conditions>
+                    <condition number="163" type="jump" coverage="0%" />
+                    <condition number="176" type="jump" coverage="0%" />
+                    <condition number="194" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="129" hits="0" branch="False" />
+                <line number="130" hits="0" branch="False" />
+                <line number="131" hits="0" branch="False" />
+                <line number="132" hits="0" branch="False" />
+                <line number="134" hits="0" branch="False" />
+                <line number="135" hits="0" branch="False" />
+                <line number="136" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="125" hits="0" branch="False" />
+            <line number="126" hits="0" branch="False" />
+            <line number="128" hits="0" branch="True" condition-coverage="0% (0/6)">
+              <conditions>
+                <condition number="163" type="jump" coverage="0%" />
+                <condition number="176" type="jump" coverage="0%" />
+                <condition number="194" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="129" hits="0" branch="False" />
+            <line number="130" hits="0" branch="False" />
+            <line number="131" hits="0" branch="False" />
+            <line number="132" hits="0" branch="False" />
+            <line number="134" hits="0" branch="False" />
+            <line number="135" hits="0" branch="False" />
+            <line number="136" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;GetAllOrdersByStatus&gt;d__3" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="61" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="61" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;GetAllOrdersByUserId&gt;d__9" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="139" hits="0" branch="False" />
+                <line number="140" hits="0" branch="False" />
+                <line number="141" hits="0" branch="False" />
+                <line number="142" hits="0" branch="False" />
+                <line number="143" hits="0" branch="False" />
+                <line number="144" hits="0" branch="False" />
+                <line number="145" hits="0" branch="False" />
+                <line number="146" hits="0" branch="False" />
+                <line number="147" hits="0" branch="False" />
+                <line number="148" hits="0" branch="False" />
+                <line number="149" hits="0" branch="False" />
+                <line number="150" hits="0" branch="False" />
+                <line number="151" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="139" hits="0" branch="False" />
+            <line number="140" hits="0" branch="False" />
+            <line number="141" hits="0" branch="False" />
+            <line number="142" hits="0" branch="False" />
+            <line number="143" hits="0" branch="False" />
+            <line number="144" hits="0" branch="False" />
+            <line number="145" hits="0" branch="False" />
+            <line number="146" hits="0" branch="False" />
+            <line number="147" hits="0" branch="False" />
+            <line number="148" hits="0" branch="False" />
+            <line number="149" hits="0" branch="False" />
+            <line number="150" hits="0" branch="False" />
+            <line number="151" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;GetOrderById&gt;d__5" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="92" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
+                <line number="94" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="92" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="94" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;GetOrderByIdAsync&gt;d__4" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
                 <line number="69" hits="0" branch="False" />
                 <line number="70" hits="0" branch="False" />
                 <line number="71" hits="0" branch="False" />
+                <line number="72" hits="0" branch="False" />
                 <line number="73" hits="0" branch="False" />
                 <line number="74" hits="0" branch="False" />
                 <line number="75" hits="0" branch="False" />
@@ -603,13 +1037,22 @@
                 <line number="82" hits="0" branch="False" />
                 <line number="83" hits="0" branch="False" />
                 <line number="84" hits="0" branch="False" />
+                <line number="85" hits="0" branch="False" />
+                <line number="86" hits="0" branch="False" />
+                <line number="87" hits="0" branch="False" />
+                <line number="88" hits="0" branch="False" />
+                <line number="89" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
+            <line number="66" hits="0" branch="False" />
+            <line number="67" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
             <line number="69" hits="0" branch="False" />
             <line number="70" hits="0" branch="False" />
             <line number="71" hits="0" branch="False" />
+            <line number="72" hits="0" branch="False" />
             <line number="73" hits="0" branch="False" />
             <line number="74" hits="0" branch="False" />
             <line number="75" hits="0" branch="False" />
@@ -622,66 +1065,53 @@
             <line number="82" hits="0" branch="False" />
             <line number="83" hits="0" branch="False" />
             <line number="84" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;ItemExistsAsync&gt;d__6" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="88" hits="0" branch="False" />
-                <line number="89" hits="0" branch="False" />
-                <line number="90" hits="0" branch="False" />
-                <line number="91" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
+            <line number="85" hits="0" branch="False" />
+            <line number="86" hits="0" branch="False" />
+            <line number="87" hits="0" branch="False" />
             <line number="88" hits="0" branch="False" />
             <line number="89" hits="0" branch="False" />
-            <line number="90" hits="0" branch="False" />
-            <line number="91" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="BurgerMasters.Core.Services.MenuItemService/&lt;RemoveItemFromCartById&gt;d__9" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\MenuItemService.cs" line-rate="0" branch-rate="0" complexity="2">
+        <class name="BurgerMasters.Core.Services.OrderService/&lt;UnacceptOrderAsync&gt;d__7" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\OrderService.cs" line-rate="0" branch-rate="0" complexity="6">
           <methods>
-            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="2">
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="6">
               <lines>
-                <line number="143" hits="0" branch="False" />
-                <line number="144" hits="0" branch="False" />
-                <line number="145" hits="0" branch="False" />
-                <line number="146" hits="0" branch="False" />
-                <line number="147" hits="0" branch="False" />
-                <line number="148" hits="0" branch="False" />
-                <line number="150" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="111" hits="0" branch="False" />
+                <line number="112" hits="0" branch="False" />
+                <line number="114" hits="0" branch="True" condition-coverage="0% (0/6)">
                   <conditions>
-                    <condition number="443" type="jump" coverage="0%" />
+                    <condition number="163" type="jump" coverage="0%" />
+                    <condition number="176" type="jump" coverage="0%" />
+                    <condition number="194" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="151" hits="0" branch="False" />
-                <line number="152" hits="0" branch="False" />
-                <line number="153" hits="0" branch="False" />
-                <line number="154" hits="0" branch="False" />
-                <line number="155" hits="0" branch="False" />
+                <line number="115" hits="0" branch="False" />
+                <line number="116" hits="0" branch="False" />
+                <line number="117" hits="0" branch="False" />
+                <line number="118" hits="0" branch="False" />
+                <line number="120" hits="0" branch="False" />
+                <line number="121" hits="0" branch="False" />
+                <line number="122" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="143" hits="0" branch="False" />
-            <line number="144" hits="0" branch="False" />
-            <line number="145" hits="0" branch="False" />
-            <line number="146" hits="0" branch="False" />
-            <line number="147" hits="0" branch="False" />
-            <line number="148" hits="0" branch="False" />
-            <line number="150" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="111" hits="0" branch="False" />
+            <line number="112" hits="0" branch="False" />
+            <line number="114" hits="0" branch="True" condition-coverage="0% (0/6)">
               <conditions>
-                <condition number="443" type="jump" coverage="0%" />
+                <condition number="163" type="jump" coverage="0%" />
+                <condition number="176" type="jump" coverage="0%" />
+                <condition number="194" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="151" hits="0" branch="False" />
-            <line number="152" hits="0" branch="False" />
-            <line number="153" hits="0" branch="False" />
-            <line number="154" hits="0" branch="False" />
-            <line number="155" hits="0" branch="False" />
+            <line number="115" hits="0" branch="False" />
+            <line number="116" hits="0" branch="False" />
+            <line number="117" hits="0" branch="False" />
+            <line number="118" hits="0" branch="False" />
+            <line number="120" hits="0" branch="False" />
+            <line number="121" hits="0" branch="False" />
+            <line number="122" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Services.TokenService" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Services\TokenService.cs" line-rate="0.8965000000000001" branch-rate="1" complexity="5">
@@ -942,6 +1372,182 @@
             <line number="13" hits="0" branch="False" />
             <line number="15" hits="0" branch="False" />
             <line number="17" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.Transactions.ExportOrderViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Transactions\ExportOrderViewModel.cs" line-rate="0" branch-rate="1" complexity="5">
+          <methods>
+            <method name="get_OrderId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Username" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="13" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_OrderDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Address" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TotalPrice" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="11" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.Transactions.OrderDetailsMenuItemViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Transactions\OrderDetailsMenuItemViewModel.cs" line-rate="0" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_Name" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ImageUrl" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ItemType" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="13" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PortionSize" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Price" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Quantity" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="9" hits="0" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.Transactions.OrderDetailsViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Transactions\OrderDetailsViewModel.cs" line-rate="0" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_OrderId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Username" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_OrderDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Address" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TotalPrice" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="22" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="23" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.Transactions.OrderMenuItemViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Transactions\OrderMenuItemViewModel.cs" line-rate="0" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_MenuItemId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Quantity" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="15" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Core.Models.Transactions.OrderViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\Transactions\OrderViewModel.cs" line-rate="0" branch-rate="1" complexity="5">
+          <methods>
+            <method name="get_OrderDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_UserId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_MenuItems" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_OrderPrice" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="24" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="21" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="15" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Core.Models.MenuItemModels.DetailsMenuItemViewModel" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Core\Models\MenuItem\DetailsMenuItemViewModel.cs" line-rate="0" branch-rate="1" complexity="2">
@@ -1240,138 +1846,102 @@
         </class>
       </classes>
     </package>
-    <package name="BurgerMasters.Infrastructure" line-rate="0.1666" branch-rate="0.5" complexity="73">
+    <package name="BurgerMasters.Infrastructure" line-rate="0.14550000000000002" branch-rate="0.5" complexity="75">
       <classes>
         <class name="BurgerMasters.Infrastructure.Data.BurgerMastersDbContext" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\BurgerMastersDbContext.cs" line-rate="0" branch-rate="1" complexity="9">
           <methods>
             <method name="get_ApplicationUsers" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
               </lines>
             </method>
             <method name="get_MenuItems" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="False" />
               </lines>
             </method>
             <method name="get_ItemTypes" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
               </lines>
             </method>
             <method name="get_ApplicationUserMenuItems" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
               </lines>
             </method>
             <method name="get_OrderDetails" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
               </lines>
             </method>
             <method name="get_Orders" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
               </lines>
             </method>
             <method name="OnModelCreating" signature="(Microsoft.EntityFrameworkCore.ModelBuilder)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="38" hits="0" branch="False" />
                 <line number="39" hits="0" branch="False" />
                 <line number="40" hits="0" branch="False" />
                 <line number="41" hits="0" branch="False" />
                 <line number="42" hits="0" branch="False" />
                 <line number="43" hits="0" branch="False" />
-                <line number="45" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
                 <line number="46" hits="0" branch="False" />
                 <line number="47" hits="0" branch="False" />
-                <line number="49" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
                 <line number="50" hits="0" branch="False" />
                 <line number="51" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
                 <line number="55" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="57" hits="0" branch="False" />
                 <line number="58" hits="0" branch="False" />
                 <line number="59" hits="0" branch="False" />
-                <line number="60" hits="0" branch="False" />
-                <line number="61" hits="0" branch="False" />
-                <line number="62" hits="0" branch="False" />
-                <line number="63" hits="0" branch="False" />
-                <line number="64" hits="0" branch="False" />
-                <line number="65" hits="0" branch="False" />
-                <line number="66" hits="0" branch="False" />
-                <line number="67" hits="0" branch="False" />
-                <line number="68" hits="0" branch="False" />
-                <line number="69" hits="0" branch="False" />
-                <line number="70" hits="0" branch="False" />
-                <line number="71" hits="0" branch="False" />
-                <line number="73" hits="0" branch="False" />
-                <line number="74" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="16" hits="0" branch="False" />
                 <line number="17" hits="0" branch="False" />
                 <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(Microsoft.EntityFrameworkCore.DbContextOptions`1&lt;BurgerMasters.Infrastructure.Data.BurgerMastersDbContext&gt;)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="21" hits="0" branch="False" />
                 <line number="22" hits="0" branch="False" />
                 <line number="23" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="25" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="33" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="38" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="28" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
             <line number="39" hits="0" branch="False" />
             <line number="40" hits="0" branch="False" />
             <line number="41" hits="0" branch="False" />
             <line number="42" hits="0" branch="False" />
             <line number="43" hits="0" branch="False" />
-            <line number="45" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
             <line number="46" hits="0" branch="False" />
             <line number="47" hits="0" branch="False" />
-            <line number="49" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
             <line number="50" hits="0" branch="False" />
             <line number="51" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
             <line number="55" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="57" hits="0" branch="False" />
             <line number="58" hits="0" branch="False" />
             <line number="59" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="61" hits="0" branch="False" />
-            <line number="62" hits="0" branch="False" />
-            <line number="63" hits="0" branch="False" />
-            <line number="64" hits="0" branch="False" />
-            <line number="65" hits="0" branch="False" />
-            <line number="66" hits="0" branch="False" />
-            <line number="67" hits="0" branch="False" />
-            <line number="68" hits="0" branch="False" />
-            <line number="69" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
-            <line number="71" hits="0" branch="False" />
-            <line number="73" hits="0" branch="False" />
-            <line number="74" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
             <line number="17" hits="0" branch="False" />
             <line number="18" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
             <line number="22" hits="0" branch="False" />
             <line number="23" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Infrastructure.Data.Models.ApplicationUser" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Models\ApplicationUser.cs" line-rate="0.75" branch-rate="1" complexity="4">
@@ -1548,7 +2118,7 @@
             <line number="43" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="BurgerMasters.Infrastructure.Data.Models.Order" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Models\Order.cs" line-rate="0" branch-rate="1" complexity="7">
+        <class name="BurgerMasters.Infrastructure.Data.Models.Order" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Models\Order.cs" line-rate="0" branch-rate="1" complexity="9">
           <methods>
             <method name="get_Id" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1565,24 +2135,34 @@
                 <line number="20" hits="0" branch="False" />
               </lines>
             </method>
+            <method name="get_IsPending" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="22" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_IsActive" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="24" hits="0" branch="False" />
+              </lines>
+            </method>
             <method name="get_ApplicationUser" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="23" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="get_OrderDetails" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="25" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="get_TotalPrice" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="28" hits="0" branch="False" />
               </lines>
             </method>
+            <method name="get_OrderDetails" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="30" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_TotalPrice" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="33" hits="0" branch="False" />
+              </lines>
+            </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="26" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
@@ -1590,42 +2170,34 @@
             <line number="14" hits="0" branch="False" />
             <line number="17" hits="0" branch="False" />
             <line number="20" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="25" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
             <line number="28" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="BurgerMasters.Infrastructure.Data.Models.OrderDetail" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Models\OrderDetail.cs" line-rate="0" branch-rate="1" complexity="6">
+        <class name="BurgerMasters.Infrastructure.Data.Models.OrderDetail" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Models\OrderDetail.cs" line-rate="0" branch-rate="1" complexity="4">
           <methods>
             <method name="get_Id" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="14" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_OrderId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_MenuItemId" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="17" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Order" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_MenuItem" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="20" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_MenuItemId" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="23" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="get_MenuItem" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="26" hits="0" branch="False" />
-              </lines>
-            </method>
             <method name="get_Quantity" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="29" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
@@ -1634,8 +2206,110 @@
             <line number="17" hits="0" branch="False" />
             <line number="20" hits="0" branch="False" />
             <line number="23" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="BurgerMasters.Infrastructure.Data.Configuration.ItemTypeConfiguration" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Configuration\ItemTypeConfiguration.cs" line-rate="0" branch-rate="1" complexity="2">
+          <methods>
+            <method name="Configure" signature="(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1&lt;BurgerMasters.Infrastructure.Data.Models.ItemType&gt;)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+                <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="CreateItemTypes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="22" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="False" />
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+                <line number="38" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="16" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="23" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
             <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="28" hits="0" branch="False" />
             <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="38" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
           </lines>
         </class>
         <class name="BurgerMasters.Infrastructure.Data.Common.UserRepository.UserRepository" filename="GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\Data\Common\UserRepository\UserRepository.cs" line-rate="1" branch-rate="1" complexity="1">
