@@ -101,17 +101,35 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: 17, bul. Cherni vrah",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "58b0b991-9d19-4eb2-92b1-fb0f34e5cf68",
-                            Email = "admin@gmail.com",
+                            ConcurrencyStamp = "a540fd21-2377-4838-b31f-a0e90fd4816c",
+                            Email = "stiliyan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKRb3RnkUVn/4gLSgSZnDWUF+VQiAAv12GD4CTQJDGppr+R8tQIOCEPpZaj0czHYfA==",
+                            NormalizedEmail = "STILIYAN@GMAIL.COM",
+                            NormalizedUserName = "STILIYAN",
+                            PasswordHash = "AQAAAAEAACcQAAAAECDFSQxqW/OSlfd9WU32Jvc7oEILCDkShe0iFvmdy8SjI/u0Zi9kqQ2blgD59kuvIA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "49ec931c-5447-4112-8c23-bc827b746bcd",
+                            SecurityStamp = "7d808fe1-e73d-483a-9a8b-f639c3181fb9",
                             TwoFactorEnabled = false,
-                            UserName = "Admin12"
+                            UserName = "Stiliyan26"
+                        },
+                        new
+                        {
+                            Id = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            AccessFailedCount = 0,
+                            Address = "Street: 17, bul. Cherni vrah",
+                            Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "3de7d9dd-8802-4f45-a61d-5f9866c3522b",
+                            Email = "peter@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PETER@GMAIL.COM",
+                            NormalizedUserName = "PETER12",
+                            PasswordHash = "AQAAAAEAACcQAAAAENLORiX5XekSTMSEOEWBvuD3QLCOhX7f024U4rqRyo7BgRs798gyvS104apzR29fEA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "21b0348a-ac3e-495c-9304-a1cfccefadd4",
+                            TwoFactorEnabled = false,
+                            UserName = "Peter12"
                         },
                         new
                         {
@@ -119,17 +137,17 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: 17, bul. Cherni vrah",
                             Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "0d7659a2-6f42-4e1a-b450-ff4b7bd48bb1",
-                            Email = "user@gmail.com",
+                            ConcurrencyStamp = "6a00062f-22e3-409d-a38f-c638597cee0c",
+                            Email = "bogdan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER@GMAIL.COM",
-                            NormalizedUserName = "USER13",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBUbBX/sTnZYW8PlShUlr7ked7FE6avzGJHcjNlWu30ketwFqn05uJIA0ll4fLStrg==",
+                            NormalizedEmail = "BOGDAN@GMAIL.COM",
+                            NormalizedUserName = "BOGDAN16",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC3eIFLDrCaadlsoWw7RgpdeGQ1vOKC+46Lg3hxDB307XnUusQC7s+QqVmRXfopvfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb4f7d61-cd44-4a3d-9cfb-34cb1e698c08",
+                            SecurityStamp = "1ba0bfc1-420a-4533-b5fd-46ee22d0d45b",
                             TwoFactorEnabled = false,
-                            UserName = "User13"
+                            UserName = "Bogdan16"
                         });
                 });
 
@@ -255,7 +273,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 10,
+                            Id = 42,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade Brioche Bread, Burger sauce, Black Angus ground beef mixed with cheddar, Melted Irish red cheddar, Crispy bacon, Caramelized onions",
                             ImageUrl = "JuicyLucy.webp",
@@ -267,7 +285,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 43,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade Brioche Bread, Pineapple butter with rum, 200g Black Angus ground beef, Grilled pineapple, Crispy bacon with brown sugar",
                             ImageUrl = "PineappleBaconRun.webp",
@@ -279,7 +297,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 44,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, Homemade pickle, Caramelized onions",
                             ImageUrl = "RustySavage.webp",
@@ -291,7 +309,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 45,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade Brioche Bread, Grilled onions, Thunder spicy sauce (tomato sauce, jalapeño, pickle, sweet apricot), Black Angus ground beef, Homemade cheddar sauce, Homemade pickle",
                             ImageUrl = "Tunder.webp",
@@ -303,7 +321,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 46,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade Brioche Bread, Burger sauce, Iceberg, Black Angus ground beef, Crispy bacon, American cheese, Tomato, Pickled red onion",
                             ImageUrl = "American.webp",
@@ -315,7 +333,91 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 47,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, Black Angus ground beef, Aioli sauce, Shrimp, Iceberg",
+                            ImageUrl = "SurfNTurff.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Surf'n'Turf",
+                            PortionSize = 370,
+                            Price = 19.49m
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Black Angus ground beef, American cheese, Cheddar, Jalapeno",
+                            ImageUrl = "BurgerPie.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Burger Pie",
+                            PortionSize = 380,
+                            Price = 19.49m
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Black Angus ground beef, American cheese, Cheddar, Jalapeno",
+                            ImageUrl = "BurgerPie.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Burger Pie",
+                            PortionSize = 380,
+                            Price = 19.49m
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, Burger sauce, 200g Black Angus ground beef patties with brown sugar and whiskey, Smokey BBQ, Mushrooms with olive oil, onion and garlic, Crispy bacon, Very cheddar, Fresh tomato",
+                            ImageUrl = "SmokeyWhiskeyCheeseburger.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Smokey Whiskey Cheeseburger",
+                            PortionSize = 480,
+                            Price = 23.49m
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, BBQ sauce with bourbon, Our pickle, Black Angus ground beef with blue cheese, mozzarella and lots of cheddar, wrapped in bacon, Grilled onions",
+                            ImageUrl = "TrippleCheese.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Triple Cheeseburger",
+                            PortionSize = 550,
+                            Price = 23.49m
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, Homemade bourbon BBQ sauce, Crispy iceberg, Black Angus ground beef patties, Very cheddar, Bacon Apricot Marmalade",
+                            ImageUrl = "BaconJam.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "Bacon Jam Burger",
+                            PortionSize = 450,
+                            Price = 19.49m
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, Colsloe, Slow Roasted Pork Shoulder, Caramelized onions, Melted cheddar, Homemade bourbon BBQ sauce",
+                            ImageUrl = "BBQPulledPork.webp",
+                            IsActive = true,
+                            ItemTypeId = 1,
+                            Name = "BBQ Pulled Pork",
+                            PortionSize = 350,
+                            Price = 14.40m
+                        },
+                        new
+                        {
+                            Id = 54,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade potatoes, Vegetable Oil, Salt",
                             ImageUrl = "RegularFries.webp",
@@ -327,7 +429,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 55,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade potatoes, Vegetable Oil, Salt, Homemade hot sauce",
                             ImageUrl = "SpicyFries.webp",
@@ -339,7 +441,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 56,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Homemade potatoes, Vegetable Oil, Salt, Pepper, House fried sauce and jalapenos",
                             ImageUrl = "CheddarFries.webp",
@@ -351,7 +453,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = 18,
+                            Id = 57,
                             CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             Description = "Onions, Flour, Bread crumbs, Salt and pepper",
                             ImageUrl = "OnionRings.webp",
@@ -360,6 +462,306 @@ namespace BurgerMasters.Infrastructure.Migrations
                             Name = "Breaded onion rings",
                             PortionSize = 250,
                             Price = 6.99m
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Mozzarella cheese, Blueberry jam, All purpose flour",
+                            ImageUrl = "MozzarellaSticks.webp",
+                            IsActive = true,
+                            ItemTypeId = 3,
+                            Name = "Mozzarella sticks",
+                            PortionSize = 170,
+                            Price = 9.99m
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Carbonated Water, Phosphoric Acid, Sweeteners (Aspartame, Acesulfame Potassium), Natural Flavors (including Caffeine)",
+                            ImageUrl = "CocaColaNoSugar.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Coca-Cola no sugar",
+                            PortionSize = 330,
+                            Price = 2.50m
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Caramel Color, Phosphoric Acid, Natural Flavors",
+                            ImageUrl = "Classic.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Coca-Cola Original",
+                            PortionSize = 330,
+                            Price = 2.50m
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Caramel Color, Phosphoric Acid, Potassium Benzoate",
+                            ImageUrl = "CherryVanilla.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Coca-cola cherry",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Caramel Color, Phosphoric Acid, Caffeine, Sodium Benzoat",
+                            ImageUrl = "OrangeVanilla.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Coca-cola orange vanilla",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Caramel Color, Phosphoric Acid, Natural Flavors (including Vanilla), Caffeine",
+                            ImageUrl = "Vanilla.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Coca-cola vanila",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Natural and Artificial Flavors, Citric Acid, Sodium Citrate, Red 40 (Color)",
+                            ImageUrl = "FantaStrawberry.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Fanta strawberry",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Citric Acid, Natural and Artificial Flavors, Red 40 (Color), Blue 1 (Color)",
+                            ImageUrl = "FantaBerry.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Fanta berry",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Natural and Artificial Flavors, Citric Acid, Sodium Benzoate, Red 40 (Color), Blue 1 (Color)",
+                            ImageUrl = "FantaGrape.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Fanta Grape",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Natural Flavors, Natural Flavors, Sodium Benzoate, Yellow 6 (Color), Red 40 (Color)",
+                            ImageUrl = "FantaPeach.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Fanta Peach",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Carbonated Water, High Fructose Corn Syrup, Natural Flavors, Sodium Benzoat, Potassium Sorbate, Yellow 5 (Color), Yellow 5 (Color)",
+                            ImageUrl = "FantaPineapple.webp",
+                            IsActive = true,
+                            ItemTypeId = 2,
+                            Name = "Fanta Pineapple",
+                            PortionSize = 355,
+                            Price = 4.90m
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade bread, BBQ sauce, Grilled sausage with cheddar and bacon, Mustard, Onion, Oklahoma Mince, Homemade cheddar sauce",
+                            ImageUrl = "Oklahoma.webp",
+                            IsActive = true,
+                            ItemTypeId = 4,
+                            Name = "Old Style Oklahoma",
+                            PortionSize = 200,
+                            Price = 12.49m
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, Grilled beef sausage, Smoked bacon, Mustard, Pasta with American cheese",
+                            ImageUrl = "MacNcheese.webp",
+                            IsActive = true,
+                            ItemTypeId = 4,
+                            Name = "Old Style Mac'n'cheese",
+                            PortionSize = 200,
+                            Price = 11.49m
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade brioche bread, Smoked pork sausage, Smoked bacon, Coleslaw salad, BBQ sauce, Mustard",
+                            ImageUrl = "Mineapolis.webp",
+                            IsActive = true,
+                            ItemTypeId = 4,
+                            Name = "Old Style Mineapolis",
+                            PortionSize = 200,
+                            Price = 11.49m
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Beef sausage breaded with cornmeal, egg, mustard and honey, Coleslaw salad, Mustard",
+                            ImageUrl = "CornDog.webp",
+                            IsActive = true,
+                            ItemTypeId = 4,
+                            Name = "CornDog",
+                            PortionSize = 250,
+                            Price = 11.49m
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "160 g of Black Angus ground beef, Spicy beans with bacon, molasses and spices, Coleslaw",
+                            ImageUrl = "BlackAngus.webp",
+                            IsActive = true,
+                            ItemTypeId = 5,
+                            Name = "Black Angus Grill",
+                            PortionSize = 460,
+                            Price = 18.90m
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "2 smoked pork sausages, Spicy beans with bacon, molasses and spices, Coleslaw",
+                            ImageUrl = "PorkSausage.webp",
+                            IsActive = true,
+                            ItemTypeId = 5,
+                            Name = "Smoked pork sausage",
+                            PortionSize = 400,
+                            Price = 19.10m
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "2 patties of 160g each. from Black Angus ground beef, Spicy beans with bacon, molasses and spices, Coleslaw",
+                            ImageUrl = "BlackAngus2.webp",
+                            IsActive = true,
+                            ItemTypeId = 5,
+                            Name = "Double Black Angus Gril",
+                            PortionSize = 640,
+                            Price = 23.90m
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Red cabbage,White Cabbage,Carrot,Mayonnaise dressing",
+                            ImageUrl = "Coleslaw.webp",
+                            IsActive = true,
+                            ItemTypeId = 6,
+                            Name = "Salad Coleslaw",
+                            PortionSize = 250,
+                            Price = 5.99m
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Lettuce,Tomato,Blue cheese,Avocado,Chicken fillet,Bacon,Quail eggs,Red onion,Dressing",
+                            ImageUrl = "Cobb.webp",
+                            IsActive = true,
+                            ItemTypeId = 6,
+                            Name = "Salad Cobb",
+                            PortionSize = 400,
+                            Price = 14.90m
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade American bread toasted with butter, Breaded sirloin (pork), Mustard, White onion, Colsloe, Tomato",
+                            ImageUrl = "FiredPork.webp",
+                            IsActive = true,
+                            ItemTypeId = 7,
+                            Name = "Fried Pork Priviledge",
+                            PortionSize = 390,
+                            Price = 13.90m
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CreatorId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            Description = "Homemade Brioche Bread, American potato salad with mustard and bacon, Ground beef with Sloppy Joe sauce",
+                            ImageUrl = "SloppyJoe.webp",
+                            IsActive = true,
+                            ItemTypeId = 7,
+                            Name = "Sloppy Joe",
+                            PortionSize = 320,
+                            Price = 11.49m
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Homemade Brioche Bread, Coleslaw, Crispy bacon, BBQ sauce with bourbon, Caramelized onions",
+                            ImageUrl = "RustyBacon.webp",
+                            IsActive = true,
+                            ItemTypeId = 7,
+                            Name = "Rusty Bacon",
+                            PortionSize = 380,
+                            Price = 9.99m
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Toast slices with smoked mayonnaise, pan-fried, Lettuce, Tomato",
+                            ImageUrl = "ScrambledEggs.webp",
+                            IsActive = true,
+                            ItemTypeId = 7,
+                            Name = "Scrambled eggs with bacon",
+                            PortionSize = 270,
+                            Price = 10.99m
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CreatorId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                            Description = "Toast slices with smoked mayonnaise, pan-fried, Cheddar, Mozzarella",
+                            ImageUrl = "GrillnCheese.webp",
+                            IsActive = true,
+                            ItemTypeId = 7,
+                            Name = "American Grill and Cheese",
+                            PortionSize = 200,
+                            Price = 10.09m
                         });
                 });
 
@@ -448,14 +850,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             Id = "453a4524-0cd1-46e6-abde-3219df401504",
-                            ConcurrencyStamp = "49fd23aa-14dd-4209-9623-bcabe30f70b3",
+                            ConcurrencyStamp = "25aa1085-862e-4c99-9398-a8f230c6b8ee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
-                            ConcurrencyStamp = "fcdd5e4f-2eb8-4497-ac04-5e721257c97f",
+                            ConcurrencyStamp = "f19d8c5f-c61d-4d28-a73f-e9d787610669",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -551,6 +953,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             UserId = "a0407939-a95d-40a2-8db6-020d349bd2bb",
+                            RoleId = "453a4524-0cd1-46e6-abde-3219df401504"
+                        },
+                        new
+                        {
+                            UserId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
                             RoleId = "453a4524-0cd1-46e6-abde-3219df401504"
                         },
                         new

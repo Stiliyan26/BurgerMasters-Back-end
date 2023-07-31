@@ -22,33 +22,48 @@ namespace BurgerMasters.Infrastructure.Data.Configuration
             List<ApplicationUser> users = new List<ApplicationUser>();
             var hasher = new PasswordHasher<ApplicationUser>();
 
-            var admin = new ApplicationUser()
+            var admin1 = new ApplicationUser()
             {
                 Id = "a0407939-a95d-40a2-8db6-020d349bd2bb",
-                UserName = "Admin12",
-                NormalizedUserName = "ADMIN12",
-                Email = "admin@gmail.com",
-                NormalizedEmail = "ADMIN@GMAIL.COM",
+                UserName = "Stiliyan26",
+                NormalizedUserName = "STILIYAN",
+                Email = "stiliyan@gmail.com",
+                NormalizedEmail = "STILIYAN@GMAIL.COM",
                 Address = "Street: 17, bul. Cherni vrah",
                 Birthdate = new DateTime(1998, 3, 15),
             };
 
-            admin.PasswordHash = hasher.HashPassword(admin, "Admin#12");
+            admin1.PasswordHash = hasher.HashPassword(admin1, "Admin#123");
 
-            users.Add(admin);
+            users.Add(admin1);
+
+            var admin2 = new ApplicationUser()
+            {
+                Id = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                UserName = "Peter12",
+                NormalizedUserName = "PETER12",
+                Email = "peter@gmail.com",
+                NormalizedEmail = "PETER@GMAIL.COM",
+                Address = "Street: 17, bul. Cherni vrah",
+                Birthdate = new DateTime(1998, 3, 15),
+            };
+
+            admin2.PasswordHash = hasher.HashPassword(admin2, "Admin#123");
+
+            users.Add(admin2);
 
             var user = new ApplicationUser()
             {
                 Id = "e130798b-a521-45ad-85df-b232eaaadc09",
-                UserName = "User13",
-                NormalizedUserName = "USER13",
-                Email = "user@gmail.com",
-                NormalizedEmail = "USER@GMAIL.COM",
+                UserName = "Bogdan16",
+                NormalizedUserName = "BOGDAN16",
+                Email = "bogdan@gmail.com",
+                NormalizedEmail = "BOGDAN@GMAIL.COM",
                 Address = "Street: 17, bul. Cherni vrah",
                 Birthdate = new DateTime(2003, 6, 29),
             };
 
-            user.PasswordHash = hasher.HashPassword(user, "User#13");
+            user.PasswordHash = hasher.HashPassword(user, "User#123");
 
             users.Add(user);
 

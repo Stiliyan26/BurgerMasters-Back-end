@@ -28,6 +28,11 @@ namespace BurgerMasters.Infrastructure.Data.Configuration
                 },
                 new IdentityUserRole<string>()
                 {
+                    UserId = "c30d2c49-d677-42b3-9295-a0b1dae91806",
+                    RoleId = "453a4524-0cd1-46e6-abde-3219df401504"
+                },
+                new IdentityUserRole<string>()
+                {
                     UserId = "e130798b-a521-45ad-85df-b232eaaadc09",
                     RoleId = "a439eb91-8c15-4e7a-abef-7f4ebc004826"
                 }
