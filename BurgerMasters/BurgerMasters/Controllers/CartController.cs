@@ -80,7 +80,7 @@ namespace BurgerMasters.Controllers
         {
             return await ProcessActionResult(async () =>
             {
-                await _cartService.RemoveItemFromCartById(itemId, userId);
+                await _cartService.RemoveItemFromCartByIdAsync(itemId, userId);
 
                 return Ok(new
                 {

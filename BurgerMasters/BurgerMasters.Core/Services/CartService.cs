@@ -4,11 +4,6 @@ using BurgerMasters.Core.Models.Transactions;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BurgerMasters.Core.Services
 {
@@ -67,7 +62,7 @@ namespace BurgerMasters.Core.Services
                 .ToListAsync();
         }
 
-        public async Task RemoveItemFromCartById(int itemId, string userId)
+        public async Task RemoveItemFromCartByIdAsync(int itemId, string userId)
         {
             ApplicationUserMenuItem userItem = await _repo.All<ApplicationUserMenuItem>()
                 .FirstOrDefaultAsync(ui =>

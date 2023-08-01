@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -95,6 +96,10 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
         /// </summary>
         /// <param name="entity">Expression</param>
         void Detach<T>(T entity) where T : class;
+
+        public void Entry<T>(T entity, EntityState state) where T : class;
+
+        public void Attach<T>(T entity) where T : class;
 
         /// <summary>
         /// Saves all made changes in trasaction

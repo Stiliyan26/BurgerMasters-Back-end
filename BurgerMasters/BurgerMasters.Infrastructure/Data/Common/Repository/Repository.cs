@@ -108,6 +108,11 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
             DeleteRange(entities);
         }
 
+        public void Entry<T>(T entity, EntityState state) where T : class
+        {
+            _dbContext.Entry(entity).State = state;
+        }
+
         /// <summary>
         /// Detaches given entity from the context
         /// </summary>
@@ -117,6 +122,16 @@ namespace BurgerMasters.Infrastructure.Data.Common.Repository
             EntityEntry entry = _dbContext.Entry(entity);
 
             entry.State = EntityState.Detached;
+        }
+
+        public void Attach<T>(T entity) where T : class
+        {
+            EntityEntry entry = _dbContext.Entry(entity);
+
+            if (entry.State == EntityState.Detached)
+            {
+                DbSet<T>().Attach(entity);
+            }
         }
 
         /// <summary>

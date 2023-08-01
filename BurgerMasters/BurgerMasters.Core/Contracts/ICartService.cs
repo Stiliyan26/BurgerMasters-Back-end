@@ -14,7 +14,7 @@ namespace BurgerMasters.Core.Contracts
 
         Task<IEnumerable<CartItemInfoViewModel>> GetAllCartItemsByUserIdAsync(string userId);
 
-        Task RemoveItemFromCartById(int itemId, string userId);
+        Task RemoveItemFromCartByIdAsync(int itemId, string userId);
 
         Task CleanUpCartAsync(string userId);
     }
