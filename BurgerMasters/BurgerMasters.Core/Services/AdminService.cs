@@ -102,13 +102,18 @@ namespace BurgerMasters.Core.Services
         public async Task<bool> ItemExistsByCreatorIdAsync(int itemId, string creatorId)
         {
             return await _repo.AllReadonly<MenuItem>()
-                .AnyAsync(mi => mi.IsActive && mi.Id == itemId && mi.CreatorId == creatorId);
+                .AnyAsync(mi => 
+                    mi.IsActive 
+                    && mi.Id == itemId 
+                    && mi.CreatorId == creatorId);
         }
 
         public async Task<ViewEditItemInfoViewModel> GetEditItemInfoByItemIdAsync(int itemId, string creatorId)
         {
             return await _repo.AllReadonly<MenuItem>()
-                .Where(mi => mi.IsActive && mi.Id == itemId && mi.CreatorId == creatorId)
+                .Where(mi => mi.IsActive 
+                    && mi.Id == itemId 
+                    && mi.CreatorId == creatorId)
                 .Select(mi => new ViewEditItemInfoViewModel()
                 {
                     Name = mi.Name,
