@@ -22,7 +22,7 @@ namespace BurgerMasters.Core.Services
             _repo = repo;
         }
 
-        public async Task<IEnumerable<MenuItemViewModel>> GetAllAsync(string itemType)
+        public async Task<IEnumerable<MenuItemViewModel>> GetAllByItemTypeAsync(string itemType)
         {
             return await _repo.AllReadonly<MenuItem>()
                 .Where(mi => mi.IsActive && mi.ItemType.Name == itemType)

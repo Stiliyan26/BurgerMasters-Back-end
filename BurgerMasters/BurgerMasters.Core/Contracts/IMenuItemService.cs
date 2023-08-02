@@ -14,7 +14,7 @@ namespace BurgerMasters.Core.Contracts
     {
         Task<IEnumerable<ItemType>> GetAllItemTypesAsync();
 
-        Task<IEnumerable<MenuItemViewModel>> GetAllAsync(string itemType);
+        Task<IEnumerable<MenuItemViewModel>> GetAllByItemTypeAsync(string itemType);
 
         Task<DetailsMenuItemViewModel> GetItemByIdAsync(int id);
 

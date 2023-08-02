@@ -64,7 +64,8 @@ namespace BurgerMasters.Controllers
         {
             return await ProcessActionResult(async () =>
             {
-                IEnumerable<MenuItemViewModel> menuItems = await _menuItemService.GetAllAsync(itemType);
+                IEnumerable<MenuItemViewModel> menuItems = await _menuItemService
+                    .GetAllByItemTypeAsync(itemType);
 
                 if (menuItems == null)
                 {
