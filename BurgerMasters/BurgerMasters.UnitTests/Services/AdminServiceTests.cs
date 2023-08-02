@@ -506,7 +506,6 @@ namespace BurgerMasters.UnitTests.Services
         }
 
         [Test]
-
         public async Task DeleteMenuItemAsync_IsActiveIsSetToFalse()
         {
             string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";

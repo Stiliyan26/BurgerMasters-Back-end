@@ -50,7 +50,8 @@ namespace BurgerMasters.Core.Services
         public async Task<IEnumerable<ExportOrderViewModel>> GetAllOrdersByStatus(bool isPending)
         {
             return await _repo.AllReadonly<Order>()
-                .Where(o => o.IsPending == isPending && o.IsActive == true)
+                .Where(o => o.IsPending == isPending 
+                    && o.IsActive == true)
                 .Select(o => new ExportOrderViewModel()
                 {
                     OrderId = o.Id,
@@ -62,7 +63,7 @@ namespace BurgerMasters.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<OrderDetailsViewModel> GetOrderByIdAsync(Guid orderId)
+        public async Task<OrderDetailsViewModel> GetOrderDetailsByIdAsync(Guid orderId)
         {
             return await _repo.AllReadonly<Order>()
                 .Where(o => o.Id == orderId && o.IsActive == true)
@@ -88,14 +89,14 @@ namespace BurgerMasters.Core.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Order> GetOrderById(Guid orderId)
+        public async Task<Order> GetOrderByIdAsync(Guid orderId)
         {
             return await _repo.GetByIdAsync<Order>(orderId);
         }
 
         public async Task AcceptOrderAsync(Guid orderId)
         {
-            Order orderToAccept = await GetOrderById(orderId);
+            Order orderToAccept = await GetOrderByIdAsync(orderId);
 
             if (orderToAccept != null 
                 && orderToAccept.IsPending == true 
@@ -109,7 +110,7 @@ namespace BurgerMasters.Core.Services
 
         public async Task UnacceptOrderAsync(Guid orderId)
         {
-            Order orderToUnaccept = await GetOrderById(orderId);
+            Order orderToUnaccept = await GetOrderByIdAsync(orderId);
 
             if (orderToUnaccept != null 
                 && orderToUnaccept.IsPending == false 
@@ -123,7 +124,7 @@ namespace BurgerMasters.Core.Services
 
         public async Task DeclineOrderAsync(Guid orderId)
         {
-            Order orderToDecline = await GetOrderById(orderId);
+            Order orderToDecline = await GetOrderByIdAsync(orderId);
 
             if (orderToDecline != null
                 && orderToDecline.IsPending == true

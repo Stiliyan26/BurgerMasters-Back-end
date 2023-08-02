@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BurgerMasters.Core\BurgerMasters.Core.csproj" />
+    <ProjectReference Include="..\BurgerMasters\BurgerMasters.csproj" />
   </ItemGroup>
 
 </Project>

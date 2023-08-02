@@ -76,7 +76,7 @@ namespace BurgerMasters.Controllers
         {
             return await ProcessActionResult(async () =>
             {
-                var orderInfo = await _orderService.GetOrderByIdAsync(orderId);
+                var orderInfo = await _orderService.GetOrderDetailsByIdAsync(orderId);
 
                 if (orderInfo == null)
                 {

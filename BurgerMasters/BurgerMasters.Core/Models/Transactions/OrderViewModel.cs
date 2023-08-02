@@ -15,7 +15,7 @@ namespace BurgerMasters.Core.Models.Transactions
         public string OrderDate { get; set; } = null!;
 
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         public ICollection<OrderMenuItemViewModel> MenuItems { get; set; }
             = new List<OrderMenuItemViewModel>();
