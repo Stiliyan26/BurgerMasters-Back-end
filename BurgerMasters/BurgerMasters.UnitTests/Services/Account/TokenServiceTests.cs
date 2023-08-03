@@ -1,4 +1,4 @@
-﻿using BurgerMasters.Core.Models;
+﻿﻿using BurgerMasters.Core.Models;
 using BurgerMasters.Core.Models.Auth;
 using BurgerMasters.Core.Services;
 using Microsoft.Extensions.Configuration;
@@ -37,11 +37,11 @@ namespace BurgerMasters.UnitTests.Services.Account
             };
 
 
-            _configurationMock.SetupGet(c => c["Jwt:Key"]).Returns("mysecretkey123dasdad3e23dadasda");
+            _configurationMock.SetupGet(c => c["Jwt:Key"]).Returns("BurgerMastersWebApiJwtSpecialKey26");
             _configurationMock.SetupGet(c => c["Jwt:Issuer"]).Returns("myissuer");
             _configurationMock.SetupGet(c => c["Jwt:Audience"]).Returns("myaudience");
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mysecretkey123dasdad3e23dadasda"));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("BurgerMastersWebApiJwtSpecialKey26"));
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var token = _tokenService.GenerateToken(userInfo);
