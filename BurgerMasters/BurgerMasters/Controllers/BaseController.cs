@@ -7,8 +7,8 @@ using System.Security.Claims;
 namespace BurgerMasters.Controllers
 {
     [EnableCors]
-    [Route("/api/[controller]")]
     [ApiController]
+    [Route("/api/[controller]")]
     [Authorize]
     public class BaseController : ControllerBase
     {

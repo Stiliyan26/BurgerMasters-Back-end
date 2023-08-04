@@ -45,6 +45,8 @@ namespace BurgerMasters.Extensions
 
             // Order service
             services.AddScoped<IOrderService, OrderService>();
+            //SiganlR Review messages
+            services.AddScoped<IReviewService, ReviewService>();
         }
     }
 }

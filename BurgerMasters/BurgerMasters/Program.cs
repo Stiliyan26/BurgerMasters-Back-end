@@ -1,6 +1,7 @@
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Extensions;
+using BurgerMasters.Hubs;
 using BurgerMasters.Infrastructure.Data;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
@@ -39,7 +40,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-
+//JWT SetUp
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -60,7 +61,9 @@ builder.Services.AddAuthentication(x =>
                 .GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
+//SignalR SetUp
+builder.Services.AddSignalR();
+//Cors SetUp
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin",
@@ -68,7 +71,8 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("http://localhost:3000", "http://localhost:3000")
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
@@ -113,6 +117,8 @@ app.UseCors("AllowOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<ReviewHub>("/hubs/review");
 
 app.MapControllers();
 

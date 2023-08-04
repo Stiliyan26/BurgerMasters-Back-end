@@ -31,6 +31,8 @@ namespace BurgerMasters.Infrastructure.Data
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<ReviewMessage> ReviewMessages { get; set; } 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
