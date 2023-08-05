@@ -74,11 +74,13 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> RemoveMessage([FromBody] int messageId)
+        public async Task<IActionResult> RemoveMessage(
+            [FromBody] int messageId,
+            [FromQuery] bool isAdmin, string userId)
         {
             try
             {
-                bool isRemoved = await _reviewService.RemoveMessageAsync(messageId);
+                bool isRemoved = await _reviewService.RemoveMessageAsync(messageId, isAdmin, userId);
 
                 if (isRemoved == false)
                 {

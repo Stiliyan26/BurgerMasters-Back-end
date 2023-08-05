@@ -52,6 +52,7 @@ namespace BurgerMasters.Core.Services
                     .Select(rm => new ExportChatMessage()
                     {
                         Id = rm.Id,
+                        UserId = rm.UserId,
                         Username = rm.ApplicationUser.UserName,
                         Message = rm.Message,
                         SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
@@ -69,6 +70,7 @@ namespace BurgerMasters.Core.Services
                 .Select(rm => new ExportChatMessage()
                 {
                     Id = rm.Id,
+                    UserId = rm.UserId,
                     Username = rm.ApplicationUser.UserName,
                     Message = rm.Message,
                     SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
@@ -76,12 +78,13 @@ namespace BurgerMasters.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> RemoveMessageAsync(int messageId)
+        public async Task<bool> RemoveMessageAsync(int messageId, bool isAdmin, string userId)
         {
             ReviewMessage? message = await _repo.All<ReviewMessage>()
                 .FirstOrDefaultAsync(rm => 
                     rm.Id == messageId 
-                    && rm.IsActive == true);
+                    && rm.IsActive == true
+                    && (rm.UserId == userId || isAdmin == true));
 
             if (message != null)
             {

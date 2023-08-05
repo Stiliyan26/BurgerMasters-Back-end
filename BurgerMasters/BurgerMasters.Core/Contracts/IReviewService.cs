@@ -14,6 +14,6 @@ namespace BurgerMasters.Core.Contracts
 
         Task<IEnumerable<ExportChatMessage>> GetAllMessagesAsync();
 
-        Task<bool> RemoveMessageAsync(int messageId);
+        Task<bool> RemoveMessageAsync(int messageId, bool isAdmin, string userId);
     }
 }
