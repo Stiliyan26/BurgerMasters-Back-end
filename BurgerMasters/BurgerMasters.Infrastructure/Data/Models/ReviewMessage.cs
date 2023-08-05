@@ -20,10 +20,12 @@ namespace BurgerMasters.Infrastructure.Data.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string Message { get; set; }
+        [MaxLength(150)]
+        public string Message { get; set; } = null!;
 
         [Required]
         public DateTime SentDate { get; set; }
+
+        public bool IsActive { get; set; } = true;
     }
 }

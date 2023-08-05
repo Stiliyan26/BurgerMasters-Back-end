@@ -10,8 +10,10 @@ namespace BurgerMasters.Core.Contracts
 {
     public interface IReviewService
     {
-        Task CreateMessage(ChatMessage messageInfo);
+        Task<ExportChatMessage> CreateMessageAsync(ChatMessage messageInfo);
 
-        Task<IEnumerable<ExportChatMessage>> GetAllMessages();
+        Task<IEnumerable<ExportChatMessage>> GetAllMessagesAsync();
+
+        Task<bool> RemoveMessageAsync(int messageId);
     }
 }

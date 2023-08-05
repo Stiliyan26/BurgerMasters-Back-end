@@ -29,5 +29,8 @@
         public const string ORDER_DATA_INAVLID_MSG = "Your order data is invalid!";
 
         public const string ITEM_NOT_FOUND = "Item is not found!";
+
+
+        public const string COULD_NOT_UPDATE = "Something went wrong item was not delted!";
     }
 }

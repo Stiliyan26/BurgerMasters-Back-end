@@ -8,8 +8,9 @@ namespace BurgerMasters.Core.Models.Review
 {
     public class ExportChatMessage
     {
-        public string Username { get; set; }
-        public string Message { get; set; }
-        public string SentDate { get; set; }
+        public int Id { get; set; } 
+        public string Username { get; set; } = null!;
+        public string Message { get; set; } = null!;
+        public string SentDate { get; set; } = null!;
     }
 }

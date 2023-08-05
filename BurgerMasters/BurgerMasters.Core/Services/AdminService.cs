@@ -149,7 +149,10 @@ namespace BurgerMasters.Core.Services
         public async Task DeleteMenuItemAsync(int itemId, string creatorId)
         {
             MenuItem itemToDelte = await _repo.All<MenuItem>()
-                .Where(mi => mi.IsActive && mi.Id == itemId && mi.CreatorId == creatorId)
+                .Where(mi => 
+                    mi.IsActive 
+                    && mi.Id == itemId 
+                    && mi.CreatorId == creatorId)
                 .FirstOrDefaultAsync();
 
             if (itemToDelte != null)

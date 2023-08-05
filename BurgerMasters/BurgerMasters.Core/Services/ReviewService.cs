@@ -21,7 +21,7 @@ namespace BurgerMasters.Core.Services
             _repo = repo;
         }
 
-        public async Task CreateMessage(ChatMessage messageInfo)
+        public async Task<ExportChatMessage> CreateMessageAsync(ChatMessage messageInfo)
         {
             ApplicationUser? user = await _repo.AllReadonly<ApplicationUser>()
                 .FirstOrDefaultAsync(u => u.Id == messageInfo.UserId);
@@ -42,19 +42,57 @@ namespace BurgerMasters.Core.Services
 
                 await _repo.AddAsync(newMessage);
                 await _repo.SaveChangesAsync();
+
+
+
+                return await _repo.All<ReviewMessage>()
+                    .Where(rm => rm.UserId == newMessage.UserId
+                        && rm.Message == newMessage.Message
+                        && rm.SentDate == newMessage.SentDate)
+                    .Select(rm => new ExportChatMessage()
+                    {
+                        Id = rm.Id,
+                        Username = rm.ApplicationUser.UserName,
+                        Message = rm.Message,
+                        SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
+                    })
+                    .FirstOrDefaultAsync();
             }
+
+            return null;
         }
 
-        public async Task<IEnumerable<ExportChatMessage>> GetAllMessages()
+        public async Task<IEnumerable<ExportChatMessage>> GetAllMessagesAsync()
         {
             return await _repo.AllReadonly<ReviewMessage>()
+                .Where(rm => rm.IsActive)
                 .Select(rm => new ExportChatMessage()
                 {
+                    Id = rm.Id,
                     Username = rm.ApplicationUser.UserName,
                     Message = rm.Message,
                     SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
                 })
                 .ToListAsync();
+        }
+
+        public async Task<bool> RemoveMessageAsync(int messageId)
+        {
+            ReviewMessage? message = await _repo.All<ReviewMessage>()
+                .FirstOrDefaultAsync(rm => 
+                    rm.Id == messageId 
+                    && rm.IsActive == true);
+
+            if (message != null)
+            {
+                message.IsActive = false;
+
+                await _repo.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

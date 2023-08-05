@@ -7,9 +7,9 @@ namespace BurgerMasters.Hubs
 {
     public class ReviewHub : Hub<IChatClient>
     {
-        public async Task SendMessage(ChatMessage message)
+        /*public async Task SendMessage(ChatMessage message)
         {
             await Clients.All.ReceiveMessage(message);
-        }
+        }*/
     }
 }

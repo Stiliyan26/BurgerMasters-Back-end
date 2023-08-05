@@ -101,15 +101,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: 17, bul. Cherni vrah",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7bdcc602-1806-443f-9caa-62531d75257b",
+                            ConcurrencyStamp = "abe82106-80d3-4ac6-a56d-5d5db5cf2299",
                             Email = "stiliyan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "STILIYAN@GMAIL.COM",
                             NormalizedUserName = "STILIYAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEArYEuh3JCEhsAe8FEHRnJ48Xy1wNEFuQMpPkvQQuIgCuTfTLBaLtZmStip5wLRQNg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDId6CXdNFpUsEnXXkLCA4e+Mu7EzqYyfRY8dBRagFgSPRexE82r2L6BVaUZRKMhQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "59b1d3b6-d4c6-426f-ae61-78ef9efd3ac8",
+                            SecurityStamp = "9e56a742-4de4-42b8-b2d1-e27f09834687",
                             TwoFactorEnabled = false,
                             UserName = "Stiliyan26"
                         },
@@ -119,15 +119,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: 17, bul. Cherni vrah",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "a87cffa7-7c11-47f8-9ce6-749185aee22e",
+                            ConcurrencyStamp = "50ae9502-00f3-4254-be0f-130aeff06b7c",
                             Email = "peter@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PETER@GMAIL.COM",
                             NormalizedUserName = "PETER12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN9JzoviNFkX1ATWjeNTvMtNrVKlAGG/GQSiXKkYFWhJsUDXPytoMvtuM0uIm3rXcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHlkyobB5KliPtY6Y+nh0be3zAbWJlxXWjl1166DPFsJcX3iDN596otkrAoZSt0nmA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d8e9462-7002-49de-9e14-44fbc513b8dc",
+                            SecurityStamp = "7ca35226-d8b1-4d08-b996-4151f6f2fdda",
                             TwoFactorEnabled = false,
                             UserName = "Peter12"
                         },
@@ -137,15 +137,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: 17, bul. Cherni vrah",
                             Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4557e9ab-74a6-4031-81ee-9bb4b9644dbf",
+                            ConcurrencyStamp = "0e23fb32-8980-43c9-9b56-4c4ce961a13c",
                             Email = "bogdan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOGDAN@GMAIL.COM",
                             NormalizedUserName = "BOGDAN16",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE7ChQFGNebk73g91SLo1WI0Zu3vt+K3F19ea4ETGpZQ/mWU53FTHYXLSgyOz5ab6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELEpV+YJassvbXN8EFByuoiWj55a3JPvzzjl0w0qktT/uq06H3dMOvWmLaAS1FFvnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "86818601-44b5-4ad0-b1c1-2e342cd80bc6",
+                            SecurityStamp = "b8129ca5-5b46-40f6-ba23-f9f9bbab5877",
                             TwoFactorEnabled = false,
                             UserName = "Bogdan16"
                         });
@@ -828,10 +828,13 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
@@ -877,14 +880,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             Id = "453a4524-0cd1-46e6-abde-3219df401504",
-                            ConcurrencyStamp = "936ee4ec-68c3-4824-b249-5988e0ccbc3f",
+                            ConcurrencyStamp = "7e5d7a1b-2f14-4846-9266-b4ffeb480591",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
-                            ConcurrencyStamp = "143b209c-287a-4eda-bbc6-6d8745bb5012",
+                            ConcurrencyStamp = "c9a47558-9a05-4552-bb25-8be4a31a5edd",
                             Name = "User",
                             NormalizedName = "USER"
                         });
