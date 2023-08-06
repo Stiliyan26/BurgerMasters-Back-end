@@ -22,7 +22,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("AllItemTypes"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ItemType>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllItemTypes()
         {
@@ -57,7 +57,7 @@ namespace BurgerMasters.Controllers
 
 
         [HttpGet("AllItemsByType")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MenuItemViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllItemsByType([FromQuery] string itemType)
@@ -77,11 +77,11 @@ namespace BurgerMasters.Controllers
                     menuItems,
                     status = 200
                 });
-            }, -1);
+            });
         }
 
         [HttpGet("ItemDetailsById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DetailsMenuItemViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -100,7 +100,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("SimilarProducts")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MenuItemViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -142,7 +142,7 @@ namespace BurgerMasters.Controllers
 
         //Validation template
         private async Task<IActionResult> ProcessActionResult
-            (Func<Task<IActionResult>> action, int itemId)
+            (Func<Task<IActionResult>> action, int itemId = -1)
         {
             try
             {

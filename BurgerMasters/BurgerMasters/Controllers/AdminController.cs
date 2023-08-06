@@ -19,7 +19,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpPost("CreateMenuItem")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -46,7 +46,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("MyItemsByType")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MenuItemViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MyItemsByType([FromQuery] string creatorId, string itemType)
         {
@@ -64,7 +64,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("SimilarProductsByCreator")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MenuItemViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> SimilarProductsByCreator([FromQuery]
@@ -87,7 +87,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("CreatorItemById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DetailsMenuItemViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -108,7 +108,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("EditItemInfo")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ViewEditItemInfoViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -128,7 +128,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpPut("EditMenuItem")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -223,7 +223,7 @@ namespace BurgerMasters.Controllers
 
         //Validatiom template
         private async Task<IActionResult> ProcessActionResult
-            (Func<Task<IActionResult>> action, int itemId, string userId)
+            (Func<Task<IActionResult>> action, int itemId = -1, string? userId = null)
         {
             if (userId != null)
             {

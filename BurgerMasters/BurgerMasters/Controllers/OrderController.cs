@@ -44,7 +44,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("AllOrdersByStatus"), Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExportOrderViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -68,7 +68,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("OrderById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(OrderDetailsViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -150,7 +150,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("AllOfMyOrders")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExportOrderViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -212,7 +212,7 @@ namespace BurgerMasters.Controllers
 
         //Validation template
         private async Task<IActionResult> ProcessActionResult
-           (Func<Task<IActionResult>> action, string userId)
+           (Func<Task<IActionResult>> action, string? userId = null)
         {
             if (userId != null)
             {

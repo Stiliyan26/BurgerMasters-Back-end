@@ -47,7 +47,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("AllCartItems")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<CartItemInfoViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -153,7 +153,7 @@ namespace BurgerMasters.Controllers
 
         //Validation template
         private async Task<IActionResult> ProcessActionResult
-            (Func<Task<IActionResult>> action, int itemId, string userId)
+            (Func<Task<IActionResult>> action, int itemId = -1, string? userId = null)
         {
             if (userId != null)
             {

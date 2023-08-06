@@ -1,12 +1,14 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.Review;
+using BurgerMasters.Core.Models.Transactions;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Hubs;
 using BurgerMasters.Hubs.Contracts;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
 using System.Web.Http.Results;
 
 namespace BurgerMasters.Controllers
@@ -25,7 +27,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpPost("SentMessage")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExportChatMessage), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SentMessage(ChatMessage messageInfo)
         {
@@ -50,7 +52,7 @@ namespace BurgerMasters.Controllers
         }
 
         [HttpGet("AllMessages")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExportChatMessage>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> AllMessages()

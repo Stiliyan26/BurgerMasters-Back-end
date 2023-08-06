@@ -55,7 +55,7 @@ namespace BurgerMasters.Core.Services
                         UserId = rm.UserId,
                         Username = rm.ApplicationUser.UserName,
                         Message = rm.Message,
-                        SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
+                        SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm:ss")
                     })
                     .FirstOrDefaultAsync();
             }
@@ -73,7 +73,7 @@ namespace BurgerMasters.Core.Services
                     UserId = rm.UserId,
                     Username = rm.ApplicationUser.UserName,
                     Message = rm.Message,
-                    SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm")
+                    SentDate = rm.SentDate.ToString("yyyy-MM-dd HH:mm:ss")
                 })
                 .ToListAsync();
         }
