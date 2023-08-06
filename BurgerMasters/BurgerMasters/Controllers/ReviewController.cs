@@ -88,6 +88,8 @@ namespace BurgerMasters.Controllers
                         new { message = ValidationConstants.COULD_NOT_UPDATE, status = 500 });
                 }
 
+                await _chatHub.Clients.All.RemoveMessage(messageId);
+
                 return Ok(new
                 {
                     status = 200

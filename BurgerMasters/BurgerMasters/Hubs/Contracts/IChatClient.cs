@@ -6,5 +6,7 @@ namespace BurgerMasters.Hubs.Contracts
     public interface IChatClient
     {
         Task ReceiveMessage(ExportChatMessage message);
+
+        Task RemoveMessage(int messageId);
     }
 }
