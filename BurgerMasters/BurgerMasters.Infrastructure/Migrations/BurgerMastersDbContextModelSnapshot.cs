@@ -99,17 +99,17 @@ namespace BurgerMasters.Infrastructure.Migrations
                         {
                             Id = "a0407939-a95d-40a2-8db6-020d349bd2bb",
                             AccessFailedCount = 0,
-                            Address = "Street: 17, bul. Cherni vrah",
+                            Address = "Street: Vitosha Boulevard, Number: 10, Block: A",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "abe82106-80d3-4ac6-a56d-5d5db5cf2299",
+                            ConcurrencyStamp = "398ffc26-19a0-4b01-8909-e0728b5fae32",
                             Email = "stiliyan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "STILIYAN@GMAIL.COM",
                             NormalizedUserName = "STILIYAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDId6CXdNFpUsEnXXkLCA4e+Mu7EzqYyfRY8dBRagFgSPRexE82r2L6BVaUZRKMhQQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG2lt8c2Yqq9iCzXX/mGsmh1/lpHwyXbo0GPMG9p9AbEFyrqVzLy84UzCvjRNq11ww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9e56a742-4de4-42b8-b2d1-e27f09834687",
+                            SecurityStamp = "5b3cd708-54ef-4d05-9b80-86d8682eb5af",
                             TwoFactorEnabled = false,
                             UserName = "Stiliyan26"
                         },
@@ -117,17 +117,17 @@ namespace BurgerMasters.Infrastructure.Migrations
                         {
                             Id = "c30d2c49-d677-42b3-9295-a0b1dae91806",
                             AccessFailedCount = 0,
-                            Address = "Street: 17, bul. Cherni vrah",
+                            Address = "Street: Shipchenski Prohod Street, Number: 20, Block: B",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "50ae9502-00f3-4254-be0f-130aeff06b7c",
+                            ConcurrencyStamp = "9ec2c18f-18c9-4abc-a7bb-50dc841a6c85",
                             Email = "peter@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PETER@GMAIL.COM",
                             NormalizedUserName = "PETER12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlkyobB5KliPtY6Y+nh0be3zAbWJlxXWjl1166DPFsJcX3iDN596otkrAoZSt0nmA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGZnD2vdJ8CGBPFgyVFwlKJm4rwVaqF/8hh0DRyIS+zf24WShSQmg4mebd9f0cMPqQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7ca35226-d8b1-4d08-b996-4151f6f2fdda",
+                            SecurityStamp = "48dc1322-fe8d-4c30-bdfd-925ffa975cf3",
                             TwoFactorEnabled = false,
                             UserName = "Peter12"
                         },
@@ -135,19 +135,37 @@ namespace BurgerMasters.Infrastructure.Migrations
                         {
                             Id = "e130798b-a521-45ad-85df-b232eaaadc09",
                             AccessFailedCount = 0,
-                            Address = "Street: 17, bul. Cherni vrah",
+                            Address = "Street: Alexander Malinov Boulevard, Number: 30, Block: C",
                             Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "0e23fb32-8980-43c9-9b56-4c4ce961a13c",
+                            ConcurrencyStamp = "2dd5c709-89c2-48d8-a1c8-60cad4275f31",
                             Email = "bogdan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOGDAN@GMAIL.COM",
                             NormalizedUserName = "BOGDAN16",
-                            PasswordHash = "AQAAAAEAACcQAAAAELEpV+YJassvbXN8EFByuoiWj55a3JPvzzjl0w0qktT/uq06H3dMOvWmLaAS1FFvnQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBBWWcH7c0xz3Jgd8iHCM1PH/v93MGsOk+RP2UzXem5MkTTlbc5O4mkdUHHrUQMcnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b8129ca5-5b46-40f6-ba23-f9f9bbab5877",
+                            SecurityStamp = "69bcd5a6-18ab-4cc2-880e-a27e8e051ccb",
                             TwoFactorEnabled = false,
                             UserName = "Bogdan16"
+                        },
+                        new
+                        {
+                            Id = "d27076cc-efe7-4b1e-9730-e9630be4d3a6",
+                            AccessFailedCount = 0,
+                            Address = " Street: Tsarigradsko Shose Boulevard, Number: 40, Block: D",
+                            Birthdate = new DateTime(2002, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "d925a077-3eb7-4c11-adfc-a4320bec2cab",
+                            Email = "pavlin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PAVLIN@GMAIL.COM",
+                            NormalizedUserName = "PAVLIN14",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM7yotv4mTbykJX04f8sft/YphuerM7PxMLp4Jm8aT4tAvGK4czR89e8Md9WYfVa7w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8597fb48-4151-4c93-9d9f-ffdfb047ad9c",
+                            TwoFactorEnabled = false,
+                            UserName = "Pavlin14"
                         });
                 });
 
@@ -232,6 +250,9 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -266,9 +287,11 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("ItemTypeId");
 
-                    b.ToTable("MenuItems");
+                    b.ToTable("MenuItem");
 
                     b.HasData(
                         new
@@ -847,7 +870,25 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReviewMessages");
+                    b.ToTable("ReviewMessage");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Message = "The quality of the food is very good and the price matches the quality!",
+                            SentDate = new DateTime(2023, 8, 2, 15, 15, 22, 0, DateTimeKind.Unspecified),
+                            UserId = "e130798b-a521-45ad-85df-b232eaaadc09"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Message = "Absolutely loved dining at this restaurant!",
+                            SentDate = new DateTime(2023, 7, 3, 16, 11, 23, 0, DateTimeKind.Unspecified),
+                            UserId = "d27076cc-efe7-4b1e-9730-e9630be4d3a6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -880,14 +921,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             Id = "453a4524-0cd1-46e6-abde-3219df401504",
-                            ConcurrencyStamp = "7e5d7a1b-2f14-4846-9266-b4ffeb480591",
+                            ConcurrencyStamp = "5d571a9d-1526-4629-9973-f57c04ceb67b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
-                            ConcurrencyStamp = "c9a47558-9a05-4552-bb25-8be4a31a5edd",
+                            ConcurrencyStamp = "0624823a-b8ea-4e35-817c-c6e0770cf4cc",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -994,6 +1035,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                         {
                             UserId = "e130798b-a521-45ad-85df-b232eaaadc09",
                             RoleId = "a439eb91-8c15-4e7a-abef-7f4ebc004826"
+                        },
+                        new
+                        {
+                            UserId = "d27076cc-efe7-4b1e-9730-e9630be4d3a6",
+                            RoleId = "a439eb91-8c15-4e7a-abef-7f4ebc004826"
                         });
                 });
 
@@ -1037,6 +1083,10 @@ namespace BurgerMasters.Infrastructure.Migrations
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.MenuItem", b =>
                 {
+                    b.HasOne("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", null)
+                        .WithMany("ReviewMessages")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("BurgerMasters.Infrastructure.Data.Models.ItemType", "ItemType")
                         .WithMany("MenuItems")
                         .HasForeignKey("ItemTypeId")
@@ -1075,7 +1125,7 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ReviewMessage", b =>
                 {
                     b.HasOne("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("ReviewMessages")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

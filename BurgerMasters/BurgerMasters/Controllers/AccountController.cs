@@ -41,7 +41,7 @@ namespace BurgerMasters.Controllers
         /// <param name="model"></param>
         /// <returns>Response type with status and (error message/s or userInfo)</returns>
         [HttpPost("Register"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -111,7 +111,7 @@ namespace BurgerMasters.Controllers
         /// <param name="model"></param>
         /// <returns>Response type with status and (errorMessage or userInfo)</returns>
         [HttpPost("Login"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -190,7 +190,7 @@ namespace BurgerMasters.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpPost("RefreshToken"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         public async Task<IActionResult> RefreshToken([FromQuery] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -204,6 +204,7 @@ namespace BurgerMasters.Controllers
                     {
                         Id = userId,
                         Email = user.Email,
+                        Address = user.Address,
                         Username = user.UserName,
                         Birthdate = user.Birthdate.ToString("yyyy-MM-dd"),
                         Role = role ?? "User",

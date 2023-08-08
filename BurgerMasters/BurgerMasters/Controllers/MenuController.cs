@@ -26,7 +26,8 @@ namespace BurgerMasters.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllItemTypes()
         {
-            if (_memoryCache.TryGetValue<IEnumerable<ItemType>>("AllItemTypes", out var cachedItemTypes))
+            if (_memoryCache.TryGetValue<IEnumerable<ItemType>>
+                ("AllItemTypes", out var cachedItemTypes))
             {
                 return Ok(new
                 {

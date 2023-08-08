@@ -4,7 +4,6 @@ using BurgerMasters.Core.Models.Review;
 using BurgerMasters.Core.Models.Transactions;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Hubs;
-using BurgerMasters.Hubs.Contracts;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using BurgerMasters.Infrastructure.Data.Models;
 using BurgerMasters.Core.Models.Transactions;
 using Microsoft.AspNetCore.Http;
+using Moq;
 
 namespace BurgerMasters.UnitTests.Services
 {
@@ -20,8 +21,8 @@ namespace BurgerMasters.UnitTests.Services
         private IOrderService _orderService;
         private IRepository _repo;
         private BurgerMastersDbContext dbContext;
-        private string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-        private string dateString = "2023-07-31 12:34";
+        private static string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
+        private static string dateString = "2023-07-31 12:34";
 
         [SetUp]
         public void Setup()
@@ -39,19 +40,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task CreateOrderAsync_ChecksIfOrderIsCreatedWithValidDate()
         {
-            var menuItems = new List<OrderMenuItemViewModel>()
-            {
-                new OrderMenuItemViewModel()
-                {
-                    MenuItemId = 1,
-                    Quantity = 1,
-                },
-                new OrderMenuItemViewModel()
-                {
-                    MenuItemId = 2,
-                    Quantity = 3,
-                },
-            };
+            var menuItems = GetOrderMenuItemViewModels();
 
             OrderViewModel model = new OrderViewModel()
             {
@@ -105,13 +94,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetAllOrdersByStatus_ReturnsCountOfAllPendingOrders()
         {
-            ApplicationUser applicationUser = new ApplicationUser()
-            {
-                Id = userId,
-                UserName = "Test12",
-                Birthdate = DateTime.Now,
-                Address = "Orehova gora 10"
-            };
+            ApplicationUser applicationUser = GetUser();
 
             await _repo.AddAsync(applicationUser);
 
@@ -328,6 +311,34 @@ namespace BurgerMasters.UnitTests.Services
                 }
             };
             return orders;
+        }
+
+        private static List<OrderMenuItemViewModel> GetOrderMenuItemViewModels()
+        {
+            return new List<OrderMenuItemViewModel>()
+            {
+                new OrderMenuItemViewModel()
+                {
+                    MenuItemId = 1,
+                    Quantity = 1,
+                },
+                new OrderMenuItemViewModel()
+                {
+                    MenuItemId = 2,
+                    Quantity = 3,
+                },
+            };
+        }
+
+        private static ApplicationUser GetUser()
+        {
+            return new ApplicationUser()
+            {
+                Id = userId,
+                UserName = "Test12",
+                Birthdate = DateTime.Now,
+                Address = "Orehova gora 10"
+            };
         }
 
         [TearDown]

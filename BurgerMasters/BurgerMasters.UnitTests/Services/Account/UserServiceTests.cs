@@ -65,7 +65,7 @@ namespace BurgerMasters.UnitTests.Services.Account
             var result = await _userService.RegisterAsync(model, birthdate);
 
             //Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace BurgerMasters.UnitTests.Services.Account
             var result = await _userService.RegisterAsync(model, birthdate);
 
             //Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace BurgerMasters.UnitTests.Services.Account
             var result = await _userService.LoginAsync(model);
 
             //Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]

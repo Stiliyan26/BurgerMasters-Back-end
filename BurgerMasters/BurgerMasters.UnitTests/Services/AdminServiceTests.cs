@@ -19,6 +19,7 @@ namespace BurgerMasters.UnitTests.Services
         private IAdminService _adminService;
         private IRepository _repo;
         private BurgerMastersDbContext dbContext;
+        private static string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
 
         [SetUp]
         public void Setup()
@@ -36,13 +37,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task CreateMenuItemAsync_CreateNewMenuItem()
         {
-            string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
             await _repo.SaveChangesAsync();
@@ -68,13 +63,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task CreateMenuItemAsync_DoesNotCreateNewItemIfItemTypeIsInvalid()
         {
-            string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
             await _repo.SaveChangesAsync();
@@ -100,85 +89,17 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetFourSimilarItemsByTypeAndCreatorAsync_ReturnsFourItemsCreatedByCretator()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
-            var dumyData = new List<MenuItem>()
-            {
-                new MenuItem()
-                {
-                    Name = "RUSTY SAVAGE",
-                    ImageUrl = "RustySavage.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 630,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "THUNDER",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Burger Pie",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "American Cheese Burger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Triple Cheeseburger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Smokey Whiskey Cheeseburger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-            };
+            var dumyData = GetMenuItems(newItemType.Id);
 
             await _repo.AddRangeAsync(dumyData);
             await _repo.SaveChangesAsync();
 
             var similarItemsByCreator = await _adminService
-                .GetFourSimilarItemsByTypeAndCreatorAsync("Burger", 1, creatorId);
+                .GetFourSimilarItemsByTypeAndCreatorAsync("Burger", 1, userId);
 
             Assert.That(similarItemsByCreator.Count(), Is.EqualTo(4));
         }
@@ -186,13 +107,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task CreatorItemByIdAsync_ReturnsItemById()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -211,7 +126,7 @@ namespace BurgerMasters.UnitTests.Services
             await _repo.AddAsync(item);
             await _repo.SaveChangesAsync();
 
-            var itemByCreator = await _adminService.CreatorItemByIdAsync(1, creatorId);
+            var itemByCreator = await _adminService.CreatorItemByIdAsync(newItemType.Id, userId);
 
             Assert.That(itemByCreator, Is.Not.Null);
         }
@@ -275,13 +190,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task ItemExistsByCreatorIdAsync_ReturnsTrueIfItemIsCreatedByCreator()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -301,7 +210,7 @@ namespace BurgerMasters.UnitTests.Services
             await _repo.SaveChangesAsync();
 
             bool itemExistsByCreator = await _adminService
-                .ItemExistsByCreatorIdAsync(menuItem.Id, creatorId);
+                .ItemExistsByCreatorIdAsync(menuItem.Id, userId);
 
             Assert.That(itemExistsByCreator, Is.EqualTo(true));
         }
@@ -309,13 +218,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task ItemExistsByCreatorIdAsync_ItemExistsByCreatorIdAsync_ReturnsFalseIfItemIsNotCreatedByCreator()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -335,7 +238,7 @@ namespace BurgerMasters.UnitTests.Services
             await _repo.SaveChangesAsync();
 
             bool itemExistsByCreator = await _adminService
-                .ItemExistsByCreatorIdAsync(menuItem.Id, creatorId);
+                .ItemExistsByCreatorIdAsync(menuItem.Id, userId);
 
             Assert.That(itemExistsByCreator, Is.EqualTo(false));
         }
@@ -343,13 +246,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetEditItemInfoByItemIdAsync_ReturnsEditItem()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -362,13 +259,14 @@ namespace BurgerMasters.UnitTests.Services
                 PortionSize = 630,
                 Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
                 Price = 27.49m,
-                CreatorId = creatorId
+                CreatorId = userId
             };
 
             await _repo.AddAsync(menuItem);
             await _repo.SaveChangesAsync();
 
-            var itemToEdit = await _adminService.GetEditItemInfoByItemIdAsync(menuItem.Id, creatorId);
+            var itemToEdit = await _adminService
+                .GetEditItemInfoByItemIdAsync(menuItem.Id, userId);
 
             Assert.That(itemToEdit, Is.Not.Null);
             Assert.That(itemToEdit.Name, Is.EqualTo(menuItem.Name));
@@ -381,13 +279,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetEditItemInfoByItemIdAsync_ReturnsNullIfItemDoesNotExist()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -400,28 +292,22 @@ namespace BurgerMasters.UnitTests.Services
                 PortionSize = 630,
                 Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
                 Price = 27.49m,
-                CreatorId = creatorId
+                CreatorId = userId
             };
 
             await _repo.AddAsync(menuItem);
             await _repo.SaveChangesAsync();
 
-            var itemToEdit = await _adminService.GetEditItemInfoByItemIdAsync(23, creatorId);
+            var itemToEdit = await _adminService.GetEditItemInfoByItemIdAsync(23, userId);
 
             Assert.That(itemToEdit, Is.Null);
         }
 
-
         [Test]
         public async Task EditMenuItemAsync_ReturnsEditedItem()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
 
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -434,7 +320,7 @@ namespace BurgerMasters.UnitTests.Services
                 PortionSize = 630,
                 Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
                 Price = 27.49m,
-                CreatorId = creatorId
+                CreatorId = userId
             };
 
             await _repo.AddAsync(menuItem);
@@ -449,7 +335,7 @@ namespace BurgerMasters.UnitTests.Services
                 Price = 22.20m,
             };
 
-            await _adminService.EditMenuItemAsync(formModel, 1, creatorId);
+            await _adminService.EditMenuItemAsync(formModel, 1, userId);
 
             var editedItem = await _repo.GetByIdAsync<MenuItem>(menuItem.Id);
 
@@ -464,13 +350,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task EditMenuItemAsync_DoesNotEditTheItemIfIdDoesNotExist()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -483,7 +363,7 @@ namespace BurgerMasters.UnitTests.Services
                 PortionSize = 630,
                 Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
                 Price = 27.49m,
-                CreatorId = creatorId
+                CreatorId = userId
             };
 
             await _repo.AddAsync(menuItem);
@@ -498,7 +378,7 @@ namespace BurgerMasters.UnitTests.Services
                 Price = 22.20m,
             };
 
-            await _adminService.EditMenuItemAsync(formModel, 5, creatorId);
+            await _adminService.EditMenuItemAsync(formModel, 5, userId);
 
             var editedItem = await _repo.GetByIdAsync<MenuItem>(menuItem.Id);
 
@@ -508,13 +388,8 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task DeleteMenuItemAsync_IsActiveIsSetToFalse()
         {
-            string creatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
 
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = GetItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -527,18 +402,100 @@ namespace BurgerMasters.UnitTests.Services
                 PortionSize = 630,
                 Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
                 Price = 27.49m,
-                CreatorId = creatorId
+                CreatorId = userId
             };
 
             await _repo.AddAsync(menuItem);
             await _repo.SaveChangesAsync();
 
-            await _adminService.DeleteMenuItemAsync(menuItem.Id, creatorId);
+            await _adminService.DeleteMenuItemAsync(menuItem.Id, userId);
 
             var deletedItem = await _repo.All<MenuItem>()
                 .FirstOrDefaultAsync(mi => mi.Id == menuItem.Id);
 
             Assert.That(deletedItem.IsActive, Is.EqualTo(false));
+        }
+
+        private List<MenuItem> GetMenuItems(int itemTypeId)
+        {
+            return new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Id = 1,
+                    Name = "RUSTY SAVAGE",
+                    ImageUrl = "RustySavage.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 630,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+                new MenuItem()
+                {
+                    Id = 2,
+                    Name = "THUNDER",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+                new MenuItem()
+                {
+                    Id = 3,
+                    Name = "Burger Pie",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+                new MenuItem()
+                {
+                    Id = 4,
+                    Name = "American Cheese Burger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+                new MenuItem()
+                {
+                    Id = 5,
+                    Name = "Triple Cheeseburger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+                new MenuItem()
+                {
+                    Id = 6,
+                    Name = "Smokey Whiskey Cheeseburger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = userId
+                },
+            };
+        }
+
+        private ItemType GetItemType()
+        {
+            return new ItemType()
+            {
+                Id = 1,
+                Name = "Burger"
+            };
         }
 
         [TearDown]

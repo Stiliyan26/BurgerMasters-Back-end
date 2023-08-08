@@ -8,12 +8,12 @@ namespace BurgerMasters.Core.Models.Review
 {
     public class ChatMessage
     {
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
-        public string Username { get; set; }
+        public string Username { get; set; } = null!;
 
-        public string Message { get; set; }
+        public string Message { get; set; } = null!;
 
-        public string SentDate { get; set; }
+        public string SentDate { get; set; } = null!;
     }
 }

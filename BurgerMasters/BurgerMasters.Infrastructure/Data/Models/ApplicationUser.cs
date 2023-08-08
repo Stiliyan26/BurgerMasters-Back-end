@@ -13,7 +13,7 @@ namespace BurgerMasters.Infrastructure.Data.Models
         public ICollection<ApplicationUserMenuItem> CartItems { get; set; }
             = new List<ApplicationUserMenuItem>();
 
-        public ICollection<ReviewMessage> ReviewMessages { get; set; }
-            = new List<ReviewMessage>();
+        public ICollection<MenuItem> ReviewMessages { get; set; }
+            = new List<MenuItem>();
     }
 }

@@ -28,21 +28,27 @@ namespace BurgerMasters.Core.Services
 
             if (user != null)
             {
-                DateTime sentDate = DateTime
-                    .ParseExact(messageInfo.SentDate,
+                DateTime validSentDate;
+
+                bool IsSentDateValid = DateTime
+                    .TryParseExact(messageInfo.SentDate,
                         "yyyy-MM-dd HH:mm:ss",
-                        CultureInfo.InvariantCulture); 
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out validSentDate);
+
+                if (IsSentDateValid == false)
+                {
+                    return null;
+                }
 
                 ReviewMessage newMessage = new ReviewMessage()
                 {
                     UserId = messageInfo.UserId,
                     Message = messageInfo.Message,
-                    SentDate = sentDate
+                    SentDate = validSentDate
                 };
 
                 await _repo.AddAsync(newMessage);
                 await _repo.SaveChangesAsync();
-
 
 
                 return await _repo.All<ReviewMessage>()

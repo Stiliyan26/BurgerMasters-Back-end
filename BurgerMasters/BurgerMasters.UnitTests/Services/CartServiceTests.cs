@@ -21,6 +21,7 @@ namespace BurgerMasters.UnitTests.Services
         private ICartService _cartService;
         private IRepository _repo;
         private BurgerMastersDbContext dbContext;
+        private static string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
 
         [SetUp]
         public void Setup()
@@ -134,43 +135,7 @@ namespace BurgerMasters.UnitTests.Services
         public async Task GetAllCartItemsByUserIdAsync_ReturnsCorrectNumberOfItems()
         {
             // Arrange
-            var userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
-            var dummyData = new List<ApplicationUserMenuItem>
-            {
-                new ApplicationUserMenuItem
-                {
-                    ApplicationUserId = userId,
-                    MenuItem = new MenuItem
-                    {
-                        Id = 1,
-                        Name = "Burger",
-                        ImageUrl = "burger.jpg",
-                        ItemType = new ItemType { Name = "Main Course" },
-                        Description = "Bread, Onions",
-                        CreatorId = userId,
-                        PortionSize = 400,
-                        Price = 10.99m,
-                    },
-                    ItemQuantity = 2
-                },
-                new ApplicationUserMenuItem
-                {
-                    ApplicationUserId = userId,
-                    MenuItem = new MenuItem
-                    {
-                        Id = 2,
-                        Name = "Fries",
-                        ImageUrl = "fries.jpg",
-                        ItemType = new ItemType { Name = "Side Dish" },
-                        Description = "Bread, Onions",
-                        CreatorId = userId,
-                        PortionSize = 386,
-                        Price = 5.99m,
-                    },
-                    ItemQuantity = 3
-                },
-            };
+            var dummyData = getApplicationUserMenuItem();
 
             await _repo.AddRangeAsync(dummyData);
             await _repo.SaveChangesAsync();
@@ -186,12 +151,10 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task RemoveItemFromCartByIdAsync_ReturnsCorrectNumberOfItemsAfterRemoval()
         {
-            var userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
-
             ApplicationUser applicationUser = new ApplicationUser()
             {
                 Id = userId,
-                UserName = "Test12",
+                UserName = "Pepsi12",
                 Birthdate = DateTime.Now,
                 Address = "Orehova gora 10"
             };
@@ -199,43 +162,7 @@ namespace BurgerMasters.UnitTests.Services
             await _repo.AddAsync(applicationUser);
             await _repo.SaveChangesAsync();
 
-            var dummyData = new List<ApplicationUserMenuItem>
-            {
-                new ApplicationUserMenuItem
-                {
-                    ApplicationUserId = userId,
-                    MenuItemId = 1,
-                    MenuItem = new MenuItem
-                    {
-                        Id = 1,
-                        Name = "Burger",
-                        ImageUrl = "burger.jpg",
-                        ItemType = new ItemType { Name = "Main Course" },
-                        Description = "Bread, Onions",
-                        CreatorId = userId,
-                        PortionSize = 400,
-                        Price = 10.99m,
-                    },
-                    ItemQuantity = 2
-                },
-                new ApplicationUserMenuItem
-                {
-                    ApplicationUserId = userId,
-                    MenuItemId = 2,
-                    MenuItem = new MenuItem
-                    {
-                        Id = 2,
-                        Name = "Fries",
-                        ImageUrl = "fries.jpg",
-                        ItemType = new ItemType { Name = "Side Dish" },
-                        Description = "Bread, Onions",
-                        CreatorId = userId,
-                        PortionSize = 386,
-                        Price = 5.99m,
-                    },
-                    ItemQuantity = 3
-                },
-            };
+            var dummyData = getApplicationUserMenuItem();
 
             await _repo.AddRangeAsync(dummyData);
             await _repo.SaveChangesAsync();
@@ -293,6 +220,46 @@ namespace BurgerMasters.UnitTests.Services
 
             Assert.That(count, Is.EqualTo(0));
         }
+
+        private static List<ApplicationUserMenuItem> getApplicationUserMenuItem()
+        {
+            return new List<ApplicationUserMenuItem>
+            {
+                new ApplicationUserMenuItem
+                {
+                    ApplicationUserId = userId,
+                    MenuItem = new MenuItem
+                    {
+                        Id = 1,
+                        Name = "Burger",
+                        ImageUrl = "burger.jpg",
+                        ItemType = new ItemType { Name = "Main Course" },
+                        Description = "Bread, Onions",
+                        CreatorId = userId,
+                        PortionSize = 400,
+                        Price = 10.99m,
+                    },
+                    ItemQuantity = 2
+                },
+                new ApplicationUserMenuItem
+                {
+                    ApplicationUserId = userId,
+                    MenuItem = new MenuItem
+                    {
+                        Id = 2,
+                        Name = "Fries",
+                        ImageUrl = "fries.jpg",
+                        ItemType = new ItemType { Name = "Side Dish" },
+                        Description = "Bread, Onions",
+                        CreatorId = userId,
+                        PortionSize = 386,
+                        Price = 5.99m,
+                    },
+                    ItemQuantity = 3
+                },
+            };
+        }
+
 
         [TearDown]
         public void TearDown()

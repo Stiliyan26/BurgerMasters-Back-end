@@ -31,7 +31,7 @@ namespace BurgerMasters.Infrastructure.Data
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<ReviewMessage> ReviewMessages { get; set; } 
+        public DbSet<MenuItem> ReviewMessages { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,8 @@ namespace BurgerMasters.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ItemTypeConfiguration());
             //Menu items configuration
             modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
+            //Review configuration
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

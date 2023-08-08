@@ -19,6 +19,7 @@ namespace BurgerMasters.UnitTests.Controllers
         private CartController _controller;
         private BurgerMastersDbContext dbContext;
         private IRepository _repo;
+        private static string userId = "146411d7-aee9-42ee-9bdf-618abc2373fd";
 
         [SetUp]
         public void Setup()
@@ -31,13 +32,13 @@ namespace BurgerMasters.UnitTests.Controllers
 
             _repo = new Repository(dbContext);
 
-            var cartService = new CartService(_repo);
+            var cartServiceMock = new Mock<CartService>(_repo);
+            var menuServiceMock = new Mock<MenuItemService>(_repo);
 
-            var menuService = new MenuItemService(_repo);
-
-            _controller = new CartController(cartService, menuService);
+            _controller = new CartController(cartServiceMock.Object, menuServiceMock.Object);
             // Simulate a signed-in user with a specific UserId
-            var claims = new[] { new Claim(ClaimTypes.NameIdentifier, "user123") };
+            var claims = new[] { new Claim(ClaimTypes.Name, "user123"),
+                new Claim(ClaimTypes.NameIdentifier, userId) };
             var identity = new ClaimsIdentity(claims, "TestAuthType");
             var principal = new ClaimsPrincipal(identity);
             _controller.ControllerContext = new ControllerContext
@@ -76,7 +77,7 @@ namespace BurgerMasters.UnitTests.Controllers
             var model = new CartInfoViewModel
             {
                 ItemId = 1,
-                UserId = "user123",
+                UserId = userId,
                 Quantity = 2
             };
 
@@ -87,6 +88,90 @@ namespace BurgerMasters.UnitTests.Controllers
             Assert.That(result, Is.TypeOf<OkObjectResult>());
             var okResult = (OkObjectResult)result;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
+        }
+
+        [Test]
+        public async Task AllCartItems_ReturnsOk()
+        {
+            var dummyData = GetApplicationUserMenuItem();
+
+            await _repo.AddRangeAsync(dummyData);
+            await _repo.SaveChangesAsync();
+
+            var result = await _controller.AllCartItems(userId);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.StatusCode, Is.EqualTo(200));
+        }
+
+        [Test]
+        public async Task RemoveCartItem_ReturnsOk()
+        {
+            var dummyData = GetApplicationUserMenuItem();
+
+            await _repo.AddRangeAsync(dummyData);
+            await _repo.SaveChangesAsync();
+
+            var result = await _controller.RemoveCartItem(1, userId);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.StatusCode, Is.EqualTo(200));
+        }
+
+        [Test]
+        public async Task CleanUpCart_ReturnsOk()
+        {
+            var dummyData = GetApplicationUserMenuItem();
+
+            await _repo.AddRangeAsync(dummyData);
+            await _repo.SaveChangesAsync();
+
+            var result = await _controller.CleanUpCart(userId);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.StatusCode, Is.EqualTo(200));
+        }
+
+        private static List<ApplicationUserMenuItem> GetApplicationUserMenuItem()
+        {
+            return new List<ApplicationUserMenuItem>
+            {
+                new ApplicationUserMenuItem
+                {
+                    ApplicationUserId = userId,
+                    MenuItem = new MenuItem
+                    {
+                        Id = 1,
+                        Name = "Burger",
+                        ImageUrl = "burger.jpg",
+                        ItemType = new ItemType { Name = "Main Course" },
+                        Description = "Bread, Onions",
+                        CreatorId = userId,
+                        PortionSize = 400,
+                        Price = 10.99m,
+                    },
+                    ItemQuantity = 2
+                },
+                new ApplicationUserMenuItem
+                {
+                    ApplicationUserId = userId,
+                    MenuItem = new MenuItem
+                    {
+                        Id = 2,
+                        Name = "Fries",
+                        ImageUrl = "fries.jpg",
+                        ItemType = new ItemType { Name = "Side Dish" },
+                        Description = "Bread, Onions",
+                        CreatorId = userId,
+                        PortionSize = 386,
+                        Price = 5.99m,
+                    },
+                    ItemQuantity = 3
+                },
+            };
         }
 
         [TearDown]

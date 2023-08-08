@@ -41,32 +41,9 @@ namespace BurgerMasters.UnitTests.Services
                 Name = "Burger"
             };
 
+            var dumyData = getMenuItems(newItemType.Id);
+
             await _repo.AddAsync(newItemType);
-
-            var dumyData = new List<MenuItem>()
-            {
-                new MenuItem()
-                {
-                    Name = "RUSTY SAVAGE",
-                    ImageUrl = "RustySavage.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 630,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "THUNDER",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-            };
-
             await _repo.AddRangeAsync(dumyData);
             await _repo.SaveChangesAsync();
 
@@ -78,22 +55,10 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetAllItemTypesAsync_ReurnsCorrectCountOfItemTypes()
         {
-            var dumyItems = new List<ItemType>()
-            {
-                new ItemType
-                {
-                    Id = 1,
-                    Name = "Burger"
-                },
-                new ItemType
-                {
-                    Id = 2,
-                    Name = "Fries"
-                },
-            };
+            var dumyItems = getItems();
 
             await _repo.AddRangeAsync(dumyItems);
-            await _repo.SaveChangesAsync(); 
+            await _repo.SaveChangesAsync();
 
             var allItemTypes = await _menuService.GetAllItemTypesAsync();
 
@@ -103,77 +68,11 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetFourSimilarItemsByTypeAsync_ShouldReturnFourSimilarItemsByTheSameType()
         {
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = getItemType();
 
             await _repo.AddAsync(newItemType);
 
-            var dumyData = new List<MenuItem>()
-            {
-                new MenuItem()
-                {
-                    Name = "RUSTY SAVAGE",
-                    ImageUrl = "RustySavage.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 630,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "THUNDER",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Burger Pie",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "American Cheese Burger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Triple Cheeseburger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-                new MenuItem()
-                {
-                    Name = "Smokey Whiskey Cheeseburger",
-                    ImageUrl = "Tunder.webp",
-                    ItemTypeId = newItemType.Id,
-                    PortionSize = 380,
-                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
-                    Price = 27.49m,
-                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
-                },
-            };
+            var dumyData = getManyMenuItems(newItemType.Id);
 
             await _repo.AddRangeAsync(dumyData);
             await _repo.SaveChangesAsync();
@@ -186,11 +85,7 @@ namespace BurgerMasters.UnitTests.Services
         [Test]
         public async Task GetItemByIdAsync_ReturnsTheItemById()
         {
-            ItemType newItemType = new ItemType()
-            {
-                Id = 1,
-                Name = "Burger"
-            };
+            ItemType newItemType = getItemType();
 
             await _repo.AddAsync(newItemType);
 
@@ -206,7 +101,7 @@ namespace BurgerMasters.UnitTests.Services
             };
 
             await _repo.AddAsync(item);
-            await _repo.SaveChangesAsync(); 
+            await _repo.SaveChangesAsync();
 
             var result = await _menuService.GetItemByIdAsync(item.Id);
 
@@ -255,6 +150,126 @@ namespace BurgerMasters.UnitTests.Services
             bool doesExist = await _menuService.ItemExistsAsync(3);
 
             Assert.That(doesExist, Is.EqualTo(false));
+        }
+
+        private ItemType getItemType()
+        {
+            return new ItemType()
+            {
+                Id = 1,
+                Name = "Burger"
+            };
+        }
+
+        private static List<ItemType> getItems()
+        {
+            return new List<ItemType>()
+            {
+                new ItemType
+                {
+                    Id = 1,
+                    Name = "Burger"
+                },
+                new ItemType
+                {
+                    Id = 2,
+                    Name = "Fries"
+                },
+            };
+        }
+
+        private static List<MenuItem> getMenuItems(int itemTypeId)
+        {
+            return new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Name = "RUSTY SAVAGE",
+                    ImageUrl = "RustySavage.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 630,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "THUNDER",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = itemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+            };
+        }
+
+        private static List<MenuItem> getManyMenuItems(int newItemTypeId)
+        {
+            return new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Name = "RUSTY SAVAGE",
+                    ImageUrl = "RustySavage.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 630,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "THUNDER",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "Burger Pie",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "American Cheese Burger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "Triple Cheeseburger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+                new MenuItem()
+                {
+                    Name = "Smokey Whiskey Cheeseburger",
+                    ImageUrl = "Tunder.webp",
+                    ItemTypeId = newItemTypeId,
+                    PortionSize = 380,
+                    Description = "Homemade Brioche Bread, Burger sauce, Colsloe,Ground beef Black Angus x2, Melted Irish red cheddar x2, Crispy bacon, \r\nHomemade pickle, Caramelized onions",
+                    Price = 27.49m,
+                    CreatorId = "146411d7-aee9-42ee-9bdf-618abc2373fd"
+                },
+            };
         }
 
         [TearDown]

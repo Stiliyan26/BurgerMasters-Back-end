@@ -1,5 +1,5 @@
-﻿using BurgerMasters.Core.Models.Review;
-using BurgerMasters.Hubs.Contracts;
+﻿using BurgerMasters.Core.Contracts;
+using BurgerMasters.Core.Models.Review;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.SignalR;
 
