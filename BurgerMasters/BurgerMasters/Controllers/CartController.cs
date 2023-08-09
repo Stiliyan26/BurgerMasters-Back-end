@@ -107,6 +107,24 @@ namespace BurgerMasters.Controllers
             }, -1, userId);
         }
 
+        [HttpGet("CartItemsCount")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> CartItemsCount([FromQuery] string userId)
+        {
+            return await ProcessActionResult(async () =>
+            {
+                int cartItemsCount = await _cartService.GetCartItemsCount(userId);
+
+                return Ok(new
+                {
+                    cartItemsCount,
+                    status = 200
+                });
+            }, -1, userId);
+        }
+
 
         private IActionResult HandleInvalidModelState()
         {

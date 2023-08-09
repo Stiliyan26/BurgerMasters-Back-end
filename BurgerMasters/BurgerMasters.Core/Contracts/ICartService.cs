@@ -17,5 +17,7 @@ namespace BurgerMasters.Core.Contracts
         Task RemoveItemFromCartByIdAsync(int itemId, string userId);
 
         Task CleanUpCartAsync(string userId);
+
+        Task<int> GetCartItemsCount(string userId); 
     }
 }

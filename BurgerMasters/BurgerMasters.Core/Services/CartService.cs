@@ -89,5 +89,22 @@ namespace BurgerMasters.Core.Services
                 await _repo.SaveChangesAsync();
             }
         }
+
+        public async Task<int> GetCartItemsCount(string userId)
+        {
+            var cartItems = await _repo.AllReadonly<ApplicationUserMenuItem>()
+                .Where(ui => ui.ApplicationUserId == userId)
+                .ToListAsync();
+
+            var count = cartItems
+                    .Sum(ci => ci.ItemQuantity);
+
+            if (cartItems != null )
+            {
+                return count;
+            }
+
+            return 0;
+        }
     }
 }
