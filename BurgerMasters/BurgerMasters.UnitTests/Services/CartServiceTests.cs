@@ -221,6 +221,20 @@ namespace BurgerMasters.UnitTests.Services
             Assert.That(count, Is.EqualTo(0));
         }
 
+        [Test]
+
+        public async Task GetCartItemsCount_ReturnsProperCount()
+        {
+            var dummyData = getApplicationUserMenuItem();
+
+            await _repo.AddRangeAsync(dummyData);
+            await _repo.SaveChangesAsync();
+
+            int count = await _cartService.GetCartItemsCount(userId);
+
+            Assert.That(count, Is.EqualTo(5));
+        }
+
         private static List<ApplicationUserMenuItem> getApplicationUserMenuItem()
         {
             return new List<ApplicationUserMenuItem>

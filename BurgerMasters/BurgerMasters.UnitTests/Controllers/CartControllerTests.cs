@@ -135,6 +135,21 @@ namespace BurgerMasters.UnitTests.Controllers
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
         }
 
+        [Test]
+        public async Task CartItemsCount_ReturnsOk()
+        {
+            var dummyData = GetApplicationUserMenuItem();
+
+            await _repo.AddRangeAsync(dummyData);
+            await _repo.SaveChangesAsync();
+
+            var result = await _controller.CartItemsCount(userId);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.StatusCode, Is.EqualTo(200));
+        }
+
         private static List<ApplicationUserMenuItem> GetApplicationUserMenuItem()
         {
             return new List<ApplicationUserMenuItem>
