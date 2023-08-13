@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using BurgerMasters.Infrastructure.Data.Models;
 using BurgerMasters.Core.Services;
+using AutoMapper;
+using BurgerMasters.Core.AutoMapper;
 
 namespace BurgerMasters.UnitTests.Controllers
 {
@@ -30,10 +32,17 @@ namespace BurgerMasters.UnitTests.Controllers
 
             dbContext = new BurgerMastersDbContext(options);
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfiles>();
+            });
+
+            var mapper = config.CreateMapper();
+
             _repo = new Repository(dbContext);
 
             var cartServiceMock = new Mock<CartService>(_repo);
-            var menuServiceMock = new Mock<MenuItemService>(_repo);
+            var menuServiceMock = new Mock<MenuItemService>(_repo, mapper);
 
             _controller = new CartController(cartServiceMock.Object, menuServiceMock.Object);
             // Simulate a signed-in user with a specific UserId

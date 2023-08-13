@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurgerMasters.Infrastructure.Migrations
 {
     [DbContext(typeof(BurgerMastersDbContext))]
-    [Migration("20230808111804_init")]
+    [Migration("20230812125538_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,15 +103,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Vitosha Boulevard, Number: 10, Block: A",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "398ffc26-19a0-4b01-8909-e0728b5fae32",
+                            ConcurrencyStamp = "abf28eb2-5663-42be-a223-3727f3caaaed",
                             Email = "stiliyan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "STILIYAN@GMAIL.COM",
                             NormalizedUserName = "STILIYAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG2lt8c2Yqq9iCzXX/mGsmh1/lpHwyXbo0GPMG9p9AbEFyrqVzLy84UzCvjRNq11ww==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH1h6LMEvLntQPMhHohoiYVAZRzMVL9dH03U4M+zjQYvmkO/lXFy1vnp6wv0WjDpkA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b3cd708-54ef-4d05-9b80-86d8682eb5af",
+                            SecurityStamp = "d944fa10-3779-4ba1-aa23-05e195ce1061",
                             TwoFactorEnabled = false,
                             UserName = "Stiliyan26"
                         },
@@ -121,15 +121,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Shipchenski Prohod Street, Number: 20, Block: B",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9ec2c18f-18c9-4abc-a7bb-50dc841a6c85",
+                            ConcurrencyStamp = "9b34c0ae-b2e6-478d-8152-512d4669bb3b",
                             Email = "peter@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PETER@GMAIL.COM",
                             NormalizedUserName = "PETER12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGZnD2vdJ8CGBPFgyVFwlKJm4rwVaqF/8hh0DRyIS+zf24WShSQmg4mebd9f0cMPqQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJTl3dpbPBWKt2HCnjp/hE0aS6OrxZP0L/Ar4oJ9rbaFDd1HFlmEpsq6n0xC6lzxjg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "48dc1322-fe8d-4c30-bdfd-925ffa975cf3",
+                            SecurityStamp = "be1f7113-5ce9-4898-8635-c65a2b98aa97",
                             TwoFactorEnabled = false,
                             UserName = "Peter12"
                         },
@@ -139,15 +139,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Alexander Malinov Boulevard, Number: 30, Block: C",
                             Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "2dd5c709-89c2-48d8-a1c8-60cad4275f31",
+                            ConcurrencyStamp = "85a0d36a-2b5e-4666-9884-4348746fe65e",
                             Email = "bogdan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOGDAN@GMAIL.COM",
                             NormalizedUserName = "BOGDAN16",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBBWWcH7c0xz3Jgd8iHCM1PH/v93MGsOk+RP2UzXem5MkTTlbc5O4mkdUHHrUQMcnQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBB1YAgtP+dR5wt03TZKC7e8MNCpifObMWP8D2bvNUyCqSv5bYJ/wgt+ZL7Opql4dQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "69bcd5a6-18ab-4cc2-880e-a27e8e051ccb",
+                            SecurityStamp = "db666779-38c5-4a82-8fc5-70bcabc06bfc",
                             TwoFactorEnabled = false,
                             UserName = "Bogdan16"
                         },
@@ -157,15 +157,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = " Street: Tsarigradsko Shose Boulevard, Number: 40, Block: D",
                             Birthdate = new DateTime(2002, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d925a077-3eb7-4c11-adfc-a4320bec2cab",
+                            ConcurrencyStamp = "7e6aacdb-e3e9-4657-b605-e19c560bd293",
                             Email = "pavlin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PAVLIN@GMAIL.COM",
                             NormalizedUserName = "PAVLIN14",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM7yotv4mTbykJX04f8sft/YphuerM7PxMLp4Jm8aT4tAvGK4czR89e8Md9WYfVa7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFuM7E0+LrOY59Isq7Uk+zaiG4Gjx7DPkEjZg5LNNBShm0Rmt4otWirhQ7ONMpAivA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8597fb48-4151-4c93-9d9f-ffdfb047ad9c",
+                            SecurityStamp = "29c0b0a2-7664-448c-9964-4261cb50210e",
                             TwoFactorEnabled = false,
                             UserName = "Pavlin14"
                         });
@@ -923,14 +923,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             Id = "453a4524-0cd1-46e6-abde-3219df401504",
-                            ConcurrencyStamp = "5d571a9d-1526-4629-9973-f57c04ceb67b",
+                            ConcurrencyStamp = "03371baa-e06a-4375-a068-3f7f2dfadc73",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
-                            ConcurrencyStamp = "0624823a-b8ea-4e35-817c-c6e0770cf4cc",
+                            ConcurrencyStamp = "83a6843f-9abf-42f9-b136-27bf16df7c00",
                             Name = "User",
                             NormalizedName = "USER"
                         });

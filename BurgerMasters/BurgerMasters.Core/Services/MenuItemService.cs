@@ -1,4 +1,6 @@
-﻿using BurgerMasters.Core.Contracts;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Models.MenuItem;
 using BurgerMasters.Core.Models.MenuItemModels;
 using BurgerMasters.Core.Models.Transactions;
@@ -16,10 +18,68 @@ namespace BurgerMasters.Core.Services
     public class MenuItemService : IMenuItemService
     {
         private readonly IRepository _repo;
+        private readonly IMapper _mapper;
 
-        public MenuItemService(IRepository repo)
+        public MenuItemService(
+            IRepository repo,
+            IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
+        }
+
+        public async Task<MenuItemsQueryModel> AllMenuItems(
+            string itemTpye,
+            string searchTerm,
+            MenuSorting sorting,
+            int currentPage,
+            int menuItemsPerPage)
+        {
+            var result = new MenuItemsQueryModel();
+
+            var menuItems = _repo.AllReadonly<MenuItem>()
+                .Where(mi => mi.IsActive && mi.ItemType.Name == itemTpye);
+
+            if (string.IsNullOrEmpty(searchTerm) == false)
+            {
+                searchTerm = $"%{searchTerm.ToLower()}%";
+
+                menuItems = menuItems
+                    .Where(mi => EF.Functions.Like(mi.Name.ToLower(), searchTerm));
+            }
+
+            menuItems = sorting switch
+            {
+                MenuSorting.Name => menuItems
+                    .OrderBy(mi => mi.Name),
+
+                MenuSorting.PriceAscending => menuItems
+                    .OrderBy(mi => mi.Price),
+
+                MenuSorting.PriceDescending => menuItems
+                    .OrderByDescending(mi => mi.Price),
+
+                MenuSorting.PortionSizeDescending => menuItems
+                    .OrderByDescending(mi => mi.PortionSize),
+
+                MenuSorting.Default => menuItems
+                    .OrderBy(mi => mi.Id),
+
+            _ => menuItems
+                    .OrderBy(mi => mi.Id)
+            };
+
+            result.MenuItems = await menuItems
+                .Skip((currentPage - 1) * menuItemsPerPage)
+                .Take(menuItemsPerPage)
+                .ProjectTo<MenuItemViewModel>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            int menuItemsCount = await menuItems.CountAsync();
+
+            result.TotalMenuItemsCount = menuItemsCount;
+
+            return result;
         }
 
         public async Task<IEnumerable<MenuItemViewModel>> GetAllByItemTypeAsync(string itemType)

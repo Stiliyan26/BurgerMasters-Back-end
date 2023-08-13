@@ -1,10 +1,13 @@
 ﻿using BurgerMasters.Constants;
 using BurgerMasters.Core.Contracts;
+using BurgerMasters.Core.Models.MenuItem;
 using BurgerMasters.Core.Models.MenuItemModels;
+using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 
 namespace BurgerMasters.Controllers
 {
@@ -118,6 +121,34 @@ namespace BurgerMasters.Controllers
                     status = 200,
                 });
             }, itemId);
+        }
+
+        [HttpGet("AllMenuItems")]
+        [ProducesResponseType(typeof(AllMenuQueryModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AllMenuItems([FromQuery] string queryModelString)
+        {
+            return await ProcessActionResult(async () =>
+            {
+                var queryModel = JsonConvert.DeserializeObject<AllMenuQueryModel>(queryModelString);
+
+                var result = await _menuItemService.AllMenuItems(
+                        queryModel.ItemType,
+                        queryModel.SearchTerm,
+                        queryModel.Sorting,
+                        queryModel.CurrentPage,
+                        AllMenuQueryModel.ItemsPerPage);
+
+                queryModel.TotalMenuItemsCount = result.TotalMenuItemsCount;
+                queryModel.MenuItems = result.MenuItems;
+
+                return Ok(new
+                {
+                    queryModel,
+                    status = 200
+                });
+            });
         }
 
         //Helper methods

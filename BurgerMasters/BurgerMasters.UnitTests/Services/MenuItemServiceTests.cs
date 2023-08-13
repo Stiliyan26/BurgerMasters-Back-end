@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BurgerMasters.Infrastructure.Data.Models;
+using AutoMapper;
+using BurgerMasters.Core.AutoMapper;
 
 namespace BurgerMasters.UnitTests.Services
 {
@@ -22,6 +24,11 @@ namespace BurgerMasters.UnitTests.Services
         [SetUp]
         public void Setup()
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfiles>(); 
+            });
+
             var options = new DbContextOptionsBuilder<BurgerMastersDbContext>()
                 .UseInMemoryDatabase("BurgerMasters_TestDb")
                 .Options;
@@ -29,7 +36,8 @@ namespace BurgerMasters.UnitTests.Services
             dbContext = new BurgerMastersDbContext(options);
 
             _repo = new Repository(dbContext);
-            _menuService = new MenuItemService(_repo);
+            var mapper = config.CreateMapper();
+            _menuService = new MenuItemService(_repo, mapper);
         }
 
         [Test]

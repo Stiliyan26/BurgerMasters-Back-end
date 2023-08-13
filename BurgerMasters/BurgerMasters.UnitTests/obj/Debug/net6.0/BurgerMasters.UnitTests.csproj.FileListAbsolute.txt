@@ -167,3 +167,5 @@ C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\BurgerMasters.dll
 C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\BurgerMasters.pdb
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\AutoMapper.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.UnitTests\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

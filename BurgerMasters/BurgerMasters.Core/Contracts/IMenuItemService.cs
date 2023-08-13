@@ -21,5 +21,12 @@ namespace BurgerMasters.Core.Contracts
         Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAsync(string itemType, int itemId);
 
         Task<bool> ItemExistsAsync(int itemId);
+
+        Task<MenuItemsQueryModel> AllMenuItems(
+            string itemTpye, 
+            string searchTerm,
+            MenuSorting sorting,
+            int currentPage,
+            int menuItemsPerPage);
     }
 }

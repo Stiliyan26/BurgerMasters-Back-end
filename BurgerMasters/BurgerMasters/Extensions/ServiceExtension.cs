@@ -7,6 +7,7 @@ using BurgerMasters.Core.Contracts;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
+using BurgerMasters.Core.AutoMapper;
 
 namespace BurgerMasters.Extensions
 {
@@ -47,6 +48,8 @@ namespace BurgerMasters.Extensions
             services.AddScoped<IOrderService, OrderService>();
             //SiganlR Review messages
             services.AddScoped<IReviewService, ReviewService>();
+            //AutoMapper
+            services.AddAutoMapper(typeof(MappingProfiles));
         }
     }
 }

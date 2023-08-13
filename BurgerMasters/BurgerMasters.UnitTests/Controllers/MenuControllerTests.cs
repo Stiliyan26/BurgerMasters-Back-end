@@ -16,6 +16,8 @@ using System.Security.Claims;
 using Microsoft.Extensions.Caching.Memory;
 using BurgerMasters.Infrastructure.Data.Models;
 using System.Web.Http.Results;
+using AutoMapper;
+using BurgerMasters.Core.AutoMapper;
 
 namespace BurgerMasters.UnitTests.Controllers
 {
@@ -36,9 +38,15 @@ namespace BurgerMasters.UnitTests.Controllers
 
             dbContext = new BurgerMastersDbContext(options);
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfiles>();
+            });
+
+            var mapper = config.CreateMapper();
             _repo = new Repository(dbContext);
 
-            var menuItemServiceMock = new Mock<MenuItemService>(_repo);
+            var menuItemServiceMock = new Mock<MenuItemService>(_repo, mapper);
             var _memoryCache = new MemoryCache(new MemoryCacheOptions());
 
             _controller = new MenuController(menuItemServiceMock.Object, _memoryCache);
