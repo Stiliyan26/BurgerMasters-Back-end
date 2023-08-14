@@ -1,13 +1,16 @@
 using BurgerMasters.Core.Contracts;
+using BurgerMasters.Core.Models;
 using BurgerMasters.Core.Services;
 using BurgerMasters.Extensions;
 using BurgerMasters.Hubs;
 using BurgerMasters.Infrastructure.Data;
 using BurgerMasters.Infrastructure.Data.Common.Repository;
 using BurgerMasters.Infrastructure.Data.Common.UserRepository;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -40,6 +43,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
 //JWT SetUp
 builder.Services.AddAuthentication(x =>
 {
@@ -108,7 +112,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Email Sender by Stiliyan Nikolov");
+    });
 }
 
 app.UseHttpsRedirection();

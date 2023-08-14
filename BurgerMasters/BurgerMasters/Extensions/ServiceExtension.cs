@@ -50,6 +50,8 @@ namespace BurgerMasters.Extensions
             services.AddScoped<IReviewService, ReviewService>();
             //AutoMapper
             services.AddAutoMapper(typeof(MappingProfiles));
+
+            //services.AddScoped<IEmailService, EmailService>();
         }
     }
 }

@@ -86,15 +86,7 @@ namespace BurgerMasters.Core.Services
         {
             return await _repo.AllReadonly<MenuItem>()
                 .Where(mi => mi.IsActive && mi.ItemType.Name == itemType)
-                .Select(mi => new MenuItemViewModel
-                {
-                    Id = mi.Id,
-                    Name = mi.Name,
-                    ImageUrl = mi.ImageUrl,
-                    ItemType = mi.ItemType.Name,
-                    PortionSize = mi.PortionSize,
-                    Price = mi.Price,
-                })
+                .ProjectTo<MenuItemViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
@@ -115,15 +107,7 @@ namespace BurgerMasters.Core.Services
                  )
                 .OrderBy(mi => Guid.NewGuid())
                 .Take(4)
-                .Select(mi => new MenuItemViewModel
-                {
-                    Id = mi.Id,
-                    Name = mi.Name,
-                    ImageUrl = mi.ImageUrl,
-                    ItemType = mi.ItemType.Name,
-                    PortionSize = mi.PortionSize,
-                    Price = mi.Price,
-                })
+                .ProjectTo<MenuItemViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 

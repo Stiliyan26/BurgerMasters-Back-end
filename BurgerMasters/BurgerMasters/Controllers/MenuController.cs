@@ -39,18 +39,22 @@ namespace BurgerMasters.Controllers
                 });
             }
 
-            IEnumerable<ItemType> allItemTypes = await _menuItemService.GetAllItemTypesAsync();
+            IEnumerable<ItemType> allItemTypes = null;
 
-            if (allItemTypes == null)
+            await Task.Run(async () =>
             {
-                return NotFoundHandler();
-            }
+                allItemTypes = await _menuItemService.GetAllItemTypesAsync();
 
-            var cacheEntryOptions = new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
-            };
-            _memoryCache.Set("AllItemTypes", allItemTypes, cacheEntryOptions);
+                if (allItemTypes != null)
+                {
+                    var cacheEntryOptions = new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                    };
+                    _memoryCache.Set("AllItemTypes", allItemTypes, cacheEntryOptions);
+                }
+            });
+
 
             return Ok(new
             {
@@ -126,19 +130,19 @@ namespace BurgerMasters.Controllers
         [HttpGet("AllMenuItems")]
         [ProducesResponseType(typeof(AllMenuQueryModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AllMenuItems([FromQuery] string queryModelString)
         {
             return await ProcessActionResult(async () =>
             {
-                var queryModel = JsonConvert.DeserializeObject<AllMenuQueryModel>(queryModelString);
+                var queryModel = JsonConvert
+                    .DeserializeObject<AllMenuQueryModel>(queryModelString);
 
                 var result = await _menuItemService.AllMenuItems(
-                        queryModel.ItemType,
-                        queryModel.SearchTerm,
-                        queryModel.Sorting,
-                        queryModel.CurrentPage,
-                        AllMenuQueryModel.ItemsPerPage);
+                    queryModel.ItemType,
+                    queryModel.SearchTerm,
+                    queryModel.Sorting,
+                    queryModel.CurrentPage,
+                    AllMenuQueryModel.ItemsPerPage);
 
                 queryModel.TotalMenuItemsCount = result.TotalMenuItemsCount;
                 queryModel.MenuItems = result.MenuItems;
