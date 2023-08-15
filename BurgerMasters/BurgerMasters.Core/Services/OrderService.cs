@@ -66,7 +66,7 @@ namespace BurgerMasters.Core.Services
         public async Task<OrderDetailsViewModel> GetOrderDetailsByIdAsync(Guid orderId)
         {
             return await _repo.AllReadonly<Order>()
-                .Where(o => o.Id == orderId && o.IsActive == true)
+                .Where(o => o.Id == orderId)
                 .Select(o => new OrderDetailsViewModel()
                 {
                     OrderId = o.Id,
