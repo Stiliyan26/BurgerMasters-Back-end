@@ -1,0 +1,14 @@
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\bin\Release\net6.0\BurgerMasters.Infrastructure.deps.json
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\bin\Release\net6.0\BurgerMasters.Infrastructure.runtimeconfig.json
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\bin\Release\net6.0\BurgerMasters.Infrastructure.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\bin\Release\net6.0\BurgerMasters.Infrastructure.pdb
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.csproj.AssemblyReference.cache
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.AssemblyInfoInputs.cache
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.AssemblyInfo.cs
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.csproj.CoreCompileInputs.cache
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\refint\BurgerMasters.Infrastructure.dll
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.pdb
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\BurgerMasters.Infrastructure.genruntimeconfig.cache
+C:\GitHub\BurgerMasters-Back-end\BurgerMasters\BurgerMasters.Infrastructure\obj\Release\net6.0\ref\BurgerMasters.Infrastructure.dll
