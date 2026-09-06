@@ -1,7 +1,6 @@
 
 
 
-https://github.com/user-attachments/assets/9f6efcad-e110-467d-a5b4-62d71ebec919
 
 
 # BurgerMasters - Restaurant Management System
