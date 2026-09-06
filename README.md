@@ -6,6 +6,9 @@ https://github.com/user-attachments/assets/9f6efcad-e110-467d-a5b4-62d71ebec919
 
 # BurgerMasters - Restaurant Management System
 
+Live: https://burgermasters.vercel.app
+API: https://burgermasters-api-production.up.railway.app
+
 ## Overview
 
 BurgerMasters is a comprehensive restaurant management system built with ASP.NET Core 6.0 that provides a complete solution for food delivery services. The application features a modern architecture with separate concerns for API, business logic, and data access layers.
