@@ -20,10 +20,20 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Npgsql 6 + DateTime (not DateTimeOffset) — required for existing Identity/seed models
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrWhiteSpace(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? builder.Configuration["DATABASE_URL"];
 builder.Services.AddDbContext<BurgerMastersDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseNpgsql(connectionString);
 });
 
 builder.Services.ConfigureIdentity();
@@ -67,13 +77,20 @@ builder.Services.AddAuthentication(x =>
     });
 //SignalR SetUp
 builder.Services.AddSignalR();
-//Cors SetUp
+//Cors SetUp — localhost plus deployed frontend origins from CORS_ORIGINS
+var corsOrigins = new List<string> { "http://localhost:3000" };
+var extraOrigins = builder.Configuration["CORS_ORIGINS"];
+if (!string.IsNullOrWhiteSpace(extraOrigins))
+{
+    corsOrigins.AddRange(extraOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin",
-        builder =>
+        policy =>
         {
-            builder.WithOrigins("http://localhost:3000", "http://localhost:3000")
+            policy.WithOrigins(corsOrigins.Distinct().ToArray())
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -109,14 +126,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Email Sender by Stiliyan Nikolov");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BurgerMasters API");
+});
 
 using (var scope = app.Services.CreateScope())
 {
@@ -127,9 +141,14 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseCors("AllowOrigin");
+
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.UseAuthentication();
 app.UseAuthorization();

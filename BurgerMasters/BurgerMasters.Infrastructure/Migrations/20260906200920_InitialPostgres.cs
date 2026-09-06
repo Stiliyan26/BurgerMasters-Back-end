@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace BurgerMasters.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class InitialPostgres : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +14,10 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,23 +28,23 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Birthdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Address = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,9 +55,9 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "ItemTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,11 +68,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,11 +89,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,10 +110,10 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,8 +130,8 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,10 +154,10 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,12 +174,12 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsPending = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    IsPending = table.Column<bool>(type: "boolean", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,12 +196,12 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "ReviewMessage",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    SentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Message = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    SentDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,17 +218,17 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "MenuItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    ItemTypeId = table.Column<int>(type: "int", nullable: false),
-                    PortionSize = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatorId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
+                    ItemTypeId = table.Column<int>(type: "integer", nullable: false),
+                    PortionSize = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatorId = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -249,9 +250,9 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "ApplicationUserMenuItems",
                 columns: table => new
                 {
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MenuItemId = table.Column<int>(type: "int", nullable: false),
-                    ItemQuantity = table.Column<int>(type: "int", nullable: false)
+                    ApplicationUserId = table.Column<string>(type: "text", nullable: false),
+                    MenuItemId = table.Column<int>(type: "integer", nullable: false),
+                    ItemQuantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -274,11 +275,11 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MenuItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MenuItemId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,8 +302,8 @@ namespace BurgerMasters.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "453a4524-0cd1-46e6-abde-3219df401504", "03371baa-e06a-4375-a068-3f7f2dfadc73", "Admin", "ADMIN" },
-                    { "a439eb91-8c15-4e7a-abef-7f4ebc004826", "83a6843f-9abf-42f9-b136-27bf16df7c00", "User", "USER" }
+                    { "453a4524-0cd1-46e6-abde-3219df401504", "a2fb51f0-e8b5-4465-aded-d25b4817cbfe", "Admin", "ADMIN" },
+                    { "a439eb91-8c15-4e7a-abef-7f4ebc004826", "ce71e891-af04-4d14-8b5b-029cceaafde5", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -310,10 +311,10 @@ namespace BurgerMasters.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a0407939-a95d-40a2-8db6-020d349bd2bb", 0, "Street: Vitosha Boulevard, Number: 10, Block: A", new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "abf28eb2-5663-42be-a223-3727f3caaaed", "stiliyan@gmail.com", false, false, null, "STILIYAN@GMAIL.COM", "STILIYAN", "AQAAAAEAACcQAAAAEH1h6LMEvLntQPMhHohoiYVAZRzMVL9dH03U4M+zjQYvmkO/lXFy1vnp6wv0WjDpkA==", null, false, "d944fa10-3779-4ba1-aa23-05e195ce1061", false, "Stiliyan26" },
-                    { "c30d2c49-d677-42b3-9295-a0b1dae91806", 0, "Street: Shipchenski Prohod Street, Number: 20, Block: B", new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "9b34c0ae-b2e6-478d-8152-512d4669bb3b", "peter@gmail.com", false, false, null, "PETER@GMAIL.COM", "PETER12", "AQAAAAEAACcQAAAAEJTl3dpbPBWKt2HCnjp/hE0aS6OrxZP0L/Ar4oJ9rbaFDd1HFlmEpsq6n0xC6lzxjg==", null, false, "be1f7113-5ce9-4898-8635-c65a2b98aa97", false, "Peter12" },
-                    { "d27076cc-efe7-4b1e-9730-e9630be4d3a6", 0, " Street: Tsarigradsko Shose Boulevard, Number: 40, Block: D", new DateTime(2002, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "7e6aacdb-e3e9-4657-b605-e19c560bd293", "pavlin@gmail.com", false, false, null, "PAVLIN@GMAIL.COM", "PAVLIN14", "AQAAAAEAACcQAAAAEFuM7E0+LrOY59Isq7Uk+zaiG4Gjx7DPkEjZg5LNNBShm0Rmt4otWirhQ7ONMpAivA==", null, false, "29c0b0a2-7664-448c-9964-4261cb50210e", false, "Pavlin14" },
-                    { "e130798b-a521-45ad-85df-b232eaaadc09", 0, "Street: Alexander Malinov Boulevard, Number: 30, Block: C", new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "85a0d36a-2b5e-4666-9884-4348746fe65e", "bogdan@gmail.com", false, false, null, "BOGDAN@GMAIL.COM", "BOGDAN16", "AQAAAAEAACcQAAAAEBB1YAgtP+dR5wt03TZKC7e8MNCpifObMWP8D2bvNUyCqSv5bYJ/wgt+ZL7Opql4dQ==", null, false, "db666779-38c5-4a82-8fc5-70bcabc06bfc", false, "Bogdan16" }
+                    { "a0407939-a95d-40a2-8db6-020d349bd2bb", 0, "Street: Vitosha Boulevard, Number: 10, Block: A", new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "6bf1adf4-4559-4c1e-be7c-53a7ad681357", "stiliyan@gmail.com", false, false, null, "STILIYAN@GMAIL.COM", "STILIYAN", "AQAAAAEAACcQAAAAEEEhSKVbwg5p3+pkKrsFemWBKYF6C0tEuGk/zKGOl/CkwbUIcBmPDq/VMp6l8P+22A==", null, false, "10ac57fc-e8ca-41b6-aa85-84d24d4fbf04", false, "Stiliyan26" },
+                    { "c30d2c49-d677-42b3-9295-a0b1dae91806", 0, "Street: Shipchenski Prohod Street, Number: 20, Block: B", new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "582ca06c-8377-427a-9f26-38b183a5d2e1", "peter@gmail.com", false, false, null, "PETER@GMAIL.COM", "PETER12", "AQAAAAEAACcQAAAAEHkc60kSWBbfomvvD+DWGRkmL/vsl1Y9QmXUiasXTRKkJoU6oUCfFromHEg62NdpNQ==", null, false, "282c51ed-3f9d-491f-9f4b-5e614ab22b13", false, "Peter12" },
+                    { "d27076cc-efe7-4b1e-9730-e9630be4d3a6", 0, " Street: Tsarigradsko Shose Boulevard, Number: 40, Block: D", new DateTime(2002, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "9553b839-591d-459b-b3fe-11b4c9eaa73b", "pavlin@gmail.com", false, false, null, "PAVLIN@GMAIL.COM", "PAVLIN14", "AQAAAAEAACcQAAAAECR313BbL5qrzjB6HLhdthC7ICLX/7eMadVG3wygcKLA4vW7jI+e//ZYtY6zHIA/Bw==", null, false, "95e164bf-c55b-40be-ad47-a27cce03ffa7", false, "Pavlin14" },
+                    { "e130798b-a521-45ad-85df-b232eaaadc09", 0, "Street: Alexander Malinov Boulevard, Number: 30, Block: C", new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "c893972a-0452-4d81-bc83-32ff8731c1bf", "bogdan@gmail.com", false, false, null, "BOGDAN@GMAIL.COM", "BOGDAN16", "AQAAAAEAACcQAAAAEBICWw5OShr7F/jm4x2aUoovq/FaYFCj2CQYv9lQkTjjnMJ30qJ4Jxw5zRPLwkH8ng==", null, false, "654683c0-8d62-4f07-b25c-cac29ba5caaf", false, "Bogdan16" }
                 });
 
             migrationBuilder.InsertData(
@@ -383,14 +384,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                     { 76, null, "a0407939-a95d-40a2-8db6-020d349bd2bb", "Red cabbage,White Cabbage,Carrot,Mayonnaise dressing", "Coleslaw.webp", true, 6, "Salad Coleslaw", 250, 5.99m },
                     { 77, null, "c30d2c49-d677-42b3-9295-a0b1dae91806", "Lettuce,Tomato,Blue cheese,Avocado,Chicken fillet,Bacon,Quail eggs,Red onion,Dressing", "Cobb.webp", true, 6, "Salad Cobb", 400, 14.90m },
                     { 78, null, "a0407939-a95d-40a2-8db6-020d349bd2bb", "Homemade American bread toasted with butter, Breaded sirloin (pork), Mustard, White onion, Colsloe, Tomato", "FiredPork.webp", true, 7, "Fried Pork Priviledge", 390, 13.90m },
-                    { 79, null, "a0407939-a95d-40a2-8db6-020d349bd2bb", "Homemade Brioche Bread, American potato salad with mustard and bacon, Ground beef with Sloppy Joe sauce", "SloppyJoe.webp", true, 7, "Sloppy Joe", 320, 11.49m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "MenuItem",
-                columns: new[] { "Id", "ApplicationUserId", "CreatorId", "Description", "ImageUrl", "IsActive", "ItemTypeId", "Name", "PortionSize", "Price" },
-                values: new object[,]
-                {
+                    { 79, null, "a0407939-a95d-40a2-8db6-020d349bd2bb", "Homemade Brioche Bread, American potato salad with mustard and bacon, Ground beef with Sloppy Joe sauce", "SloppyJoe.webp", true, 7, "Sloppy Joe", 320, 11.49m },
                     { 80, null, "c30d2c49-d677-42b3-9295-a0b1dae91806", "Homemade Brioche Bread, Coleslaw, Crispy bacon, BBQ sauce with bourbon, Caramelized onions", "RustyBacon.webp", true, 7, "Rusty Bacon", 380, 9.99m },
                     { 81, null, "c30d2c49-d677-42b3-9295-a0b1dae91806", "Toast slices with smoked mayonnaise, pan-fried, Lettuce, Tomato", "ScrambledEggs.webp", true, 7, "Scrambled eggs with bacon", 270, 10.99m },
                     { 82, null, "c30d2c49-d677-42b3-9295-a0b1dae91806", "Toast slices with smoked mayonnaise, pan-fried, Cheddar, Mozzarella", "GrillnCheese.webp", true, 7, "American Grill and Cheese", 200, 10.09m }
@@ -419,8 +413,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -446,8 +439,7 @@ namespace BurgerMasters.Infrastructure.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItem_ApplicationUserId",

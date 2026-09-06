@@ -290,6 +290,19 @@ The API is designed to work with React frontend applications:
 - **Custom Validation** - Business rule validation
 - **Error Constants** - Centralized error messages
 
+## Deploy (Railway or Render)
+
+Vercel cannot host this ASP.NET API. Push to `main` deploys when the repo is linked.
+
+1. Create a **Neon** Postgres database (separate from any Next.js/Prisma DB).
+2. Set env vars from `.env.example` — especially `ConnectionStrings__DefaultConnection` (use Neon **direct / unpooled** host) and `CORS_ORIGINS` (your Vercel frontend URL).
+3. Host with Docker (`Dockerfile` at repo root):
+   - **Railway**: New Project → Deploy from GitHub → `Stiliyan26/BurgerMasters-Back-end` → production branch `main`.
+   - **Render**: New Web Service → same repo, or apply `render.yaml`.
+4. Startup runs `Database.Migrate()`, which applies the Postgres migration and seeds menu items + admin users.
+
+Seed admins (original): `stiliyan@gmail.com` / `Admin#123` and `peter@gmail.com` / `Admin#123`.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

@@ -3,86 +3,86 @@ using System;
 using BurgerMasters.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace BurgerMasters.Infrastructure.Migrations
 {
     [DbContext(typeof(BurgerMastersDbContext))]
-    [Migration("20230812125538_init")]
-    partial class init
+    [Migration("20260906200920_InitialPostgres")]
+    partial class InitialPostgres
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("character varying(80)");
 
                     b.Property<DateTime>("Birthdate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -91,8 +91,7 @@ namespace BurgerMasters.Infrastructure.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -103,15 +102,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Vitosha Boulevard, Number: 10, Block: A",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "abf28eb2-5663-42be-a223-3727f3caaaed",
+                            ConcurrencyStamp = "6bf1adf4-4559-4c1e-be7c-53a7ad681357",
                             Email = "stiliyan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "STILIYAN@GMAIL.COM",
                             NormalizedUserName = "STILIYAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH1h6LMEvLntQPMhHohoiYVAZRzMVL9dH03U4M+zjQYvmkO/lXFy1vnp6wv0WjDpkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEEhSKVbwg5p3+pkKrsFemWBKYF6C0tEuGk/zKGOl/CkwbUIcBmPDq/VMp6l8P+22A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d944fa10-3779-4ba1-aa23-05e195ce1061",
+                            SecurityStamp = "10ac57fc-e8ca-41b6-aa85-84d24d4fbf04",
                             TwoFactorEnabled = false,
                             UserName = "Stiliyan26"
                         },
@@ -121,15 +120,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Shipchenski Prohod Street, Number: 20, Block: B",
                             Birthdate = new DateTime(1998, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9b34c0ae-b2e6-478d-8152-512d4669bb3b",
+                            ConcurrencyStamp = "582ca06c-8377-427a-9f26-38b183a5d2e1",
                             Email = "peter@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PETER@GMAIL.COM",
                             NormalizedUserName = "PETER12",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJTl3dpbPBWKt2HCnjp/hE0aS6OrxZP0L/Ar4oJ9rbaFDd1HFlmEpsq6n0xC6lzxjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHkc60kSWBbfomvvD+DWGRkmL/vsl1Y9QmXUiasXTRKkJoU6oUCfFromHEg62NdpNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "be1f7113-5ce9-4898-8635-c65a2b98aa97",
+                            SecurityStamp = "282c51ed-3f9d-491f-9f4b-5e614ab22b13",
                             TwoFactorEnabled = false,
                             UserName = "Peter12"
                         },
@@ -139,15 +138,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Street: Alexander Malinov Boulevard, Number: 30, Block: C",
                             Birthdate = new DateTime(2003, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "85a0d36a-2b5e-4666-9884-4348746fe65e",
+                            ConcurrencyStamp = "c893972a-0452-4d81-bc83-32ff8731c1bf",
                             Email = "bogdan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOGDAN@GMAIL.COM",
                             NormalizedUserName = "BOGDAN16",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBB1YAgtP+dR5wt03TZKC7e8MNCpifObMWP8D2bvNUyCqSv5bYJ/wgt+ZL7Opql4dQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBICWw5OShr7F/jm4x2aUoovq/FaYFCj2CQYv9lQkTjjnMJ30qJ4Jxw5zRPLwkH8ng==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "db666779-38c5-4a82-8fc5-70bcabc06bfc",
+                            SecurityStamp = "654683c0-8d62-4f07-b25c-cac29ba5caaf",
                             TwoFactorEnabled = false,
                             UserName = "Bogdan16"
                         },
@@ -157,15 +156,15 @@ namespace BurgerMasters.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = " Street: Tsarigradsko Shose Boulevard, Number: 40, Block: D",
                             Birthdate = new DateTime(2002, 12, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7e6aacdb-e3e9-4657-b605-e19c560bd293",
+                            ConcurrencyStamp = "9553b839-591d-459b-b3fe-11b4c9eaa73b",
                             Email = "pavlin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PAVLIN@GMAIL.COM",
                             NormalizedUserName = "PAVLIN14",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFuM7E0+LrOY59Isq7Uk+zaiG4Gjx7DPkEjZg5LNNBShm0Rmt4otWirhQ7ONMpAivA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECR313BbL5qrzjB6HLhdthC7ICLX/7eMadVG3wygcKLA4vW7jI+e//ZYtY6zHIA/Bw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "29c0b0a2-7664-448c-9964-4261cb50210e",
+                            SecurityStamp = "95e164bf-c55b-40be-ad47-a27cce03ffa7",
                             TwoFactorEnabled = false,
                             UserName = "Pavlin14"
                         });
@@ -174,13 +173,13 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("BurgerMasters.Infrastructure.Data.Models.ApplicationUserMenuItem", b =>
                 {
                     b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("MenuItemId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("ItemQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ApplicationUserId", "MenuItemId");
 
@@ -193,14 +192,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -248,44 +247,44 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("character varying(300)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("character varying(80)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("ItemTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("PortionSize")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.HasKey("Id");
 
@@ -794,23 +793,23 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsPending")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -823,18 +822,18 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MenuItemId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -849,24 +848,24 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)");
 
                     b.Property<DateTime>("SentDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -896,26 +895,25 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
 
@@ -923,14 +921,14 @@ namespace BurgerMasters.Infrastructure.Migrations
                         new
                         {
                             Id = "453a4524-0cd1-46e6-abde-3219df401504",
-                            ConcurrencyStamp = "03371baa-e06a-4375-a068-3f7f2dfadc73",
+                            ConcurrencyStamp = "a2fb51f0-e8b5-4465-aded-d25b4817cbfe",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a439eb91-8c15-4e7a-abef-7f4ebc004826",
-                            ConcurrencyStamp = "83a6843f-9abf-42f9-b136-27bf16df7c00",
+                            ConcurrencyStamp = "ce71e891-af04-4d14-8b5b-029cceaafde5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -940,19 +938,19 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -965,19 +963,19 @@ namespace BurgerMasters.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -989,17 +987,17 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -1011,10 +1009,10 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -1048,16 +1046,16 @@ namespace BurgerMasters.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
