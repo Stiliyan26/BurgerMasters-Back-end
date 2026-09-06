@@ -99,16 +99,19 @@ namespace BurgerMasters.Core.Services
         public async Task<IEnumerable<MenuItemViewModel>> GetFourSimilarItemsByTypeAsync
             (string itemType, int itemId)
         {
-            return await _repo.AllReadonly<MenuItem>()
+            var items = await _repo.AllReadonly<MenuItem>()
                 .Where(mi =>
                     mi.IsActive
                     && mi.ItemType.Name == itemType //Should be the same type
                     && mi.Id != itemId // Should not include the current product from details
                  )
-                .OrderBy(mi => Guid.NewGuid())
-                .Take(4)
                 .ProjectTo<MenuItemViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+
+            // Neon Postgres has no uuid_generate_v4(); shuffle client-side instead.
+            return items
+                .OrderBy(_ => Guid.NewGuid())
+                .Take(4);
         }
 
         public async Task<DetailsMenuItemViewModel> GetItemByIdAsync(int id)
